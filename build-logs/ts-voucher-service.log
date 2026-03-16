@@ -1,0 +1,176 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 358B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3
+#2 DONE 2.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 66B done
+#4 DONE 0.0s
+
+#5 [1/8] FROM docker.io/library/python:3@sha256:7aea6827c8787754f99339ffed8cfc41fb09421f9c7d0e77a198b08422a3455e
+#5 resolve docker.io/library/python:3@sha256:7aea6827c8787754f99339ffed8cfc41fb09421f9c7d0e77a198b08422a3455e done
+#5 DONE 0.0s
+
+#6 [5/8] COPY requirements.txt ./
+#6 CACHED
+
+#7 [7/8] RUN pip install --no-cache-dir -r requirements.txt
+#7 CACHED
+
+#8 [2/8] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#8 CACHED
+
+#9 [6/8] RUN pip install cryptography
+#9 CACHED
+
+#10 [4/8] WORKDIR /app
+#10 CACHED
+
+#11 [3/8] RUN mkdir -p /app
+#11 CACHED
+
+#12 [8/8] ADD ./server.py /app/
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers done
+#13 exporting manifest sha256:61393795faff089bdb9684376194a29bd1b740c3e9af07909f2ccf56da5efb66 done
+#13 exporting config sha256:dab1d3a0c6d31b4b8aab13a875da9a8e72c86c6122d8eb4c7191df3c62aab52d done
+#13 exporting attestation manifest sha256:4636b715664f02e4bd52d003b4c7bc00aa84888ad9df5a5e6eb2327e368e1ae8 done
+#13 exporting manifest list sha256:a8e8afdc40a487f6570cdb0aa7022ce16a138872c2a1e4f947fb8557a7ec5f70 done
+#13 naming to 1.94.151.57:85/train-ticket/ts-voucher-service:1.0.0 done
+#13 DONE 0.1s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-voucher-service]
+866771c43bf5: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+feb6435a8dfa: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Waiting
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+feb6435a8dfa: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Waiting
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+866771c43bf5: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+feb6435a8dfa: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Waiting
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+866771c43bf5: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Waiting
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+866771c43bf5: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+feb6435a8dfa: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+feb6435a8dfa: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Waiting
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+866771c43bf5: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+866771c43bf5: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+feb6435a8dfa: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Waiting
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+36a6d998ca16: Waiting
+6052218b0e44: Waiting
+792da4de2209: Waiting
+4f4fb700ef54: Waiting
+a793e3c6bce8: Waiting
+571891040d4b: Waiting
+14f5d6a5838e: Waiting
+a36b86f892c9: Waiting
+feb6435a8dfa: Waiting
+c15c4e22709f: Waiting
+2d60798447ff: Layer already exists
+ed881fbf1b07: Waiting
+9da421ddeb65: Waiting
+ab1b8c92e120: Waiting
+866771c43bf5: Waiting
+c15c4e22709f: Waiting
+ed881fbf1b07: Layer already exists
+9da421ddeb65: Layer already exists
+ab1b8c92e120: Layer already exists
+866771c43bf5: Layer already exists
+36a6d998ca16: Layer already exists
+6052218b0e44: Layer already exists
+792da4de2209: Layer already exists
+4f4fb700ef54: Layer already exists
+a793e3c6bce8: Layer already exists
+571891040d4b: Waiting
+14f5d6a5838e: Layer already exists
+a36b86f892c9: Waiting
+feb6435a8dfa: Layer already exists
+a36b86f892c9: Layer already exists
+c15c4e22709f: Waiting
+571891040d4b: Layer already exists
+c15c4e22709f: Waiting
+c15c4e22709f: Pushed
+1.0.0: digest: sha256:a8e8afdc40a487f6570cdb0aa7022ce16a138872c2a1e4f947fb8557a7ec5f70 size: 856

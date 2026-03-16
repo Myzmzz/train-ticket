@@ -1,0 +1,105 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [1/3] FROM docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1
+#1 resolve docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1 done
+#1 DONE 0.0s
+
+#2 [2/3] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#2 CACHED
+
+#3 [internal] load build definition from Dockerfile
+#3 transferring dockerfile: 290B done
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:8-jre
+#4 DONE 0.0s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 80B done
+#6 DONE 0.0s
+
+#7 [3/3] ADD ./target/ts-auth-service-1.0.jar /app/
+#7 CACHED
+
+#8 exporting to image
+#8 exporting layers done
+#8 exporting manifest sha256:d108ec7885954be82d3f340f33c3e775fd25699d313c57ea7baad821c1e86929 done
+#8 exporting config sha256:6bd1643d453ac11e706f7e0015a81b0d3188c174e68596f0cdf650d0336dee8a done
+#8 exporting attestation manifest sha256:9b0a9102f0be8e5351411f14023cef3e03c64fe6f369c6bb216543d01c2fa5c2 0.0s done
+#8 exporting manifest list sha256:f04198032f479d6ca7d101adceefaefef4abaab4dabd5aa12072ab5469ba6aa6 0.0s done
+#8 naming to 1.94.151.57:85/train-ticket/ts-auth-service:1.0.0 done
+#8 DONE 0.1s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-auth-service]
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Waiting
+29dd5e2f8665: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Waiting
+29dd5e2f8665: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Waiting
+29dd5e2f8665: Waiting
+29dd5e2f8665: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Waiting
+29dd5e2f8665: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Waiting
+29dd5e2f8665: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+710765611fea: Pushed
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Mounted from train-ticket/ts-admin-travel-service
+01d7766a2e4a: Mounted from train-ticket/ts-admin-travel-service
+80ffb99b1b2d: Mounted from train-ticket/ts-admin-travel-service
+a583c88cc96f: Mounted from train-ticket/ts-admin-travel-service
+63efd5d9eb50: Mounted from train-ticket/ts-admin-travel-service
+fd51d394b192: Mounted from train-ticket/ts-admin-travel-service
+29dd5e2f8665: Pushed
+1.0.0: digest: sha256:f04198032f479d6ca7d101adceefaefef4abaab4dabd5aa12072ab5469ba6aa6 size: 856
