@@ -1,0 +1,14 @@
+# HTTP Server
+server:
+  port: 18099  # HTTP (Tomcat) port
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDRS:127.0.0.1:8848}
+  application:
+    name: ts-traceenv-test
+
+swagger:
+  controllerPackage: traceenv.controller

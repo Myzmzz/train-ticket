@@ -1,0 +1,1398 @@
+{
+  "extraction_metadata": {
+    "date": "2026-03-17",
+    "source_root": "/Users/mymz/work/testedsys/train-ticket-1.0.0",
+    "total_services_scanned": 45,
+    "services_with_fault_tolerance": 8,
+    "services_without_fault_tolerance": 37
+  },
+  "service_configs": {
+    "ts-rebook-service": {
+      "annotations": [
+        {
+          "type": "@Retry",
+          "name": "orderService",
+          "method": "getOrderByRebookInfoWithRetry",
+          "file": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java",
+          "line": 397,
+          "target_service": "ts-order-service OR ts-order-other-service",
+          "note": "Retry only - no circuit breaker, no bulkhead, no timeout (intentionally dangerous)"
+        }
+      ],
+      "config_file_settings": {
+        "file": "ts-rebook-service/src/main/resources/application.yml",
+        "resilience4j": {
+          "retry": {
+            "instances": {
+              "orderService": {
+                "maxAttempts": 5,
+                "waitDuration": "0ms",
+                "note": "No exponential backoff, no timeout, no circuit breaker"
+              }
+            }
+          },
+          "circuitbreaker": "NOT CONFIGURED (intentionally missing)",
+          "bulkhead": "NOT CONFIGURED (intentionally missing)",
+          "timelimiter": "NOT CONFIGURED (intentionally missing)"
+        },
+        "http_client_timeouts": "NOT CONFIGURED"
+      }
+    },
+    "ts-cancel-service": {
+      "annotations": [
+        {
+          "type": "@Retry",
+          "name": "insidePaymentService",
+          "method": "callInsidePaymentDrawback",
+          "file": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java",
+          "line": 301,
+          "target_service": "ts-inside-payment-service"
+        },
+        {
+          "type": "@CircuitBreaker",
+          "name": "insidePaymentService",
+          "fallbackMethod": "drawbackFallback",
+          "method": "callInsidePaymentDrawback",
+          "file": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java",
+          "line": 302,
+          "target_service": "ts-inside-payment-service"
+        },
+        {
+          "type": "@Bulkhead",
+          "name": "insidePaymentService",
+          "method": "callInsidePaymentDrawback",
+          "file": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java",
+          "line": 303,
+          "target_service": "ts-inside-payment-service"
+        }
+      ],
+      "config_file_settings": {
+        "file": "ts-cancel-service/src/main/resources/application.yml",
+        "resilience4j": {
+          "retry": {
+            "instances": {
+              "insidePaymentService": {
+                "maxAttempts": 2,
+                "waitDuration": "1000ms"
+              }
+            }
+          },
+          "circuitbreaker": {
+            "instances": {
+              "insidePaymentService": {
+                "failureRateThreshold": 60,
+                "slidingWindowSize": 10,
+                "waitDurationInOpenState": "10s",
+                "permittedNumberOfCallsInHalfOpenState": 3
+              }
+            }
+          },
+          "bulkhead": {
+            "instances": {
+              "insidePaymentService": {
+                "maxConcurrentCalls": 5
+              }
+            }
+          },
+          "timelimiter": {
+            "instances": {
+              "insidePaymentService": {
+                "timeoutDuration": "3s"
+              }
+            }
+          }
+        },
+        "http_client_timeouts": "NOT CONFIGURED"
+      }
+    },
+    "ts-preserve-service": {
+      "annotations": [
+        {
+          "type": "@Retry",
+          "name": "seatService",
+          "method": "dispatchSeatWithRetry",
+          "file": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java",
+          "line": 284,
+          "target_service": "ts-seat-service",
+          "note": "Retry only - timelimiter configured in YAML but ineffective without CompletableFuture (intentionally flawed)"
+        },
+        {
+          "type": "@Retry",
+          "name": "orderService",
+          "method": "createOrderWithRetry",
+          "file": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java",
+          "line": 408,
+          "target_service": "ts-order-service",
+          "note": "Retry only - no circuit breaker, no bulkhead, no timeout (intentionally dangerous)"
+        }
+      ],
+      "config_file_settings": {
+        "file": "ts-preserve-service/src/main/resources/application.yml",
+        "resilience4j": {
+          "retry": {
+            "instances": {
+              "orderService": {
+                "maxAttempts": 5,
+                "waitDuration": "0ms",
+                "note": "No exponential backoff - will hammer downstream service"
+              },
+              "seatService": {
+                "maxAttempts": 3,
+                "waitDuration": "500ms"
+              }
+            }
+          },
+          "timelimiter": {
+            "instances": {
+              "seatService": {
+                "timeoutDuration": "5s"
+              }
+            },
+            "note": "No timeout for orderService - intentionally missing"
+          },
+          "circuitbreaker": "NOT CONFIGURED (intentionally missing)",
+          "bulkhead": "NOT CONFIGURED (intentionally missing)"
+        },
+        "http_client_timeouts": "NOT CONFIGURED"
+      }
+    },
+    "ts-inside-payment-service": {
+      "annotations": [
+        {
+          "type": "@Retry",
+          "name": "orderService",
+          "method": "callOrderServiceGetOrder",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 368,
+          "target_service": "ts-order-service"
+        },
+        {
+          "type": "@CircuitBreaker",
+          "name": "orderService",
+          "fallbackMethod": "getOrderFallback",
+          "method": "callOrderServiceGetOrder",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 369,
+          "target_service": "ts-order-service"
+        },
+        {
+          "type": "@Bulkhead",
+          "name": "orderService",
+          "method": "callOrderServiceGetOrder",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 370,
+          "target_service": "ts-order-service"
+        },
+        {
+          "type": "@Retry",
+          "name": "orderService",
+          "method": "callOrderServiceStatusExchange",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 389,
+          "target_service": "ts-order-service"
+        },
+        {
+          "type": "@CircuitBreaker",
+          "name": "orderService",
+          "fallbackMethod": "orderStatusFallback",
+          "method": "callOrderServiceStatusExchange",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 390,
+          "target_service": "ts-order-service"
+        },
+        {
+          "type": "@Bulkhead",
+          "name": "orderService",
+          "method": "callOrderServiceStatusExchange",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 391,
+          "target_service": "ts-order-service"
+        },
+        {
+          "type": "@Retry",
+          "name": "paymentService",
+          "method": "callPaymentServiceExchange",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 408,
+          "target_service": "ts-payment-service"
+        },
+        {
+          "type": "@CircuitBreaker",
+          "name": "paymentService",
+          "fallbackMethod": "paymentServiceFallback",
+          "method": "callPaymentServiceExchange",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 409,
+          "target_service": "ts-payment-service"
+        },
+        {
+          "type": "@Bulkhead",
+          "name": "paymentService",
+          "method": "callPaymentServiceExchange",
+          "file": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java",
+          "line": 410,
+          "target_service": "ts-payment-service"
+        }
+      ],
+      "config_file_settings": {
+        "file": "ts-inside-payment-service/src/main/resources/application.yml",
+        "resilience4j": {
+          "retry": {
+            "instances": {
+              "orderService": {
+                "maxAttempts": 3,
+                "waitDuration": "500ms",
+                "enableExponentialBackoff": true,
+                "exponentialBackoffMultiplier": 2
+              },
+              "paymentService": {
+                "maxAttempts": 3,
+                "waitDuration": "500ms",
+                "enableExponentialBackoff": true,
+                "exponentialBackoffMultiplier": 2
+              }
+            }
+          },
+          "circuitbreaker": {
+            "instances": {
+              "orderService": {
+                "failureRateThreshold": 50,
+                "slidingWindowSize": 10,
+                "waitDurationInOpenState": "10s",
+                "permittedNumberOfCallsInHalfOpenState": 3
+              },
+              "paymentService": {
+                "failureRateThreshold": 50,
+                "slidingWindowSize": 10,
+                "waitDurationInOpenState": "10s",
+                "permittedNumberOfCallsInHalfOpenState": 3
+              }
+            }
+          },
+          "bulkhead": {
+            "instances": {
+              "orderService": {
+                "maxConcurrentCalls": 10
+              },
+              "paymentService": {
+                "maxConcurrentCalls": 10
+              }
+            }
+          },
+          "timelimiter": {
+            "instances": {
+              "orderService": {
+                "timeoutDuration": "3s"
+              },
+              "paymentService": {
+                "timeoutDuration": "5s"
+              }
+            }
+          }
+        },
+        "http_client_timeouts": "NOT CONFIGURED"
+      }
+    },
+    "ts-order-service": {
+      "annotations": [
+        {
+          "type": "@Retry",
+          "name": "stationService",
+          "method": "queryForStationIdWithResilience",
+          "file": "ts-order-service/src/main/java/order/service/OrderServiceImpl.java",
+          "line": 218,
+          "target_service": "ts-station-service",
+          "note": "Retry + CircuitBreaker - but 90% failure threshold means CB almost never trips (intentionally flawed)"
+        },
+        {
+          "type": "@CircuitBreaker",
+          "name": "stationService",
+          "fallbackMethod": null,
+          "method": "queryForStationIdWithResilience",
+          "file": "ts-order-service/src/main/java/order/service/OrderServiceImpl.java",
+          "line": 219,
+          "target_service": "ts-station-service",
+          "note": "No fallbackMethod specified, no fallback on CB open"
+        }
+      ],
+      "config_file_settings": {
+        "file": "ts-order-service/src/main/resources/application.yml",
+        "resilience4j": {
+          "retry": {
+            "instances": {
+              "stationService": {
+                "maxAttempts": 2,
+                "waitDuration": "300ms"
+              }
+            }
+          },
+          "circuitbreaker": {
+            "instances": {
+              "stationService": {
+                "failureRateThreshold": 90,
+                "slidingWindowSize": 10,
+                "waitDurationInOpenState": "5s",
+                "permittedNumberOfCallsInHalfOpenState": 3,
+                "note": "90% threshold means circuit breaker almost never trips - intentionally flawed"
+              }
+            }
+          },
+          "timelimiter": {
+            "instances": {
+              "stationService": {
+                "timeoutDuration": "3s"
+              }
+            }
+          },
+          "bulkhead": "NOT CONFIGURED (intentionally missing)"
+        },
+        "http_client_timeouts": "NOT CONFIGURED"
+      }
+    },
+    "ts-travel-service": {
+      "annotations": [],
+      "config_file_settings": {
+        "file": "ts-travel-service/src/main/resources/application.yml",
+        "resilience4j": "NOT CONFIGURED",
+        "http_client_timeouts": {
+          "source": "ts-travel-service/src/main/java/travel/TravelApplication.java (lines 38-39) and application.yml (lines 45-46)",
+          "connectTimeout": "3000ms",
+          "readTimeout": "5000ms",
+          "note": "Configured via RestTemplateBuilder and also in application.yml rest.connection-timeout/read-timeout",
+          "applies_to": "ALL outgoing RestTemplate calls from this service"
+        },
+        "additional_timeout": {
+          "source": "ts-travel-service/src/main/java/travel/service/TravelServiceImpl.java (lines 570-572)",
+          "description": "Separate plain RestTemplate for traceenv-test with 3000ms connect and read timeout"
+        }
+      }
+    },
+    "ts-travel-plan-service": {
+      "annotations": [],
+      "config_file_settings": {
+        "file": "ts-travel-plan-service/src/main/resources/application.yml",
+        "resilience4j": "NOT CONFIGURED",
+        "http_client_timeouts": {
+          "source": "ts-travel-plan-service/src/main/java/travelplan/TravelPlanApplication.java (lines 38-39) and application.yml (lines 20-21)",
+          "connectTimeout": "3000ms",
+          "readTimeout": "8000ms",
+          "note": "Longer readTimeout (8000ms) because this is a higher-level aggregator service",
+          "applies_to": "ALL outgoing RestTemplate calls from this service"
+        }
+      }
+    },
+    "ts-route-plan-service": {
+      "annotations": [],
+      "config_file_settings": {
+        "file": "ts-route-plan-service/src/main/resources/application.yml",
+        "resilience4j": "NOT CONFIGURED",
+        "http_client_timeouts": {
+          "source": "ts-route-plan-service/src/main/java/plan/RoutePlanApplication.java (lines 38-39) and application.yml (lines 19-20)",
+          "connectTimeout": "3000ms",
+          "readTimeout": "5000ms",
+          "applies_to": "ALL outgoing RestTemplate calls from this service"
+        }
+      }
+    }
+  },
+  "services_without_fault_tolerance": [
+    "ts-admin-basic-info-service",
+    "ts-admin-order-service",
+    "ts-admin-route-service",
+    "ts-admin-travel-service",
+    "ts-admin-user-service",
+    "ts-assurance-service",
+    "ts-auth-service",
+    "ts-avatar-service",
+    "ts-basic-service",
+    "ts-config-service",
+    "ts-consign-price-service",
+    "ts-consign-service",
+    "ts-contacts-service",
+    "ts-delivery-service",
+    "ts-execute-service",
+    "ts-food-delivery-service",
+    "ts-food-service",
+    "ts-gateway-service",
+    "ts-news-service",
+    "ts-notification-service",
+    "ts-order-other-service",
+    "ts-payment-service",
+    "ts-preserve-other-service",
+    "ts-price-service",
+    "ts-seat-service",
+    "ts-security-service",
+    "ts-station-food-service",
+    "ts-station-service",
+    "ts-ticket-office-service",
+    "ts-train-food-service",
+    "ts-train-service",
+    "ts-travel2-service",
+    "ts-user-service",
+    "ts-verification-code-service",
+    "ts-voucher-service",
+    "ts-wait-order-service"
+  ],
+  "edge_fault_tolerance": [
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-order-service",
+      "method": "getOrderByRebookInfoWithRetry",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 5,
+          "wait_duration": "0ms",
+          "backoff": "none",
+          "exponential": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:397 @Retry(name='orderService'), application.yml: maxAttempts=5, waitDuration=0ms, no CB/bulkhead/timelimiter",
+      "protection_level": "flawed_retry",
+      "beta": 5,
+      "analysis": "Retry=5 with 0ms wait and no backoff means 5 rapid-fire retries with no circuit breaker. Extremely dangerous amplification pattern."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-order-other-service",
+      "method": "getOrderByRebookInfoWithRetry",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 5,
+          "wait_duration": "0ms",
+          "backoff": "none",
+          "exponential": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:397 @Retry(name='orderService'), same config as order-service edge",
+      "protection_level": "flawed_retry",
+      "beta": 5,
+      "analysis": "Same retry config applies. URL is dynamically chosen between order-service and order-other-service."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-seat-service",
+      "method": "dipatchSeat (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:251 - direct restTemplate.exchange call, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-travel-service",
+      "method": "queryTripDetail (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:299 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-travel2-service",
+      "method": "queryTripDetail (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:300 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-train-service",
+      "method": "queryTrainTypeByName (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:411 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-route-service",
+      "method": "queryRoute (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:424 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-rebook-service",
+      "to": "ts-inside-payment-service",
+      "method": "payDifference/drawback (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java:449,463 - direct restTemplate.exchange calls, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-cancel-service",
+      "to": "ts-inside-payment-service",
+      "method": "callInsidePaymentDrawback",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 2,
+          "wait_duration": "1000ms",
+          "backoff": "fixed 1000ms",
+          "exponential": false
+        },
+        "circuit_breaker": {
+          "present": true,
+          "failureRateThreshold": 60,
+          "slidingWindowSize": 10,
+          "waitDurationInOpenState": "10s",
+          "permittedNumberOfCallsInHalfOpenState": 3
+        },
+        "timeout": {
+          "present": true,
+          "value": "3s"
+        },
+        "bulkhead": {
+          "present": true,
+          "maxConcurrentCalls": 5
+        },
+        "fallback": {
+          "present": true,
+          "method": "drawbackFallback"
+        }
+      },
+      "source_evidence": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java:301-303 @Retry+@CircuitBreaker+@Bulkhead, application.yml lines 16-36",
+      "protection_level": "effective_cb",
+      "beta": 0,
+      "analysis": "Full protection stack: retry(2) + circuit breaker(60% threshold) + bulkhead(5) + timeout(3s) + fallback. CB threshold at 60% is reasonable."
+    },
+    {
+      "from": "ts-cancel-service",
+      "to": "ts-order-service",
+      "method": "getOrderByIdFromOrder (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java:335 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-cancel-service",
+      "to": "ts-order-other-service",
+      "method": "getOrderByIdFromOrderOther (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java:349 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-cancel-service",
+      "to": "ts-user-service",
+      "method": "getAccount (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java:321 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-cancel-service",
+      "to": "ts-notification-service",
+      "method": "sendNotification (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-cancel-service/src/main/java/cancel/service/CancelServiceImpl.java:152 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "No fault tolerance protection at all."
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-seat-service",
+      "method": "dispatchSeatWithRetry",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 3,
+          "wait_duration": "500ms",
+          "backoff": "fixed 500ms",
+          "exponential": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": true,
+          "value": "5s",
+          "note": "TimeLimiter configured in YAML but ineffective without CompletableFuture wrapping - the @Retry annotation on a synchronous method won't trigger TimeLimiter"
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:284 @Retry(name='seatService'), application.yml: retry maxAttempts=3/waitDuration=500ms, timelimiter timeoutDuration=5s (ineffective)",
+      "protection_level": "flawed_retry",
+      "beta": 1.8,
+      "analysis": "Retry=3 with 500ms fixed backoff (treated as backoff present). beta = 3 * 0.6 = 1.8. TimeLimiter in YAML is ineffective without CompletableFuture."
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-order-service",
+      "method": "createOrderWithRetry",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 5,
+          "wait_duration": "0ms",
+          "backoff": "none",
+          "exponential": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:408 @Retry(name='orderService'), application.yml: maxAttempts=5, waitDuration=0ms, no CB/timeout",
+      "protection_level": "flawed_retry",
+      "beta": 5,
+      "analysis": "Retry=5 with 0ms wait and no backoff. Extremely dangerous - will hammer ts-order-service 5 times instantly."
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-basic-service",
+      "method": "queryTicketResponse (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": {
+          "present": false
+        },
+        "circuit_breaker": {
+          "present": false
+        },
+        "timeout": {
+          "present": false
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false
+        }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:131 - direct restTemplate.exchange, no annotations",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-user-service",
+      "method": "getAccount (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:315",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-assurance-service",
+      "method": "addAssuranceForOrder (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:329",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-station-service",
+      "method": "queryStation (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:344",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-security-service",
+      "method": "check (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:359",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-travel-service",
+      "method": "queryTravel (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:374",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-contacts-service",
+      "method": "getContacts (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:390",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-food-service",
+      "method": "createFoodOrder (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:426",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-preserve-service",
+      "to": "ts-consign-service",
+      "method": "createConsign (no resilience annotation)",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-preserve-service/src/main/java/preserve/service/PreserveServiceImpl.java:455",
+      "protection_level": "none",
+      "beta": 10
+    },
+    {
+      "from": "ts-inside-payment-service",
+      "to": "ts-order-service",
+      "method": "callOrderServiceGetOrder + callOrderServiceStatusExchange",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 3,
+          "wait_duration": "500ms",
+          "backoff": "exponential",
+          "exponential": true,
+          "exponentialBackoffMultiplier": 2
+        },
+        "circuit_breaker": {
+          "present": true,
+          "failureRateThreshold": 50,
+          "slidingWindowSize": 10,
+          "waitDurationInOpenState": "10s",
+          "permittedNumberOfCallsInHalfOpenState": 3
+        },
+        "timeout": {
+          "present": true,
+          "value": "3s"
+        },
+        "bulkhead": {
+          "present": true,
+          "maxConcurrentCalls": 10
+        },
+        "fallback": {
+          "present": true,
+          "methods": ["getOrderFallback", "orderStatusFallback"]
+        }
+      },
+      "source_evidence": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java:368-391, application.yml lines 29-65",
+      "protection_level": "effective_cb",
+      "beta": 0,
+      "analysis": "Full protection stack: retry(3, exponential backoff 2x) + circuit breaker(50%) + bulkhead(10) + timeout(3s) + fallback. Well-configured."
+    },
+    {
+      "from": "ts-inside-payment-service",
+      "to": "ts-payment-service",
+      "method": "callPaymentServiceExchange",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 3,
+          "wait_duration": "500ms",
+          "backoff": "exponential",
+          "exponential": true,
+          "exponentialBackoffMultiplier": 2
+        },
+        "circuit_breaker": {
+          "present": true,
+          "failureRateThreshold": 50,
+          "slidingWindowSize": 10,
+          "waitDurationInOpenState": "10s",
+          "permittedNumberOfCallsInHalfOpenState": 3
+        },
+        "timeout": {
+          "present": true,
+          "value": "5s"
+        },
+        "bulkhead": {
+          "present": true,
+          "maxConcurrentCalls": 10
+        },
+        "fallback": {
+          "present": true,
+          "method": "paymentServiceFallback"
+        }
+      },
+      "source_evidence": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java:408-410, application.yml lines 29-65",
+      "protection_level": "effective_cb",
+      "beta": 0,
+      "analysis": "Full protection stack: retry(3, exponential backoff 2x) + circuit breaker(50%) + bulkhead(10) + timeout(5s) + fallback. Well-configured."
+    },
+    {
+      "from": "ts-inside-payment-service",
+      "to": "ts-order-other-service",
+      "method": "direct calls without resilience4j annotations",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": { "present": false },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-inside-payment-service/src/main/java/inside_payment/service/InsidePaymentServiceImpl.java:57,343 - direct restTemplate calls to order-other-service without annotations",
+      "protection_level": "none",
+      "beta": 10,
+      "analysis": "While order-service calls are protected, order-other-service calls are NOT wrapped with resilience annotations."
+    },
+    {
+      "from": "ts-order-service",
+      "to": "ts-station-service",
+      "method": "queryForStationIdWithResilience",
+      "fault_tolerance": {
+        "retry": {
+          "present": true,
+          "max_attempts": 2,
+          "wait_duration": "300ms",
+          "backoff": "fixed 300ms",
+          "exponential": false
+        },
+        "circuit_breaker": {
+          "present": true,
+          "failureRateThreshold": 90,
+          "slidingWindowSize": 10,
+          "waitDurationInOpenState": "5s",
+          "permittedNumberOfCallsInHalfOpenState": 3,
+          "note": "90% failure threshold means CB almost never trips - FLAWED"
+        },
+        "timeout": {
+          "present": true,
+          "value": "3s"
+        },
+        "bulkhead": {
+          "present": false
+        },
+        "fallback": {
+          "present": false,
+          "note": "No fallbackMethod on @CircuitBreaker annotation"
+        }
+      },
+      "source_evidence": "ts-order-service/src/main/java/order/service/OrderServiceImpl.java:218-219, application.yml lines 28-45",
+      "protection_level": "flawed_cb",
+      "beta": 1.2,
+      "analysis": "CB present but 90% threshold means it almost never trips. Retry=2 with 300ms wait (has backoff). beta = 2 * 0.6 = 1.2. Treating as flawed_cb because CB exists but is ineffective."
+    },
+    {
+      "from": "ts-travel-service",
+      "to": "ts-basic-service",
+      "method": "queryForTravel/queryForTravels",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms",
+          "source": "RestTemplateBuilder in TravelApplication.java"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-service/src/main/java/travel/TravelApplication.java:38-39 RestTemplate timeout config",
+      "protection_level": "timeout_only",
+      "beta": 1,
+      "analysis": "Only HTTP client timeout (connect=3s, read=5s). No retry amplification but no circuit breaker either."
+    },
+    {
+      "from": "ts-travel-service",
+      "to": "ts-train-service",
+      "method": "queryTrainType",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-service/src/main/java/travel/TravelApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-service",
+      "to": "ts-route-service",
+      "method": "getRouteByRouteId",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-service/src/main/java/travel/TravelApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-service",
+      "to": "ts-seat-service",
+      "method": "queryLeftTickets",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-service/src/main/java/travel/TravelApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-plan-service",
+      "to": "ts-travel-service",
+      "method": "getTrainTrips",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=8000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-plan-service/src/main/java/travelplan/TravelPlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-plan-service",
+      "to": "ts-travel2-service",
+      "method": "getTrainTrips2",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=8000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-plan-service/src/main/java/travelplan/TravelPlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-plan-service",
+      "to": "ts-route-plan-service",
+      "method": "getCheapestRoute/getQuickestRoute/getMinStopStations",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=8000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-plan-service/src/main/java/travelplan/TravelPlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-plan-service",
+      "to": "ts-seat-service",
+      "method": "queryLeftTickets",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=8000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-plan-service/src/main/java/travelplan/TravelPlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-travel-plan-service",
+      "to": "ts-train-service",
+      "method": "queryTrainType",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=8000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-travel-plan-service/src/main/java/travelplan/TravelPlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-route-plan-service",
+      "to": "ts-route-service",
+      "method": "getRouteByStartAndEnd/getRouteById",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-route-plan-service/src/main/java/plan/RoutePlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-route-plan-service",
+      "to": "ts-travel-service",
+      "method": "getTripsByRoutes/getTripDetail/getTripsLeft",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-route-plan-service/src/main/java/plan/RoutePlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    },
+    {
+      "from": "ts-route-plan-service",
+      "to": "ts-travel2-service",
+      "method": "getTripsByRoutes2/getTripDetail2/getTripsLeft2",
+      "fault_tolerance": {
+        "retry": { "present": false },
+        "circuit_breaker": { "present": false },
+        "timeout": {
+          "present": true,
+          "value": "connectTimeout=3000ms, readTimeout=5000ms"
+        },
+        "bulkhead": { "present": false },
+        "fallback": { "present": false }
+      },
+      "source_evidence": "ts-route-plan-service/src/main/java/plan/RoutePlanApplication.java:38-39",
+      "protection_level": "timeout_only",
+      "beta": 1
+    }
+  ],
+  "summary": {
+    "total_edges_analyzed": 40,
+    "protection_level_distribution": {
+      "effective_cb": 3,
+      "flawed_cb": 1,
+      "flawed_retry": 4,
+      "timeout_only": 14,
+      "none": 18
+    },
+    "beta_distribution": {
+      "beta_0": 3,
+      "beta_1": 14,
+      "beta_1_to_3": 2,
+      "beta_5": 3,
+      "beta_10": 18
+    },
+    "high_risk_edges": [
+      {
+        "edge": "ts-rebook-service -> ts-order-service",
+        "risk": "Retry=5 with 0ms wait, no CB, no timeout. Will amplify failures 5x instantly."
+      },
+      {
+        "edge": "ts-preserve-service -> ts-order-service",
+        "risk": "Retry=5 with 0ms wait, no CB, no timeout. Will amplify failures 5x instantly."
+      },
+      {
+        "edge": "ts-order-service -> ts-station-service",
+        "risk": "CB threshold at 90% means it almost never trips. Effectively unprotected."
+      },
+      {
+        "edge": "ts-preserve-service -> ts-seat-service",
+        "risk": "Retry=3 without circuit breaker. TimeLimiter in YAML but ineffective without CompletableFuture."
+      }
+    ],
+    "well_protected_edges": [
+      {
+        "edge": "ts-cancel-service -> ts-inside-payment-service",
+        "note": "Full stack: retry(2) + CB(60%) + bulkhead(5) + timeout(3s) + fallback"
+      },
+      {
+        "edge": "ts-inside-payment-service -> ts-order-service",
+        "note": "Full stack: retry(3, exp backoff 2x) + CB(50%) + bulkhead(10) + timeout(3s) + fallback"
+      },
+      {
+        "edge": "ts-inside-payment-service -> ts-payment-service",
+        "note": "Full stack: retry(3, exp backoff 2x) + CB(50%) + bulkhead(10) + timeout(5s) + fallback"
+      }
+    ]
+  }
+}

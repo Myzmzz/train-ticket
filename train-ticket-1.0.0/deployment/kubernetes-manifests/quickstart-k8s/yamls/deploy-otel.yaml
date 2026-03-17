@@ -1,0 +1,2916 @@
+## ============================================================
+## Java Services with OpenTelemetry Java Agent
+## ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-basic-info-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-basic-info-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-basic-info-service
+    spec:
+      containers:
+        - name: ts-admin-basic-info-service
+          image: 1.94.151.57:85/train-ticket/ts-admin-basic-info-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-admin-basic-info-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18767
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18767
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-order-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-order-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-order-service
+    spec:
+      containers:
+        - name: ts-admin-order-service
+          image: 1.94.151.57:85/train-ticket/ts-admin-order-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-admin-order-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16112
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16112
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-route-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-route-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-route-service
+    spec:
+      containers:
+        - name: ts-admin-route-service
+          image: 1.94.151.57:85/train-ticket/ts-admin-route-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-admin-route-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16113
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16113
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-travel-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-travel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-travel-service
+    spec:
+      containers:
+        - name: ts-admin-travel-service
+          image: 1.94.151.57:85/train-ticket/ts-admin-travel-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-admin-travel-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16114
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16114
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-user-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-user-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-user-service
+    spec:
+      containers:
+        - name: ts-admin-user-service
+          image: 1.94.151.57:85/train-ticket/ts-admin-user-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-admin-user-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16115
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16115
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-assurance-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-assurance-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-assurance-service
+    spec:
+      containers:
+        - name: ts-assurance-service
+          image: 1.94.151.57:85/train-ticket/ts-assurance-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-assurance-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-assurance-mysql
+          ports:
+            - containerPort: 18888
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18888
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-auth-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-auth-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-auth-service
+    spec:
+      containers:
+        - name: ts-auth-service
+          image: 1.94.151.57:85/train-ticket/ts-auth-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-auth-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-auth-mysql
+          ports:
+            - containerPort: 12340
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12340
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-basic-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-basic-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-basic-service
+    spec:
+      containers:
+        - name: ts-basic-service
+          image: 1.94.151.57:85/train-ticket/ts-basic-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-basic-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 15680
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15680
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-cancel-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-cancel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-cancel-service
+    spec:
+      containers:
+        - name: ts-cancel-service
+          image: 1.94.151.57:85/train-ticket/ts-cancel-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-cancel-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18885
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18885
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-config-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-config-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-config-service
+    spec:
+      containers:
+        - name: ts-config-service
+          image: 1.94.151.57:85/train-ticket/ts-config-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-config-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-config-mysql
+          ports:
+            - containerPort: 15679
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15679
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-consign-price-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-consign-price-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-consign-price-service
+    spec:
+      containers:
+        - name: ts-consign-price-service
+          image: 1.94.151.57:85/train-ticket/ts-consign-price-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-consign-price-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-consign-price-mysql
+          ports:
+            - containerPort: 16110
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16110
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-consign-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-consign-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-consign-service
+    spec:
+      containers:
+        - name: ts-consign-service
+          image: 1.94.151.57:85/train-ticket/ts-consign-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-consign-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-consign-mysql
+          ports:
+            - containerPort: 16111
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16111
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-contacts-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-contacts-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-contacts-service
+    spec:
+      containers:
+        - name: ts-contacts-service
+          image: 1.94.151.57:85/train-ticket/ts-contacts-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-contacts-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-contacts-mysql
+          ports:
+            - containerPort: 12347
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12347
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-delivery-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-delivery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-delivery-service
+    spec:
+      containers:
+        - name: ts-delivery-service
+          image: 1.94.151.57:85/train-ticket/ts-delivery-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-delivery-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-delivery-mysql
+          ports:
+            - containerPort: 18808
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18808
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-execute-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-execute-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-execute-service
+    spec:
+      containers:
+        - name: ts-execute-service
+          image: 1.94.151.57:85/train-ticket/ts-execute-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-execute-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12386
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12386
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-food-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-food-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-food-service
+    spec:
+      containers:
+        - name: ts-food-service
+          image: 1.94.151.57:85/train-ticket/ts-food-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-food-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-food-mysql
+          ports:
+            - containerPort: 18856
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18856
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-food-delivery-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-food-delivery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-food-delivery-service
+    spec:
+      containers:
+        - name: ts-food-delivery-service
+          image: 1.94.151.57:85/train-ticket/ts-food-delivery-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-food-delivery-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-food-delivery-mysql
+          ports:
+            - containerPort: 18957
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18957
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-gateway-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-gateway-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-gateway-service
+    spec:
+      containers:
+        - name: ts-gateway-service
+          image: 1.94.151.57:85/train-ticket/ts-gateway-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-gateway-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18888
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18888
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-inside-payment-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-inside-payment-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-inside-payment-service
+    spec:
+      containers:
+        - name: ts-inside-payment-service
+          image: 1.94.151.57:85/train-ticket/ts-inside-payment-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-inside-payment-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-inside-payment-mysql
+          ports:
+            - containerPort: 18673
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18673
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-notification-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-notification-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-notification-service
+    spec:
+      containers:
+        - name: ts-notification-service
+          image: 1.94.151.57:85/train-ticket/ts-notification-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-notification-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-notification-mysql
+          ports:
+            - containerPort: 17853
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17853
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-order-other-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-order-other-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-order-other-service
+    spec:
+      containers:
+        - name: ts-order-other-service
+          image: 1.94.151.57:85/train-ticket/ts-order-other-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-order-other-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-order-other-mysql
+          ports:
+            - containerPort: 12032
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12032
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-order-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-order-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-order-service
+    spec:
+      containers:
+        - name: ts-order-service
+          image: 1.94.151.57:85/train-ticket/ts-order-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-order-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-order-mysql
+          ports:
+            - containerPort: 12031
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12031
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-payment-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-payment-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-payment-service
+    spec:
+      containers:
+        - name: ts-payment-service
+          image: 1.94.151.57:85/train-ticket/ts-payment-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-payment-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-payment-mysql
+          ports:
+            - containerPort: 19001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 19001
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-preserve-other-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-preserve-other-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-preserve-other-service
+    spec:
+      containers:
+        - name: ts-preserve-other-service
+          image: 1.94.151.57:85/train-ticket/ts-preserve-other-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-preserve-other-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14569
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14569
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-preserve-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-preserve-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-preserve-service
+    spec:
+      containers:
+        - name: ts-preserve-service
+          image: 1.94.151.57:85/train-ticket/ts-preserve-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-preserve-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14568
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14568
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-price-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-price-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-price-service
+    spec:
+      containers:
+        - name: ts-price-service
+          image: 1.94.151.57:85/train-ticket/ts-price-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-price-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-price-mysql
+          ports:
+            - containerPort: 16579
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16579
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-rebook-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-rebook-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-rebook-service
+    spec:
+      containers:
+        - name: ts-rebook-service
+          image: 1.94.151.57:85/train-ticket/ts-rebook-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-rebook-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18886
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18886
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-route-plan-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-route-plan-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-route-plan-service
+    spec:
+      containers:
+        - name: ts-route-plan-service
+          image: 1.94.151.57:85/train-ticket/ts-route-plan-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-route-plan-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14578
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14578
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-route-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-route-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-route-service
+    spec:
+      containers:
+        - name: ts-route-service
+          image: 1.94.151.57:85/train-ticket/ts-route-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-route-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-route-mysql
+          ports:
+            - containerPort: 11178
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 11178
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-seat-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-seat-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-seat-service
+    spec:
+      containers:
+        - name: ts-seat-service
+          image: 1.94.151.57:85/train-ticket/ts-seat-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-seat-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18898
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18898
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-security-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-security-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-security-service
+    spec:
+      containers:
+        - name: ts-security-service
+          image: 1.94.151.57:85/train-ticket/ts-security-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-security-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-security-mysql
+          ports:
+            - containerPort: 11188
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 11188
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-station-food-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-station-food-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-station-food-service
+    spec:
+      containers:
+        - name: ts-station-food-service
+          image: 1.94.151.57:85/train-ticket/ts-station-food-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-station-food-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-station-food-mysql
+          ports:
+            - containerPort: 18855
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18855
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-station-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-station-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-station-service
+    spec:
+      containers:
+        - name: ts-station-service
+          image: 1.94.151.57:85/train-ticket/ts-station-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-station-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-station-mysql
+          ports:
+            - containerPort: 12345
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12345
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-train-food-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-train-food-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-train-food-service
+    spec:
+      containers:
+        - name: ts-train-food-service
+          image: 1.94.151.57:85/train-ticket/ts-train-food-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-train-food-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-train-food-mysql
+          ports:
+            - containerPort: 19999
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 19999
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-train-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-train-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-train-service
+    spec:
+      containers:
+        - name: ts-train-service
+          image: 1.94.151.57:85/train-ticket/ts-train-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-train-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-train-mysql
+          ports:
+            - containerPort: 14567
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14567
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel-plan-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel-plan-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel-plan-service
+    spec:
+      containers:
+        - name: ts-travel-plan-service
+          image: 1.94.151.57:85/train-ticket/ts-travel-plan-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-travel-plan-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14322
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14322
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel-service
+    spec:
+      containers:
+        - name: ts-travel-service
+          image: 1.94.151.57:85/train-ticket/ts-travel-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-travel-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-travel-mysql
+          ports:
+            - containerPort: 12346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel2-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel2-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel2-service
+    spec:
+      containers:
+        - name: ts-travel2-service
+          image: 1.94.151.57:85/train-ticket/ts-travel2-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-travel2-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-travel2-mysql
+          ports:
+            - containerPort: 16346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-user-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-user-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-user-service
+    spec:
+      containers:
+        - name: ts-user-service
+          image: 1.94.151.57:85/train-ticket/ts-user-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-user-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-user-mysql
+          ports:
+            - containerPort: 12342
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12342
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-verification-code-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-verification-code-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-verification-code-service
+    spec:
+      containers:
+        - name: ts-verification-code-service
+          image: 1.94.151.57:85/train-ticket/ts-verification-code-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-verification-code-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 15678
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15678
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-wait-order-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-wait-order-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-wait-order-service
+    spec:
+      containers:
+        - name: ts-wait-order-service
+          image: 1.94.151.57:85/train-ticket/ts-wait-order-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: opentelemetry-javaagent
+              mountPath: /opt/opentelemetry-javaagent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: "ts-wait-order-service"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://coroot-coroot.coroot:8080"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_JAVAAGENT_LOGGING
+              value: "application"
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -javaagent:/opt/opentelemetry-javaagent/opentelemetry-javaagent.jar"
+            - name: WAIT_ORDER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ts-wait-order-mysql
+                  key: WAIT_ORDER_MYSQL_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-wait-order-mysql
+          ports:
+            - containerPort: 17525
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17525
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+      volumes:
+        - name: opentelemetry-javaagent
+          nfs:
+            server: 1.94.151.57
+            path: /data/share
+---
+## ============================================================
+## Non-Java Services (without OpenTelemetry Java Agent)
+## ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-avatar-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-avatar-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-avatar-service
+    spec:
+      containers:
+        - name: ts-avatar-service
+          image: 1.94.151.57:85/train-ticket/ts-avatar-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 17001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17001
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-news-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-news-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-news-service
+    spec:
+      containers:
+        - name: ts-news-service
+          image: 1.94.151.57:85/train-ticket/ts-news-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12862
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12862
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-ticket-office-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-ticket-office-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-ticket-office-service
+    spec:
+      containers:
+        - name: ts-ticket-office-service
+          image: 1.94.151.57:85/train-ticket/ts-ticket-office-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-ticket-office-mysql
+          ports:
+            - containerPort: 16108
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16108
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-voucher-service
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-voucher-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-voucher-service
+    spec:
+      containers:
+        - name: ts-voucher-service
+          image: 1.94.151.57:85/train-ticket/ts-voucher-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - secretRef:
+                name: ts-voucher-mysql
+          ports:
+            - containerPort: 16101
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16101
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-ui-dashboard
+  namespace: train-ticket
+spec:
+  selector:
+    matchLabels:
+      app: ts-ui-dashboard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-ui-dashboard
+    spec:
+      containers:
+        - name: ts-ui-dashboard
+          image: 1.94.151.57:85/train-ticket/ts-ui-dashboard:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1500m
+              memory: 1500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5

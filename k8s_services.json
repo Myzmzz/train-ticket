@@ -1,0 +1,2632 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"jaeger\",\"app.kubernetes.io/component\":\"agent\",\"app.kubernetes.io/name\":\"jaeger\"},\"name\":\"jaeger\",\"namespace\":\"train-ticket\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"agent-zipkin-thrift\",\"port\":5775,\"protocol\":\"UDP\",\"targetPort\":5775},{\"name\":\"agent-compact\",\"port\":6831,\"protocol\":\"UDP\",\"targetPort\":6831},{\"name\":\"agent-binary\",\"port\":6832,\"protocol\":\"UDP\",\"targetPort\":6832},{\"name\":\"agent-config\",\"port\":5778,\"protocol\":\"TCP\",\"targetPort\":5778}],\"selector\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/name\":\"jaeger\"}}}\n"
+                },
+                "creationTimestamp": "2026-01-07T06:50:26Z",
+                "labels": {
+                    "app": "jaeger",
+                    "app.kubernetes.io/component": "agent",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "name": "jaeger",
+                "namespace": "train-ticket",
+                "resourceVersion": "155325840",
+                "uid": "f51af0dd-ecd8-4fb2-8fc3-690c934a1095"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "agent-zipkin-thrift",
+                        "port": 5775,
+                        "protocol": "UDP",
+                        "targetPort": 5775
+                    },
+                    {
+                        "name": "agent-compact",
+                        "port": 6831,
+                        "protocol": "UDP",
+                        "targetPort": 6831
+                    },
+                    {
+                        "name": "agent-binary",
+                        "port": 6832,
+                        "protocol": "UDP",
+                        "targetPort": 6832
+                    },
+                    {
+                        "name": "agent-config",
+                        "port": 5778,
+                        "protocol": "TCP",
+                        "targetPort": 5778
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "all-in-one",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"jaeger\",\"app.kubernetes.io/component\":\"collector\",\"app.kubernetes.io/name\":\"jaeger\"},\"name\":\"jaeger-collector\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"jaeger-collector-tchannel\",\"port\":14267,\"protocol\":\"TCP\",\"targetPort\":14267},{\"name\":\"jaeger-collector-http\",\"port\":14268,\"protocol\":\"TCP\",\"targetPort\":14268},{\"name\":\"jaeger-collector-zipkin\",\"port\":9411,\"protocol\":\"TCP\",\"targetPort\":9411}],\"selector\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/name\":\"jaeger\"},\"type\":\"ClusterIP\"}}\n"
+                },
+                "creationTimestamp": "2026-01-07T06:50:26Z",
+                "labels": {
+                    "app": "jaeger",
+                    "app.kubernetes.io/component": "collector",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "name": "jaeger-collector",
+                "namespace": "train-ticket",
+                "resourceVersion": "155325836",
+                "uid": "dd3e8e6e-0dc5-4c87-8832-24fb8f83c4aa"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.134",
+                "clusterIPs": [
+                    "10.96.3.134"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "jaeger-collector-tchannel",
+                        "port": 14267,
+                        "protocol": "TCP",
+                        "targetPort": 14267
+                    },
+                    {
+                        "name": "jaeger-collector-http",
+                        "port": 14268,
+                        "protocol": "TCP",
+                        "targetPort": 14268
+                    },
+                    {
+                        "name": "jaeger-collector-zipkin",
+                        "port": 9411,
+                        "protocol": "TCP",
+                        "targetPort": 9411
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "all-in-one",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"jaeger\",\"app.kubernetes.io/component\":\"query\",\"app.kubernetes.io/name\":\"jaeger\"},\"name\":\"jaeger-query\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"query-http\",\"nodePort\":32688,\"port\":16686,\"protocol\":\"TCP\"}],\"selector\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/name\":\"jaeger\"},\"type\":\"NodePort\"}}\n"
+                },
+                "creationTimestamp": "2026-01-07T06:50:26Z",
+                "labels": {
+                    "app": "jaeger",
+                    "app.kubernetes.io/component": "query",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "name": "jaeger-query",
+                "namespace": "train-ticket",
+                "resourceVersion": "155325826",
+                "uid": "19d0aea8-d0c9-4d0c-aeda-1edf66176706"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.172",
+                "clusterIPs": [
+                    "10.96.3.172"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "query-http",
+                        "nodePort": 32688,
+                        "port": 16686,
+                        "protocol": "TCP",
+                        "targetPort": 16686
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "all-in-one",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nacos",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:53:28Z",
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm"
+                },
+                "name": "nacos",
+                "namespace": "train-ticket",
+                "resourceVersion": "182846954",
+                "uid": "4782093e-5fee-4ef4-8b87-44ebb201fa03"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.152",
+                "clusterIPs": [
+                    "10.96.2.152"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "server",
+                        "nodePort": 31097,
+                        "port": 8848,
+                        "protocol": "TCP",
+                        "targetPort": 8848
+                    },
+                    {
+                        "name": "rpc",
+                        "nodePort": 32417,
+                        "port": 7848,
+                        "protocol": "TCP",
+                        "targetPort": 7848
+                    },
+                    {
+                        "name": "grpc",
+                        "nodePort": 30108,
+                        "port": 9848,
+                        "protocol": "TCP",
+                        "targetPort": 9848
+                    }
+                ],
+                "selector": {
+                    "app": "nacos"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nacos",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:53:28Z",
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm"
+                },
+                "name": "nacos-headless",
+                "namespace": "train-ticket",
+                "resourceVersion": "182572335",
+                "uid": "e99d74fc-0c63-43d5-acc2-bbaa042dfaa3"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "server",
+                        "port": 8848,
+                        "protocol": "TCP",
+                        "targetPort": 8848
+                    },
+                    {
+                        "name": "client-rpc",
+                        "port": 9848,
+                        "protocol": "TCP",
+                        "targetPort": 9848
+                    },
+                    {
+                        "name": "raft-rpc",
+                        "port": 9849,
+                        "protocol": "TCP",
+                        "targetPort": 9849
+                    },
+                    {
+                        "name": "old-rpc",
+                        "port": 7848,
+                        "protocol": "TCP",
+                        "targetPort": 7848
+                    }
+                ],
+                "selector": {
+                    "app": "nacos"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nacosdb",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:20Z",
+                "labels": {
+                    "app": "nacosdb-mysql",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "chart": "mysql-1.0.0",
+                    "heritage": "Helm",
+                    "release": "nacosdb"
+                },
+                "name": "nacosdb-mysql",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570548",
+                "uid": "8a48ce71-3576-4025-b7b1-c361fe2caf4e"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "nacosdb-mysql",
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": 3306
+                    }
+                ],
+                "publishNotReadyAddresses": true,
+                "selector": {
+                    "app": "nacosdb-mysql",
+                    "release": "nacosdb"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nacosdb",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:20Z",
+                "labels": {
+                    "app": "nacosdb-mysql",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "chart": "mysql-1.0.0",
+                    "heritage": "Helm",
+                    "release": "nacosdb"
+                },
+                "name": "nacosdb-mysql-follower",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570549",
+                "uid": "f962b69c-d403-4837-8ae0-55cbcf137e19"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.147",
+                "clusterIPs": [
+                    "10.96.1.147"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": "mysql"
+                    }
+                ],
+                "selector": {
+                    "app": "nacosdb-mysql",
+                    "release": "nacosdb",
+                    "role": "follower"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nacosdb",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:20Z",
+                "labels": {
+                    "app": "nacosdb-mysql",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "chart": "mysql-1.0.0",
+                    "heritage": "Helm",
+                    "release": "nacosdb"
+                },
+                "name": "nacosdb-mysql-leader",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570551",
+                "uid": "b79a8672-143e-4056-b251-8e24d9b0313b"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.167",
+                "clusterIPs": [
+                    "10.96.0.167"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": "mysql"
+                    }
+                ],
+                "selector": {
+                    "app": "nacosdb-mysql",
+                    "release": "nacosdb",
+                    "role": "leader"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "rabbitmq",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:22Z",
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm"
+                },
+                "name": "rabbitmq",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570632",
+                "uid": "35d673ea-c507-4e19-b3ab-d0ae82fc5527"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.216",
+                "clusterIPs": [
+                    "10.96.0.216"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 5672,
+                        "protocol": "TCP",
+                        "targetPort": 5672
+                    }
+                ],
+                "selector": {
+                    "app": "rabbitmq"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-admin-basic-info-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18767}],\"selector\":{\"app\":\"ts-admin-basic-info-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:21Z",
+                "name": "ts-admin-basic-info-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554301",
+                "uid": "04f64a7e-f0ee-46fb-96b1-882bde3c2bf4"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.229",
+                "clusterIPs": [
+                    "10.96.3.229"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18767,
+                        "protocol": "TCP",
+                        "targetPort": 18767
+                    }
+                ],
+                "selector": {
+                    "app": "ts-admin-basic-info-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-admin-order-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16112}],\"selector\":{\"app\":\"ts-admin-order-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:21Z",
+                "name": "ts-admin-order-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554305",
+                "uid": "ba0bd4ad-098d-448c-b364-fee693fce4a1"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.207",
+                "clusterIPs": [
+                    "10.96.3.207"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16112,
+                        "protocol": "TCP",
+                        "targetPort": 16112
+                    }
+                ],
+                "selector": {
+                    "app": "ts-admin-order-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-admin-route-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16113}],\"selector\":{\"app\":\"ts-admin-route-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-admin-route-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554310",
+                "uid": "c2a27b22-238f-4057-9def-bf197bc8e729"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.45",
+                "clusterIPs": [
+                    "10.96.1.45"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16113,
+                        "protocol": "TCP",
+                        "targetPort": 16113
+                    }
+                ],
+                "selector": {
+                    "app": "ts-admin-route-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-admin-travel-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16114}],\"selector\":{\"app\":\"ts-admin-travel-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-admin-travel-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554314",
+                "uid": "d7b0d3f8-de46-4f6b-b0ce-e4f6ae2b3565"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.234",
+                "clusterIPs": [
+                    "10.96.0.234"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16114,
+                        "protocol": "TCP",
+                        "targetPort": 16114
+                    }
+                ],
+                "selector": {
+                    "app": "ts-admin-travel-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-admin-user-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16115}],\"selector\":{\"app\":\"ts-admin-user-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-admin-user-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554318",
+                "uid": "6149d496-af0e-4656-89a3-3abe018455b5"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.222",
+                "clusterIPs": [
+                    "10.96.1.222"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16115,
+                        "protocol": "TCP",
+                        "targetPort": 16115
+                    }
+                ],
+                "selector": {
+                    "app": "ts-admin-user-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-assurance-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18888}],\"selector\":{\"app\":\"ts-assurance-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-assurance-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554322",
+                "uid": "eeb467d5-88b5-41f4-bb81-aa6df7f6a796"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.48",
+                "clusterIPs": [
+                    "10.96.3.48"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18888,
+                        "protocol": "TCP",
+                        "targetPort": 18888
+                    }
+                ],
+                "selector": {
+                    "app": "ts-assurance-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-auth-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12340}],\"selector\":{\"app\":\"ts-auth-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-auth-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554326",
+                "uid": "3ae05dad-0a81-430d-9722-4ccadd915088"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.227",
+                "clusterIPs": [
+                    "10.96.3.227"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12340,
+                        "protocol": "TCP",
+                        "targetPort": 12340
+                    }
+                ],
+                "selector": {
+                    "app": "ts-auth-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-avatar-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":17001}],\"selector\":{\"app\":\"ts-avatar-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-avatar-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554331",
+                "uid": "da51ebbe-b5be-4123-a5d6-016f2a3bf1de"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.3",
+                "clusterIPs": [
+                    "10.96.1.3"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 17001,
+                        "protocol": "TCP",
+                        "targetPort": 17001
+                    }
+                ],
+                "selector": {
+                    "app": "ts-avatar-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-basic-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":15680}],\"selector\":{\"app\":\"ts-basic-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-basic-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554336",
+                "uid": "197e55f9-3760-4793-9aba-694173e2bdd0"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.143",
+                "clusterIPs": [
+                    "10.96.0.143"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 15680,
+                        "protocol": "TCP",
+                        "targetPort": 15680
+                    }
+                ],
+                "selector": {
+                    "app": "ts-basic-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-cancel-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18885}],\"selector\":{\"app\":\"ts-cancel-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-cancel-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554341",
+                "uid": "f479c939-2e02-43d1-8fba-d3f5fd6cbf16"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.175",
+                "clusterIPs": [
+                    "10.96.2.175"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18885,
+                        "protocol": "TCP",
+                        "targetPort": 18885
+                    }
+                ],
+                "selector": {
+                    "app": "ts-cancel-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-config-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":15679}],\"selector\":{\"app\":\"ts-config-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:22Z",
+                "name": "ts-config-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554345",
+                "uid": "37be4805-e96c-484a-83d7-2d48a7f2a396"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.180",
+                "clusterIPs": [
+                    "10.96.0.180"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 15679,
+                        "protocol": "TCP",
+                        "targetPort": 15679
+                    }
+                ],
+                "selector": {
+                    "app": "ts-config-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-consign-price-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16110}],\"selector\":{\"app\":\"ts-consign-price-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-consign-price-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554349",
+                "uid": "fd3db3c8-9601-427f-901c-28e483530658"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.163",
+                "clusterIPs": [
+                    "10.96.2.163"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16110,
+                        "protocol": "TCP",
+                        "targetPort": 16110
+                    }
+                ],
+                "selector": {
+                    "app": "ts-consign-price-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-consign-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16111}],\"selector\":{\"app\":\"ts-consign-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-consign-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554355",
+                "uid": "af7ba9af-1daf-4b0c-8d23-6faaa9ee2ccc"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.1",
+                "clusterIPs": [
+                    "10.96.2.1"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16111,
+                        "protocol": "TCP",
+                        "targetPort": 16111
+                    }
+                ],
+                "selector": {
+                    "app": "ts-consign-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-contacts-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12347}],\"selector\":{\"app\":\"ts-contacts-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-contacts-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554359",
+                "uid": "def3cf82-23f9-4976-9d55-7f17730ee290"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.30",
+                "clusterIPs": [
+                    "10.96.2.30"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12347,
+                        "protocol": "TCP",
+                        "targetPort": 12347
+                    }
+                ],
+                "selector": {
+                    "app": "ts-contacts-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-delivery-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18808}],\"selector\":{\"app\":\"ts-delivery-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-delivery-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554364",
+                "uid": "7edcd995-3274-48e0-921c-429928b6703a"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.208",
+                "clusterIPs": [
+                    "10.96.1.208"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18808,
+                        "protocol": "TCP",
+                        "targetPort": 18808
+                    }
+                ],
+                "selector": {
+                    "app": "ts-delivery-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-execute-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12386}],\"selector\":{\"app\":\"ts-execute-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-execute-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554368",
+                "uid": "f818fe07-d034-467e-9648-c24c3d6338ff"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.198",
+                "clusterIPs": [
+                    "10.96.0.198"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12386,
+                        "protocol": "TCP",
+                        "targetPort": 12386
+                    }
+                ],
+                "selector": {
+                    "app": "ts-execute-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-food-delivery-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18957}],\"selector\":{\"app\":\"ts-food-delivery-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-food-delivery-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554498",
+                "uid": "e823a91d-f03e-4938-b23e-1e01dafbe47d"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.197",
+                "clusterIPs": [
+                    "10.96.2.197"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18957,
+                        "protocol": "TCP",
+                        "targetPort": 18957
+                    }
+                ],
+                "selector": {
+                    "app": "ts-food-delivery-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-food-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18856}],\"selector\":{\"app\":\"ts-food-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-food-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554372",
+                "uid": "00d00d41-1f83-4a06-9217-1c45f3c8db2a"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.180",
+                "clusterIPs": [
+                    "10.96.2.180"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18856,
+                        "protocol": "TCP",
+                        "targetPort": 18856
+                    }
+                ],
+                "selector": {
+                    "app": "ts-food-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-gateway-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"nodePort\":30467,\"port\":18888}],\"selector\":{\"app\":\"ts-gateway-service\"},\"type\":\"NodePort\"}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-gateway-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554377",
+                "uid": "33d39d1a-054c-4ee9-83a0-f4f99375a406"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.108",
+                "clusterIPs": [
+                    "10.96.1.108"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "nodePort": 30467,
+                        "port": 18888,
+                        "protocol": "TCP",
+                        "targetPort": 18888
+                    }
+                ],
+                "selector": {
+                    "app": "ts-gateway-service"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-inside-payment-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18673}],\"selector\":{\"app\":\"ts-inside-payment-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:23Z",
+                "name": "ts-inside-payment-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554381",
+                "uid": "e95f5264-a583-48b8-9160-91ce1c50ca81"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.84",
+                "clusterIPs": [
+                    "10.96.1.84"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18673,
+                        "protocol": "TCP",
+                        "targetPort": 18673
+                    }
+                ],
+                "selector": {
+                    "app": "ts-inside-payment-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-news-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12862}],\"selector\":{\"app\":\"ts-news-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-news-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554385",
+                "uid": "08563ee4-a145-4816-944d-3de461eb45f5"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.157",
+                "clusterIPs": [
+                    "10.96.3.157"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12862,
+                        "protocol": "TCP",
+                        "targetPort": 12862
+                    }
+                ],
+                "selector": {
+                    "app": "ts-news-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-notification-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":17853}],\"selector\":{\"app\":\"ts-notification-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-notification-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554389",
+                "uid": "8b7c182f-6ffd-4ffb-9653-674d29420aa3"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.144",
+                "clusterIPs": [
+                    "10.96.1.144"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 17853,
+                        "protocol": "TCP",
+                        "targetPort": 17853
+                    }
+                ],
+                "selector": {
+                    "app": "ts-notification-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-order-other-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12032}],\"selector\":{\"app\":\"ts-order-other-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-order-other-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554393",
+                "uid": "6c9be095-7d81-4488-8d4d-4f6aed5f1012"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.230",
+                "clusterIPs": [
+                    "10.96.1.230"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12032,
+                        "protocol": "TCP",
+                        "targetPort": 12032
+                    }
+                ],
+                "selector": {
+                    "app": "ts-order-other-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-order-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12031}],\"selector\":{\"app\":\"ts-order-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-order-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554397",
+                "uid": "22487a44-4bf2-4f5c-b35b-9cbac6d0af6c"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.202",
+                "clusterIPs": [
+                    "10.96.0.202"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12031,
+                        "protocol": "TCP",
+                        "targetPort": 12031
+                    }
+                ],
+                "selector": {
+                    "app": "ts-order-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-payment-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":19001}],\"selector\":{\"app\":\"ts-payment-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-payment-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554402",
+                "uid": "5d891db5-d75e-446c-9bfc-cd0fea76543b"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.98",
+                "clusterIPs": [
+                    "10.96.3.98"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 19001,
+                        "protocol": "TCP",
+                        "targetPort": 19001
+                    }
+                ],
+                "selector": {
+                    "app": "ts-payment-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-preserve-other-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":14569}],\"selector\":{\"app\":\"ts-preserve-other-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-preserve-other-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554406",
+                "uid": "4842e7ae-9efb-4c33-8060-38af2be33909"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.169",
+                "clusterIPs": [
+                    "10.96.0.169"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 14569,
+                        "protocol": "TCP",
+                        "targetPort": 14569
+                    }
+                ],
+                "selector": {
+                    "app": "ts-preserve-other-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-preserve-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":14568}],\"selector\":{\"app\":\"ts-preserve-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-preserve-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554413",
+                "uid": "425a12c3-1e39-414a-9239-f991324a7c18"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.240",
+                "clusterIPs": [
+                    "10.96.1.240"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 14568,
+                        "protocol": "TCP",
+                        "targetPort": 14568
+                    }
+                ],
+                "selector": {
+                    "app": "ts-preserve-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-price-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16579}],\"selector\":{\"app\":\"ts-price-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:24Z",
+                "name": "ts-price-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554418",
+                "uid": "139cb672-eeee-4614-869f-8fd7154460d3"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.196",
+                "clusterIPs": [
+                    "10.96.0.196"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16579,
+                        "protocol": "TCP",
+                        "targetPort": 16579
+                    }
+                ],
+                "selector": {
+                    "app": "ts-price-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-rebook-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18886}],\"selector\":{\"app\":\"ts-rebook-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-rebook-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554422",
+                "uid": "fa189d32-7033-44cf-8681-16511af1d238"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.255",
+                "clusterIPs": [
+                    "10.96.1.255"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18886,
+                        "protocol": "TCP",
+                        "targetPort": 18886
+                    }
+                ],
+                "selector": {
+                    "app": "ts-rebook-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-route-plan-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":14578}],\"selector\":{\"app\":\"ts-route-plan-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-route-plan-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554428",
+                "uid": "ad085cd5-ef8d-4907-9412-6ad58d5cc252"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.99",
+                "clusterIPs": [
+                    "10.96.1.99"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 14578,
+                        "protocol": "TCP",
+                        "targetPort": 14578
+                    }
+                ],
+                "selector": {
+                    "app": "ts-route-plan-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-route-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":11178}],\"selector\":{\"app\":\"ts-route-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-route-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554432",
+                "uid": "acc6356b-7779-40ec-ae56-73e6ea7dd812"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.123",
+                "clusterIPs": [
+                    "10.96.2.123"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 11178,
+                        "protocol": "TCP",
+                        "targetPort": 11178
+                    }
+                ],
+                "selector": {
+                    "app": "ts-route-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-seat-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18898}],\"selector\":{\"app\":\"ts-seat-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-seat-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554440",
+                "uid": "d7a41844-4f1a-4305-98b2-b04b269c952d"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.137",
+                "clusterIPs": [
+                    "10.96.2.137"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18898,
+                        "protocol": "TCP",
+                        "targetPort": 18898
+                    }
+                ],
+                "selector": {
+                    "app": "ts-seat-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-security-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":11188}],\"selector\":{\"app\":\"ts-security-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-security-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554445",
+                "uid": "59832ce3-5e05-40dc-ade7-588875298f07"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.2",
+                "clusterIPs": [
+                    "10.96.2.2"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 11188,
+                        "protocol": "TCP",
+                        "targetPort": 11188
+                    }
+                ],
+                "selector": {
+                    "app": "ts-security-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-station-food-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":18855}],\"selector\":{\"app\":\"ts-station-food-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-station-food-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554449",
+                "uid": "ab617ac1-5928-4673-a1c0-3defb6ed310f"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.101",
+                "clusterIPs": [
+                    "10.96.2.101"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 18855,
+                        "protocol": "TCP",
+                        "targetPort": 18855
+                    }
+                ],
+                "selector": {
+                    "app": "ts-station-food-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-station-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12345}],\"selector\":{\"app\":\"ts-station-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-station-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554453",
+                "uid": "15869f78-25d8-4d73-b80d-8b6a4688b250"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.184",
+                "clusterIPs": [
+                    "10.96.2.184"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12345,
+                        "protocol": "TCP",
+                        "targetPort": 12345
+                    }
+                ],
+                "selector": {
+                    "app": "ts-station-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-ticket-office-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16108}],\"selector\":{\"app\":\"ts-ticket-office-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-ticket-office-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554457",
+                "uid": "5cb6c15a-2063-4add-b9b0-447170a1290b"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.95",
+                "clusterIPs": [
+                    "10.96.0.95"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16108,
+                        "protocol": "TCP",
+                        "targetPort": 16108
+                    }
+                ],
+                "selector": {
+                    "app": "ts-ticket-office-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-traceenv-test\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"port\":80,\"protocol\":\"TCP\",\"targetPort\":18099}]}}\n"
+                },
+                "creationTimestamp": "2026-03-16T03:03:54Z",
+                "name": "ts-traceenv-test",
+                "namespace": "train-ticket",
+                "resourceVersion": "182846234",
+                "uid": "90def0fc-5907-4537-bcdf-2b8da59ab844"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.53",
+                "clusterIPs": [
+                    "10.96.3.53"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 18099
+                    }
+                ],
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-train-food-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":19999}],\"selector\":{\"app\":\"ts-train-food-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:25Z",
+                "name": "ts-train-food-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554461",
+                "uid": "0cf7d769-429a-499d-968a-bc18e49c61c8"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.151",
+                "clusterIPs": [
+                    "10.96.0.151"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 19999,
+                        "protocol": "TCP",
+                        "targetPort": 19999
+                    }
+                ],
+                "selector": {
+                    "app": "ts-train-food-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-train-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":14567}],\"selector\":{\"app\":\"ts-train-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-train-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554465",
+                "uid": "2ddeee98-3b3f-468b-a851-77c0e401394f"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.102",
+                "clusterIPs": [
+                    "10.96.1.102"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 14567,
+                        "protocol": "TCP",
+                        "targetPort": 14567
+                    }
+                ],
+                "selector": {
+                    "app": "ts-train-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-travel-plan-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":14322}],\"selector\":{\"app\":\"ts-travel-plan-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-travel-plan-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554470",
+                "uid": "9a9abf1b-a321-428b-8f9c-043b501f0209"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.234",
+                "clusterIPs": [
+                    "10.96.1.234"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 14322,
+                        "protocol": "TCP",
+                        "targetPort": 14322
+                    }
+                ],
+                "selector": {
+                    "app": "ts-travel-plan-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-travel-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12346}],\"selector\":{\"app\":\"ts-travel-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-travel-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182936153",
+                "uid": "e20e609b-d97e-4b18-9605-ce4ae0c3bac9"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.231",
+                "clusterIPs": [
+                    "10.96.0.231"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "nodePort": 30759,
+                        "port": 12346,
+                        "protocol": "TCP",
+                        "targetPort": 12346
+                    }
+                ],
+                "selector": {
+                    "app": "ts-travel-service"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-travel2-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16346}],\"selector\":{\"app\":\"ts-travel2-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-travel2-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554478",
+                "uid": "f9f2b057-cac7-4c3e-abb2-5ef3d58403cb"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.247",
+                "clusterIPs": [
+                    "10.96.0.247"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16346,
+                        "protocol": "TCP",
+                        "targetPort": 16346
+                    }
+                ],
+                "selector": {
+                    "app": "ts-travel2-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-ui-dashboard\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"nodePort\":32677,\"port\":8080}],\"selector\":{\"app\":\"ts-ui-dashboard\"},\"type\":\"NodePort\"}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:27Z",
+                "name": "ts-ui-dashboard",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554507",
+                "uid": "7278088d-1c11-4af9-9ee5-a4c4bb8e19b9"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.198",
+                "clusterIPs": [
+                    "10.96.2.198"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "nodePort": 32677,
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app": "ts-ui-dashboard"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-user-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":12342}],\"selector\":{\"app\":\"ts-user-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-user-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554482",
+                "uid": "9932c951-b3ac-40e5-ba23-59e8de1a93da"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.205",
+                "clusterIPs": [
+                    "10.96.1.205"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 12342,
+                        "protocol": "TCP",
+                        "targetPort": 12342
+                    }
+                ],
+                "selector": {
+                    "app": "ts-user-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-verification-code-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":15678}],\"selector\":{\"app\":\"ts-verification-code-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-verification-code-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554487",
+                "uid": "ec596d0f-1eb6-4a10-a9ad-71a91750a1de"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.164",
+                "clusterIPs": [
+                    "10.96.3.164"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 15678,
+                        "protocol": "TCP",
+                        "targetPort": 15678
+                    }
+                ],
+                "selector": {
+                    "app": "ts-verification-code-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-voucher-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":16101}],\"selector\":{\"app\":\"ts-voucher-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:26Z",
+                "name": "ts-voucher-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554494",
+                "uid": "daca409b-4e10-493f-9ec0-cc763e8e4489"
+            },
+            "spec": {
+                "clusterIP": "10.96.3.55",
+                "clusterIPs": [
+                    "10.96.3.55"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 16101,
+                        "protocol": "TCP",
+                        "targetPort": 16101
+                    }
+                ],
+                "selector": {
+                    "app": "ts-voucher-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"ts-wait-order-service\",\"namespace\":\"train-ticket\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":17525}],\"selector\":{\"app\":\"ts-wait-order-service\"}}}\n"
+                },
+                "creationTimestamp": "2026-03-15T09:52:27Z",
+                "name": "ts-wait-order-service",
+                "namespace": "train-ticket",
+                "resourceVersion": "182554502",
+                "uid": "658ee022-2941-4e4b-affa-3d02d61505d8"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.239",
+                "clusterIPs": [
+                    "10.96.2.239"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 17525,
+                        "protocol": "TCP",
+                        "targetPort": 17525
+                    }
+                ],
+                "selector": {
+                    "app": "ts-wait-order-service"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "tsdb",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:21Z",
+                "labels": {
+                    "app": "tsdb-mysql",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "chart": "mysql-1.0.0",
+                    "heritage": "Helm",
+                    "release": "tsdb"
+                },
+                "name": "tsdb-mysql",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570587",
+                "uid": "8f51a433-69d0-4997-aad2-be17027d3aec"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "tsdb-mysql",
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": 3306
+                    }
+                ],
+                "publishNotReadyAddresses": true,
+                "selector": {
+                    "app": "tsdb-mysql",
+                    "release": "tsdb"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "tsdb",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:21Z",
+                "labels": {
+                    "app": "tsdb-mysql",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "chart": "mysql-1.0.0",
+                    "heritage": "Helm",
+                    "release": "tsdb"
+                },
+                "name": "tsdb-mysql-follower",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570588",
+                "uid": "b61c5bc4-ba7f-4789-8f4f-315535edd38f"
+            },
+            "spec": {
+                "clusterIP": "10.96.1.26",
+                "clusterIPs": [
+                    "10.96.1.26"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": "mysql"
+                    }
+                ],
+                "selector": {
+                    "app": "tsdb-mysql",
+                    "release": "tsdb",
+                    "role": "follower"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "tsdb",
+                    "meta.helm.sh/release-namespace": "train-ticket"
+                },
+                "creationTimestamp": "2026-03-15T10:48:21Z",
+                "labels": {
+                    "app": "tsdb-mysql",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "chart": "mysql-1.0.0",
+                    "heritage": "Helm",
+                    "release": "tsdb"
+                },
+                "name": "tsdb-mysql-leader",
+                "namespace": "train-ticket",
+                "resourceVersion": "182570592",
+                "uid": "4d498660-4ffc-4039-b738-0a94dfaceb4b"
+            },
+            "spec": {
+                "clusterIP": "10.96.2.161",
+                "clusterIPs": [
+                    "10.96.2.161"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": "mysql"
+                    }
+                ],
+                "selector": {
+                    "app": "tsdb-mysql",
+                    "release": "tsdb",
+                    "role": "leader"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"jaeger\",\"app.kubernetes.io/component\":\"zipkin\",\"app.kubernetes.io/name\":\"jaeger\"},\"name\":\"zipkin\",\"namespace\":\"train-ticket\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"jaeger-collector-zipkin\",\"port\":9411,\"protocol\":\"TCP\",\"targetPort\":9411}],\"selector\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/name\":\"jaeger\"}}}\n"
+                },
+                "creationTimestamp": "2026-01-07T06:50:26Z",
+                "labels": {
+                    "app": "jaeger",
+                    "app.kubernetes.io/component": "zipkin",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "name": "zipkin",
+                "namespace": "train-ticket",
+                "resourceVersion": "155325843",
+                "uid": "d6e1576e-3578-4172-b3f2-cb9e1baaf794"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "jaeger-collector-zipkin",
+                        "port": 9411,
+                        "protocol": "TCP",
+                        "targetPort": 9411
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "all-in-one",
+                    "app.kubernetes.io/name": "jaeger"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

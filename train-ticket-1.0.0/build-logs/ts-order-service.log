@@ -1,0 +1,414 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 351B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:8-jre
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1
+#4 resolve docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1 done
+#4 DONE 0.0s
+
+#5 [2/3] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 80.93MB 0.5s done
+#6 DONE 0.5s
+
+#7 [3/3] ADD ./target/ts-order-service-1.0.jar /app/
+#7 DONE 0.1s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 1.4s done
+#8 exporting manifest sha256:58d570d78f4b0b09c9481ead84b420af240494a7529d4a02f07a0dae339041fb
+#8 exporting manifest sha256:58d570d78f4b0b09c9481ead84b420af240494a7529d4a02f07a0dae339041fb done
+#8 exporting config sha256:12d73ace0461534557ce2a0d2754c27ae6ac397a8276ee71dec68a3ae5a20da1 done
+#8 exporting attestation manifest sha256:4813f10f5ac90320281190f8c83ac2d9cca00f154041005cc737ddbd6403c1ed done
+#8 exporting manifest list sha256:1fd1aea7609fa8c5b687df88cf59035e69710abe1beaa6786ed8722dd460bad6 done
+#8 naming to 1.94.151.57:85/train-ticket/ts-order-service:1.0.0 done
+#8 DONE 1.5s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-order-service]
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+1c427aee074b: Waiting
+f3d288d8c720: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+fd51d394b192: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+01d7766a2e4a: Waiting
+7fa5470f8d14: Waiting
+80ffb99b1b2d: Waiting
+a583c88cc96f: Waiting
+63efd5d9eb50: Waiting
+a583c88cc96f: Mounted from train-ticket/ts-gateway-service
+63efd5d9eb50: Mounted from train-ticket/ts-gateway-service
+fd51d394b192: Mounted from train-ticket/ts-gateway-service
+1c427aee074b: Pushed
+01d7766a2e4a: Mounted from train-ticket/ts-gateway-service
+7fa5470f8d14: Mounted from train-ticket/ts-gateway-service
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+80ffb99b1b2d: Waiting
+failed to do request: Head "https://1.94.151.57:85/v2/train-ticket/ts-order-service/blobs/sha256:12d73ace0461534557ce2a0d2754c27ae6ac397a8276ee71dec68a3ae5a20da1": proxyconnect tcp: dial tcp 192.168.65.1:3128: i/o timeout

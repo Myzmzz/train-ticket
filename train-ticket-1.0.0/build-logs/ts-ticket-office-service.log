@@ -1,0 +1,241 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 363B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:latest
+#2 DONE 2.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/9] FROM docker.io/library/node:latest@sha256:2e45682ea560ac050cca0fd1ff5e82457a717a98e95e30bbf93306833a31332c
+#4 resolve docker.io/library/node:latest@sha256:2e45682ea560ac050cca0fd1ff5e82457a717a98e95e30bbf93306833a31332c done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 119.97kB 0.1s done
+#5 DONE 0.1s
+
+#6 [3/9] RUN mkdir -p /app
+#6 CACHED
+
+#7 [6/9] ADD ./package.json /app/
+#7 CACHED
+
+#8 [5/9] ADD ./node_modules /app/node_modules
+#8 CACHED
+
+#9 [8/9] ADD ./bin /app/bin
+#9 CACHED
+
+#10 [2/9] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#10 CACHED
+
+#11 [4/9] WORKDIR /app
+#11 CACHED
+
+#12 [7/9] ADD ./public /app/public
+#12 CACHED
+
+#13 [9/9] ADD ./app.js /app/
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:046f0ffa087fe87ceea802484931e9e811e9e299362d792143763cbc07c19af0 done
+#14 exporting config sha256:44a4b17524dc7d31e741fd986cf393fb37fd4c197c37e4690ae40ee8472ae04c done
+#14 exporting attestation manifest sha256:9167d12a9c4fe6ca85155da74903a5c4aeacf455abdb4be104fa49b948c5db5f 0.0s done
+#14 exporting manifest list sha256:2d7dbfde3a86e46db819fb7acf122fc517dcce9493d5c98d84dff5e0a16300cb done
+#14 naming to 1.94.151.57:85/train-ticket/ts-ticket-office-service:1.0.0 done
+#14 DONE 0.0s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-ticket-office-service]
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Waiting
+8268791ebaf6: Waiting
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Waiting
+4f4fb700ef54: Waiting
+fa27031269f0: Waiting
+c032818082ff: Waiting
+401ede7f4104: Waiting
+3812164413cb: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Waiting
+9f5e52a51176: Waiting
+6a7e0620566c: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+8eefb94812dc: Layer already exists
+9f5e52a51176: Layer already exists
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+2b172aa0e1d0: Layer already exists
+8268791ebaf6: Layer already exists
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+87d7324ba694: Layer already exists
+4f4fb700ef54: Layer already exists
+fa27031269f0: Layer already exists
+c032818082ff: Layer already exists
+401ede7f4104: Waiting
+3812164413cb: Layer already exists
+5623e3ca1a5c: Waiting
+5691215b7419: Waiting
+401ede7f4104: Waiting
+e825a077e9d3: Waiting
+ae6ddecfa33a: Waiting
+6a7e0620566c: Waiting
+aab3b37e4807: Waiting
+7d9b1711a8b6: Waiting
+ae6ddecfa33a: Layer already exists
+6a7e0620566c: Layer already exists
+aab3b37e4807: Layer already exists
+7d9b1711a8b6: Layer already exists
+5623e3ca1a5c: Layer already exists
+5691215b7419: Layer already exists
+401ede7f4104: Layer already exists
+e825a077e9d3: Pushed
+1.0.0: digest: sha256:2d7dbfde3a86e46db819fb7acf122fc517dcce9493d5c98d84dff5e0a16300cb size: 856

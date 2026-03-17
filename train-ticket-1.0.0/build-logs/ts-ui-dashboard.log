@@ -1,0 +1,174 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 266B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/openresty/openresty:trusty
+#2 DONE 2.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/4] FROM docker.io/openresty/openresty:trusty@sha256:d2f008d4219fc0567f971633d9e6687867249dd137408edbc243b95f5a1c1f9f
+#4 resolve docker.io/openresty/openresty:trusty@sha256:d2f008d4219fc0567f971633d9e6687867249dd137408edbc243b95f5a1c1f9f 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 7.05kB done
+#5 DONE 0.0s
+
+#6 [3/4] COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+#6 CACHED
+
+#7 [2/4] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#7 CACHED
+
+#8 [4/4] COPY static /usr/share/nginx/html
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers done
+#9 exporting manifest sha256:f82f4da3947b38aea09d3eff738b6640878924076ec6c75058016b38ca31a441 done
+#9 exporting config sha256:5c81ba0139335880b3d5df9946d0d87705658e1d8e0f9fa6088384dea9ca1444 done
+#9 exporting attestation manifest sha256:919a28c371d44e934f762bf4f90ae84d9ad5ffbcc6648e88fe8d2ffdd5eea441 done
+#9 exporting manifest list sha256:fafe2aaf27274799bd40eb37f7a929cb5cab4d3009b234aec9601032ad236941 done
+#9 naming to 1.94.151.57:85/train-ticket/ts-ui-dashboard:1.0.0 done
+#9 DONE 0.0s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-ui-dashboard]
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Waiting
+b6cbeb6b8132: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Waiting
+f03114bcfb25: Waiting
+5264ac1dffa6: Waiting
+23049cb920ab: Waiting
+6ace04d7a4a2: Waiting
+9171624d8bf5: Waiting
+b7b5ebbebb43: Waiting
+c2c80a08aa8c: Waiting
+02837dedcf6d: Layer already exists
+f03114bcfb25: Layer already exists
+5264ac1dffa6: Layer already exists
+23049cb920ab: Layer already exists
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+99df43987812: Waiting
+9c646cd4d155: Layer already exists
+b6cbeb6b8132: Layer already exists
+32a36d1a21b6: Waiting
+99df43987812: Layer already exists
+9171624d8bf5: Layer already exists
+b7b5ebbebb43: Layer already exists
+c2c80a08aa8c: Waiting
+6ace04d7a4a2: Waiting
+6ace04d7a4a2: Waiting
+32a36d1a21b6: Waiting
+c2c80a08aa8c: Waiting
+6ace04d7a4a2: Layer already exists
+32a36d1a21b6: Waiting
+c2c80a08aa8c: Layer already exists
+32a36d1a21b6: Waiting
+32a36d1a21b6: Pushed
+1.0.0: digest: sha256:fafe2aaf27274799bd40eb37f7a929cb5cab4d3009b234aec9601032ad236941 size: 856

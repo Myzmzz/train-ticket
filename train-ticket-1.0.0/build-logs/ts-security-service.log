@@ -1,0 +1,135 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 298B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:8-jre
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1
+#4 resolve docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1 0.0s done
+#4 DONE 0.0s
+
+#5 [2/3] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 80.92MB 0.5s done
+#6 DONE 0.5s
+
+#7 [3/3] ADD ./target/ts-security-service-1.0.jar /app/
+#7 DONE 0.1s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 1.2s done
+#8 exporting manifest sha256:ca1167f355655fe6552873b6f6efea55314891e089fb1dfe369ff28adc6a6c3f done
+#8 exporting config sha256:4cad1e5380a2ae0c9df92e703c4ab9c8af922760da69dd4580b1ddffd5bbc9a3 done
+#8 exporting attestation manifest sha256:b7f6bf3351623df8387ff87e43f13b26bb89e02870ade0521cac85ed115312b6 done
+#8 exporting manifest list sha256:27fbb311f8ab8adfe62ab73269a2c5dfb9f337c753de11d846199f3795735d4b done
+#8 naming to 1.94.151.57:85/train-ticket/ts-security-service:1.0.0 done
+#8 DONE 1.2s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-security-service]
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+fd51d394b192: Waiting
+382ccbc8053d: Waiting
+f8895d0f67d5: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+f8895d0f67d5: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Waiting
+80ffb99b1b2d: Waiting
+fd51d394b192: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+63efd5d9eb50: Waiting
+7fa5470f8d14: Waiting
+a583c88cc96f: Mounted from train-ticket/ts-route-plan-service
+80ffb99b1b2d: Mounted from train-ticket/ts-route-plan-service
+fd51d394b192: Waiting
+382ccbc8053d: Pushed
+fd51d394b192: Mounted from train-ticket/ts-route-plan-service
+01d7766a2e4a: Mounted from train-ticket/ts-route-plan-service
+63efd5d9eb50: Mounted from train-ticket/ts-route-plan-service
+7fa5470f8d14: Mounted from train-ticket/ts-route-plan-service
+f8895d0f67d5: Pushed
+1.0.0: digest: sha256:27fbb311f8ab8adfe62ab73269a2c5dfb9f337c753de11d846199f3795735d4b size: 856

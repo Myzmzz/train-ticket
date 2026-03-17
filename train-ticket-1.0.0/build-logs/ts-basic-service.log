@@ -1,0 +1,114 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 292B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:8-jre
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1
+#4 resolve docker.io/library/eclipse-temurin:8-jre@sha256:3b307643e9a7bb12b03154c434211ec485446bea7d119559365c06f31e8bbfa1 0.0s done
+#4 DONE 0.0s
+
+#5 [2/3] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 62.50MB 0.4s done
+#6 DONE 0.4s
+
+#7 [3/3] ADD ./target/ts-basic-service-1.0.jar /app/
+#7 DONE 0.1s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 1.0s done
+#8 exporting manifest sha256:a8cdca055230e4d12f4f328b287c40d5b99ed368e21e2e039eab023fd745ff26
+#8 exporting manifest sha256:a8cdca055230e4d12f4f328b287c40d5b99ed368e21e2e039eab023fd745ff26 0.0s done
+#8 exporting config sha256:537ebd8133fe23b4d92d51763d3611d1b736c152d16f92fe0e8411d475163ae8 done
+#8 exporting attestation manifest sha256:dda8c54c61528f5a168d0ba9209e5350d9b7aabc42853155f2d8f1be7b1817d2 done
+#8 exporting manifest list sha256:48927628acc2c69456b06c905fb0e98b748fb1fcab32ad38f97fcf37b1d45c05 done
+#8 naming to 1.94.151.57:85/train-ticket/ts-basic-service:1.0.0 done
+#8 DONE 1.0s
+The push refers to repository [1.94.151.57:85/train-ticket/ts-basic-service]
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+a80f81d994e3: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+a80f81d994e3: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+a80f81d994e3: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+a80f81d994e3: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a80f81d994e3: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+a80f81d994e3: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+a80f81d994e3: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+19f610da83b5: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+80ffb99b1b2d: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+7fa5470f8d14: Waiting
+63efd5d9eb50: Waiting
+01d7766a2e4a: Waiting
+a583c88cc96f: Waiting
+fd51d394b192: Waiting
+80ffb99b1b2d: Waiting
+unknown: unexpected status from POST request to http://1.94.151.57:85/v2/train-ticket/ts-basic-service/blobs/uploads/?mount=sha256:63efd5d9eb50b18bd1f4fd9c5dd4778d1904a525e9d0a2ee1fa6099aa9a41f67&from=train-ticket/ts-admin-travel-service: 502 Bad Gateway

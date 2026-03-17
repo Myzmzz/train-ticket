@@ -1,0 +1,21 @@
+# HTTP Server
+server:
+  port: 14322  # HTTP (Tomcat) port
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
+  application:
+    name: ts-travel-plan-service
+
+
+swagger:
+  controllerPackage: travelplan.controller
+
+# [RESILIENCE-CONFIG] Added for fault tolerance testing - timeout only
+# Longer read-timeout (8000ms) because this is a higher-level aggregator service
+rest:
+  connection-timeout: 3000
+  read-timeout: 8000
