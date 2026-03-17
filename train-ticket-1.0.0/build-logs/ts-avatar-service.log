@@ -1,0 +1,63 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 417B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3
+#2 DONE 1.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/9] FROM docker.io/library/python:3@sha256:7aea6827c8787754f99339ffed8cfc41fb09421f9c7d0e77a198b08422a3455e
+#4 resolve docker.io/library/python:3@sha256:7aea6827c8787754f99339ffed8cfc41fb09421f9c7d0e77a198b08422a3455e done
+#4 DONE 0.0s
+
+#5 [2/9] RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+#5 CACHED
+
+#6 [3/9] RUN apt update -y
+#6 CACHED
+
+#7 [4/9] RUN apt install -y cmake
+#7 CACHED
+
+#8 [internal] load build context
+#8 transferring context: 355B done
+#8 DONE 0.0s
+
+#9 [5/9] RUN apt install -y libgl1-mesa-glx
+#9 0.152 
+#9 0.152 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+#9 0.152 
+#9 0.181 Reading package lists...
+#9 0.637 Building dependency tree...
+#9 0.767 Reading state information...
+#9 0.783 Package libgl1-mesa-glx is not available, but is referred to by another package.
+#9 0.783 This may mean that the package is missing, has been obsoleted, or
+#9 0.783 is only available from another source
+#9 0.783 
+#9 0.786 Error: Package 'libgl1-mesa-glx' has no installation candidate
+#9 ERROR: process "/bin/sh -c apt install -y libgl1-mesa-glx" did not complete successfully: exit code: 100
+------
+ > [5/9] RUN apt install -y libgl1-mesa-glx:
+0.152 
+
+
+0.783 Package libgl1-mesa-glx is not available, but is referred to by another package.
+0.783 This may mean that the package is missing, has been obsoleted, or
+0.783 is only available from another source
+0.783 
+0.786 Error: Package 'libgl1-mesa-glx' has no installation candidate
+------
+Dockerfile:7
+--------------------
+   5 |     RUN apt update -y
+   6 |     RUN apt install -y cmake
+   7 | >>> RUN apt install -y libgl1-mesa-glx
+   8 |     
+   9 |     ENV PYTHONUNBUFFERED=TRUE
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apt install -y libgl1-mesa-glx" did not complete successfully: exit code: 100

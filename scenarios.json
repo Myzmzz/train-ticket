@@ -1,0 +1,683 @@
+[
+  {
+    "scenario_id": "SCN-001",
+    "title": "基于不可预测超时传播的级联故障场景",
+    "target_service": "ts-order-other-service",
+    "injection_plan": {
+      "fault_type": "network-delay",
+      "parameters": {
+        "delay": "8s",
+        "jitter": "2s",
+        "target_port": 80,
+        "protocol": "tcp"
+      },
+      "trigger_condition": "退票流程高负载期间",
+      "duration": "180s",
+      "rationale": "选择网络延迟而非pod-kill是因为ORD-FM5模式的核心是'超时在链上逐级放大'。延迟注入能够精确触发超时传播机制，而且8s延迟超过了大多数服务的默认超时阈值，能够激活整个传播链的超时级联效应。这比直接杀死pod更能体现深调用链中超时配置不一致的风险。"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-order-other-service响应时间从正常的100ms激增至8-10秒，触发ORD-FM5模式",
+        "mechanism": "网络延迟直接影响服务响应时间，激活了'不可预测的超时传播'故障模式",
+        "affected_service": "ts-order-other-service",
+        "evidence": "ORD-FM5: 深调用链(路径'购票流程（其他）'深度=7), 链上超时配置不一致, 放大系数=7"
+      },
+      {
+        "step": 2,
+        "description": "ts-cancel-service调用ts-order-other-service时发生超时，由于无超时保护配置，默认超时被触发，调用阻塞",
+        "mechanism": "调用边ts-cancel-service→ts-order-other-service无任何容错保护，超时开始向上游传播",
+        "affected_service": "ts-cancel-service",
+        "evidence": "调用边容错配置: retry=false, circuit_breaker=false, timeout=false, 保护级别=none, beta=10"
+      },
+      {
+        "step": 3,
+        "description": "ts-cancel-service因下游阻塞而自身响应变慢，触发CAN-FM3模式，超时逐级放大效应开始显现",
+        "mechanism": "ts-cancel-service作为退票流程链上的中间节点，超时从下游传播至此并被放大",
+        "affected_service": "ts-cancel-service",
+        "evidence": "CAN-FM3: 深调用链(路径'退票流程'深度=5), 链上超时配置不一致, 放大系数=5"
+      },
+      {
+        "step": 4,
+        "description": "ts-cancel-service调用ts-order-service时超时传播继续，ts-order-service开始出现响应延迟",
+        "mechanism": "调用边ts-cancel-service→ts-order-service同样无容错保护，超时继续沿链传播",
+        "affected_service": "ts-order-service",
+        "evidence": "调用边容错配置: retry=false, circuit_breaker=false, timeout=false, 保护级别=none, beta=10"
+      },
+      {
+        "step": 5,
+        "description": "ts-seat-service调用ts-order-service时遭遇超时，由于ts-seat-service具有高扇入度(6个上游)，开始触发SEA-FM5汇聚放大效应",
+        "mechanism": "ts-seat-service的多个上游服务同时遭遇下游响应慢，汇聚点流量激增",
+        "affected_service": "ts-seat-service",
+        "evidence": "SEA-FM5: 高扇入度(in_degree=6), 有风险入边4条, 汇聚放大系数=47.7"
+      },
+      {
+        "step": 6,
+        "description": "由于所有涉及服务都部署在同一节点tcse-v100-03上，阻塞的请求开始消耗节点资源，加剧了资源争抢",
+        "mechanism": "物理层耦合放大了逻辑层故障，16个共置服务开始相互影响",
+        "affected_service": "tcse-v100-03节点上的所有服务",
+        "evidence": "共置服务数量=16, QoS=Burstable允许资源争抢, 无反亲和性配置"
+      },
+      {
+        "step": 7,
+        "description": "级联故障完全展开：退票流程不可用，购票流程（其他）严重受损，多条业务路径同时故障",
+        "mechanism": "累积放大效应=70000，多维度耦合导致局部延迟演变为系统性故障",
+        "affected_service": "整个服务网格",
+        "evidence": "传播链累积放大系数=70000, 影响4个核心服务, 7条业务路径受损"
+      }
+    ],
+    "affected_business_paths": [
+      "退票流程",
+      "购票流程（其他）",
+      "改签流程",
+      "支付流程",
+      "行程查询（其他）",
+      "执行/检票流程",
+      "管理后台-订单管理"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "这个场景揭示了微服务架构中的三重耦合陷阱：1)调用链维度-深度调用链缺乏超时配置导致故障逐级放大；2)拓扑维度-高扇入度服务成为汇聚放大点；3)物理维度-密集共置放大了逻辑故障的影响半径。单一8秒网络延迟通过这种三维耦合效应被放大70000倍，证明了在缺乏适当隔离机制的情况下，看似轻微的性能问题如何演变为系统性灾难。"
+  },
+  {
+    "scenario_id": "SCN-002",
+    "title": "多路径峰值叠加引发的级联故障",
+    "target_service": "ts-order-other-service",
+    "injection_plan": {
+      "fault_type": "cpu-stress",
+      "parameters": {
+        "cpu_percent": 95,
+        "workers": 4,
+        "target_pods": "all"
+      },
+      "trigger_condition": "购票流程（其他）、改签流程、退票流程等多条业务路径同时高负载期间",
+      "duration": "120s",
+      "rationale": "选择CPU压力而非Pod Kill是因为：1）能触发ORD-FM6多路径峰值叠加模式，模拟真实的多业务并发场景；2）CPU饱和会导致响应变慢，触发上游重试风暴；3）持续时间足够长以观察完整的级联传播过程"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-order-other-service因CPU饱和导致响应时间急剧上升，从正常50ms增加到5-10秒",
+        "mechanism": "基于ORD-FM6多路径峰值叠加：CPU压力模拟7条业务路径（购票流程（其他）、改签流程、退票流程、支付流程、行程查询（其他）、执行/检票流程、管理后台-订单管理）的并发高负载",
+        "affected_service": "ts-order-other-service",
+        "evidence": "路径交叉度=7，同节点共置业务服务包括ts-cancel-service等，CPU limit=1500m但request仅100m，QoS=Burstable易受资源争抢影响"
+      },
+      {
+        "step": 2,
+        "description": "ts-cancel-service因调用ts-order-other-service超时（无超时配置导致长时间阻塞）且受同节点资源争抢影响，自身也开始响应变慢",
+        "mechanism": "基于CAN-FM4双通道耦合：调用链阻塞+物理层传播双重影响。ts-cancel-service→ts-order-other-service无超时保护，同时两服务共置在tcse-v100-03节点",
+        "affected_service": "ts-cancel-service",
+        "evidence": "出边ts-cancel-service→ts-order-other-service无超时配置，同节点共置，amplification_factor=2"
+      },
+      {
+        "step": 3,
+        "description": "ts-order-service因ts-cancel-service调用变慢触发汇聚放大效应，8个上游服务（包括ts-rebook-service等）同时重试，流量激增68.6倍",
+        "mechanism": "基于ORD-FM4汇聚放大：ts-order-service的高扇入度(in_degree=8)和有缺陷的重试配置导致多个上游同时重试",
+        "affected_service": "ts-order-service",
+        "evidence": "in_degree=8，有风险入边7条(flawed_retry=2包括ts-rebook-service和ts-preserve-service，none=5)，amplification_factor=68.6"
+      },
+      {
+        "step": 4,
+        "description": "ts-seat-service因ts-order-service完全不可用且无法恢复，重试流量持续涌入，自身也进入不可用状态",
+        "mechanism": "基于传播路径step 3机制：服务完全不可用且无法恢复，重试流量持续涌入。ts-seat-service作为ts-order-service的上游调用方受到直接冲击",
+        "affected_service": "ts-seat-service",
+        "evidence": "ts-seat-service→ts-order-service调用链，无容错保护，单副本配置使其容易受到下游故障影响"
+      }
+    ],
+    "affected_business_paths": [
+      "购票流程（其他）",
+      "改签流程",
+      "退票流程",
+      "支付流程",
+      "行程查询（其他）",
+      "执行/检票流程",
+      "管理后台-订单管理",
+      "购票流程",
+      "行程查询",
+      "路线规划"
+    ],
+    "severity": "严重",
+    "risk_score": 92,
+    "key_insight": "该场景揭示了拓扑-资源-容错三维耦合问题：多条业务路径在同一节点的资源争抢（拓扑-资源耦合），无超时保护导致故障在调用链中无限传播（容错缺陷），以及高扇入度服务的汇聚放大效应（拓扑-容错耦合）。累积放大系数达70000，表明系统存在严重的韧性设计缺陷。"
+  },
+  {
+    "scenario_id": "SCN-003",
+    "title": "ts-order-service重试风暴引发的跨节点级联故障",
+    "target_service": "ts-order-service",
+    "injection_plan": {
+      "fault_type": "pod-kill",
+      "parameters": {
+        "signal": "SIGKILL",
+        "grace_period": "0s"
+      },
+      "trigger_condition": "高负载期间",
+      "duration": "持续性故障（直到手动干预）",
+      "rationale": "选择pod-kill是因为ts-order-service具有'重试风暴阻止恢复'故障模式(ORD-FM2)：单副本+无liveness探针+多条重试边，pod被kill后无法自动恢复，重试流量持续涌入形成自我恶化循环"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-order-service Pod被强制终止，由于无liveness探针，K8s不会自动重启，服务进入完全不可用状态",
+        "mechanism": "基于故障模式ORD-FM2：单副本(replicas=1)+无liveness探针+重试边ts-rebook-service和ts-preserve-service",
+        "affected_service": "ts-order-service",
+        "evidence": "K8s配置：replicas=1, liveness_probe=false，重试边amplification_factor=10"
+      },
+      {
+        "step": 2,
+        "description": "ts-cancel-service调用ts-order-service失败，由于无容错保护，直接向上游传播失败",
+        "mechanism": "基于传播链步骤1：调用边ts-cancel-service→ts-order-service无任何容错保护(protection_level=none, beta=10)",
+        "affected_service": "ts-cancel-service",
+        "evidence": "调用边配置：retry=false, circuit_breaker=false, timeout=false，来源ts-cancel-service/CancelServiceImpl.java:335"
+      },
+      {
+        "step": 3,
+        "description": "ts-cancel-service进一步调用ts-order-other-service，由于同样无容错保护，故障继续传播",
+        "mechanism": "基于传播链步骤2：调用边ts-cancel-service→ts-order-other-service无容错保护(protection_level=none, beta=10)",
+        "affected_service": "ts-order-other-service",
+        "evidence": "调用边配置：所有容错机制均为false，来源ts-cancel-service/CancelServiceImpl.java:349"
+      },
+      {
+        "step": 4,
+        "description": "ts-order-other-service受到冲击后，其高扇入度(in_degree=8)特征被激活，8个上游服务同时重试，形成汇聚放大效应",
+        "mechanism": "基于故障模式ORD-FM4：高扇入度+多条有风险入边，amplification_factor=75.0",
+        "affected_service": "ts-order-other-service及其8个上游",
+        "evidence": "拓扑配置：in_degree=8, 有风险入边8条(flawed_retry=1, none=7)"
+      },
+      {
+        "step": 5,
+        "description": "ts-inside-payment-service通过调用ts-order-other-service受到影响，超时在支付流程链上逐级放大",
+        "mechanism": "基于传播链步骤3和故障模式INS-FM3：深调用链+超时配置不一致，amplification_factor=8",
+        "affected_service": "ts-inside-payment-service",
+        "evidence": "拓扑风险：深调用链(路径'支付流程'深度=8)，链上超时配置不一致"
+      },
+      {
+        "step": 6,
+        "description": "由于ts-order-service、ts-order-other-service、ts-cancel-service都部署在同一节点tcse-v100-03上，节点资源争抢加剧故障影响",
+        "mechanism": "基于资源配置：三个核心服务共置在同一节点，QoS均为Burstable，资源竞争激化",
+        "affected_service": "tcse-v100-03节点上所有服务",
+        "evidence": "资源配置：node=tcse-v100-03, qos_class=Burstable，共置15个服务包括核心业务服务"
+      }
+    ],
+    "affected_business_paths": [
+      "购票流程",
+      "退票流程",
+      "改签流程",
+      "支付流程",
+      "购票流程（其他）",
+      "行程查询",
+      "执行/检票流程",
+      "管理后台-订单管理"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "这个场景揭示了配置-容错-拓扑-资源四个维度的深度耦合问题：单副本配置缺陷与重试机制设计不当相结合，在高扇入拓扑结构中被放大，最终通过物理节点共置形成跨层级的系统性风险，展现了微服务系统中看似独立的设计决策如何相互作用产生意外的级联效应"
+  },
+  {
+    "scenario_id": "SCN-004",
+    "title": "ts-order-other-service重试风暴引发连锁崩溃",
+    "target_service": "ts-order-other-service",
+    "injection_plan": {
+      "fault_type": "pod-kill",
+      "parameters": {
+        "kill_signal": "SIGKILL",
+        "force": true
+      },
+      "trigger_condition": "退票流程高负载期间",
+      "duration": "持续注入，每10秒kill一次Pod",
+      "rationale": "ts-order-other-service具有ORD-FM2故障模式（重试风暴阻止恢复），单副本+无存活探针+上游重试无熔断的组合，pod-kill可完美复现容器崩溃后的重试风暴自我恶化循环"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-order-other-service Pod被kill后，由于无存活探针，K8s无法及时检测到进程异常，服务处于假死状态",
+        "mechanism": "基于ORD-FM2故障模式：单副本(replicas=1)+无存活探针(livenessProbe=false)+重试无熔断",
+        "affected_service": "ts-order-other-service",
+        "evidence": "replicas=1, liveness_probe=false, 入边ts-rebook-service重试配置retry=5/backoff=none/no CB"
+      },
+      {
+        "step": 2,
+        "description": "ts-cancel-service调用ts-order-other-service失败，由于无超时和熔断保护，开始持续重试，重试流量放大10倍",
+        "mechanism": "基于边保护配置：ts-cancel-service→ts-order-other-service无任何容错保护(beta=10)",
+        "affected_service": "ts-cancel-service",
+        "evidence": "调用边protection_level=none, beta=10, 无retry/circuit_breaker/timeout/bulkhead/fallback"
+      },
+      {
+        "step": 3,
+        "description": "ts-cancel-service被阻塞在对ts-order-other-service的调用上，自身开始响应变慢，同时由于同节点部署，开始争抢CPU/内存资源",
+        "mechanism": "基于CAN-FM4双通道耦合故障模式：调用链阻塞+同节点资源争抢双重影响",
+        "affected_service": "ts-cancel-service",
+        "evidence": "两服务同节点tcse-v100-03共置，QoS=Burstable，CPU limit=1500m但request只有100m"
+      },
+      {
+        "step": 4,
+        "description": "ts-order-service收到来自ts-cancel-service的慢请求/错误，由于无容错保护开始重试，同时ts-seat-service也向ts-order-service发送重试请求",
+        "mechanism": "基于ORD-FM4汇聚放大故障模式：多个上游(8个)同时重试，流量放大68.6倍",
+        "affected_service": "ts-order-service",
+        "evidence": "in_degree=8, 有风险入边7条(flawed_retry=2, none=5), amplification_factor=68.6"
+      },
+      {
+        "step": 5,
+        "description": "ts-seat-service在调用ts-order-service失败后，由于高扇入度(6个上游)，触发汇聚放大效应，多个上游同时重试造成流量激增47.7倍",
+        "mechanism": "基于SEA-FM5汇聚放大故障模式：高扇入度+多重试路径叠加",
+        "affected_service": "ts-seat-service",
+        "evidence": "in_degree=6, 有风险入边4条(flawed_retry=1, none=3), amplification_factor=47.7"
+      },
+      {
+        "step": 6,
+        "description": "整个节点tcse-v100-03由于4个服务(ts-order-other-service/ts-cancel-service/ts-order-service/ts-seat-service)同时高负载，CPU/内存资源耗尽，引发节点级故障",
+        "mechanism": "基于多路径峰值叠加故障模式：多个业务路径流量在同节点叠加造成资源饱和",
+        "affected_service": "节点tcse-v100-03上所有16个服务",
+        "evidence": "4个核心服务同节点共置，累计amplification_factor达50000，所有服务QoS=Burstable面临驱逐风险"
+      }
+    ],
+    "affected_business_paths": [
+      "退票流程",
+      "购票流程",
+      "购票流程（其他）",
+      "改签流程",
+      "行程查询",
+      "行程查询（其他）",
+      "路线规划"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "这个场景揭示了配置脆弱性、容错缺失、拓扑放大和资源共置四个维度的深度耦合问题：单点故障通过重试风暴自我恶化，然后经由无保护的调用链快速传播，在高扇入节点形成流量放大，最终导致物理资源层面的节点级崩溃，体现了微服务系统中'故障放大-传播-聚合-溢出'的完整链条"
+  },
+  {
+    "scenario_id": "SCN-005",
+    "title": "ts-user-service超时传播引发退票流程全链路故障",
+    "target_service": "ts-user-service",
+    "injection_plan": {
+      "fault_type": "network-delay",
+      "parameters": {
+        "delay": "3000ms",
+        "variance": "500ms",
+        "correlation": "25%"
+      },
+      "trigger_condition": "退票业务高峰期",
+      "duration": "300s",
+      "rationale": "选择网络延迟而非直接pod-kill是因为USE-FM3故障模式特征是'不可预测的超时传播'，需要模拟链末端服务响应变慢的真实场景。持续300秒能充分观察超时在深调用链上的逐级放大效应和累积放大系数达到50000的过程"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-user-service响应时间从正常100ms增加到3-3.5秒，触发USE-FM3不可预测的超时传播模式",
+        "mechanism": "基于USE-FM3故障模式：深调用链(路径'退票流程'深度=5) + 链上超时配置不一致",
+        "affected_service": "ts-user-service",
+        "evidence": "single replica=1, no livenessProbe=false, 深调用链路径'退票流程'深度=5"
+      },
+      {
+        "step": 2,
+        "description": "ts-cancel-service调用ts-user-service超时，由于无任何容错保护(timeout/retry/CB全部absent)，请求直接失败并向上游传播",
+        "mechanism": "基于调用边ts-cancel-service→ts-user-service无保护(protection_level=none, beta=10)和CAN-FM3超时传播模式",
+        "affected_service": "ts-cancel-service",
+        "evidence": "调用边无timeout/retry/circuit_breaker保护，CAN-FM3放大系数=5"
+      },
+      {
+        "step": 3,
+        "description": "ts-cancel-service向ts-order-service传播故障，ts-order-service触发ORD-FM2重试风暴阻止恢复模式，8个上游服务开始疯狂重试",
+        "mechanism": "基于ORD-FM2重试风暴模式：单副本+入边retry=5/backoff=none/no CB，高扇入度in_degree=8放大重试流量",
+        "affected_service": "ts-order-service",
+        "evidence": "single replica=1, 入边ts-rebook-service/ts-preserve-service retry=5无退避，in_degree=8，ORD-FM2放大系数=10"
+      },
+      {
+        "step": 4,
+        "description": "ts-order-service完全不可用且无法恢复，向ts-seat-service传播故障，ts-seat-service因SEA-FM2重试风暴同样无法恢复，6个上游同时受影响",
+        "mechanism": "基于SEA-FM2重试风暴模式和SEA-FM5汇聚放大：单副本+重试流量+高扇入度in_degree=6",
+        "affected_service": "ts-seat-service",
+        "evidence": "single replica=1, 入边ts-preserve-service retry=3/backoff=fixed 500ms/no CB，in_degree=6，SEA-FM5放大系数=47.7"
+      },
+      {
+        "step": 5,
+        "description": "整个退票流程完全瘫痪，同时由于所有服务都在同一节点tcse-v100-03上，触发节点级资源饱和，影响同节点的15个其他服务",
+        "mechanism": "基于多路径峰值叠加模式和同节点共置风险：ts-cancel-service, ts-order-service, ts-seat-service都在tcse-v100-03节点",
+        "affected_service": "整个节点tcse-v100-03",
+        "evidence": "同节点共置15个服务，QoS=Burstable易被驱逐，cumulative_amplification=50000"
+      }
+    ],
+    "affected_business_paths": [
+      "退票流程",
+      "购票流程",
+      "改签流程",
+      "支付流程",
+      "行程查询"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "这个场景揭示了超时传播在深调用链中与重试风暴、节点共置的三重耦合问题：1)超时配置不一致导致故障在链上不可预测传播，2)单副本+无容错保护使重试风暴阻止服务恢复，3)关键服务全部共置在同一节点放大了故障影响范围，最终一个3秒的网络延迟演变成整个节点的服务群体性故障"
+  },
+  {
+    "scenario_id": "SCN-006",
+    "title": "车站服务单点僵死引发重试风暴自循环",
+    "target_service": "ts-station-service",
+    "injection_plan": {
+      "fault_type": "memory-stress",
+      "parameters": {
+        "workers": 2,
+        "memory_size": "1200Mi",
+        "duration": "120s"
+      },
+      "trigger_condition": "高负载期间",
+      "duration": "120s",
+      "rationale": "内存压力导致进程假死但Pod状态仍为Running，结合无存活探针配置，K8s无法检测并重启，形成僵死状态。选择内存压力而非CPU压力是因为内存泄漏更容易导致进程假死而非完全崩溃"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-station-service进程因内存压力陷入假死状态，不响应请求但Pod状态为Running",
+        "mechanism": "基于故障模式STA-FM1：僵死永久不可用",
+        "affected_service": "ts-station-service",
+        "evidence": "单副本(replicas=1) + 无存活探针(livenessProbe=false)，K8s无法检测进程假死"
+      },
+      {
+        "step": 2,
+        "description": "8个上游服务(包括ts-order-other-service)向ts-station-service发起调用全部超时",
+        "mechanism": "基于拓扑数据：高扇入度(in_degree=8)",
+        "affected_service": "ts-order-other-service等8个上游服务",
+        "evidence": "upstream_callers包含ts-order-other-service, ts-order-service, ts-preserve-service等8个服务"
+      },
+      {
+        "step": 3,
+        "description": "ts-order-other-service等上游服务开始重试，向已僵死的ts-station-service发送更多请求",
+        "mechanism": "传播链中的重试风暴机制",
+        "affected_service": "ts-order-other-service",
+        "evidence": "传播链显示caller_mode为'重试风暴阻止恢复'，放大系数50倍"
+      },
+      {
+        "step": 4,
+        "description": "重试请求堆积在ts-station-service的连接队列中，消耗更多内存资源",
+        "mechanism": "自循环加重：重试流量 → 资源压力加重 → 恢复更困难",
+        "affected_service": "ts-station-service",
+        "evidence": "累积放大系数50倍，重试流量使原本就内存压力的服务雪上加霜"
+      },
+      {
+        "step": 5,
+        "description": "同节点其他服务受到内存和连接数的间接影响，性能下降",
+        "mechanism": "基于资源共享风险",
+        "affected_service": "tcse-v100-03节点上的15个共置服务",
+        "evidence": "co_located_services包含ts-order-other-service等15个服务，Burstable QoS类别在节点资源紧张时相互影响"
+      },
+      {
+        "step": 6,
+        "description": "7条核心业务路径全部受阻，包括购票流程、改签流程等",
+        "mechanism": "基于业务路径依赖",
+        "affected_service": "涉及车站查询的所有业务服务",
+        "evidence": "business_paths包含'购票流程'、'购票流程（其他）'、'改签流程'等7条路径"
+      }
+    ],
+    "affected_business_paths": [
+      "购票流程",
+      "购票流程（其他）",
+      "改签流程",
+      "行程查询",
+      "行程查询（其他）",
+      "路线规划",
+      "管理后台-基础信息"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "此场景揭示了配置维度(单副本+无存活探针)与拓扑维度(高扇入+重试链路)的致命耦合：配置缺陷导致故障无法自愈，而拓扑特征使重试流量形成正反馈循环，阻止服务恢复，最终演变成永久性系统瘫痪"
+  },
+  {
+    "scenario_id": "SCN-007",
+    "title": "车站服务僵死引发的重试风暴自循环放大",
+    "target_service": "ts-station-service",
+    "injection_plan": {
+      "fault_type": "memory-stress",
+      "parameters": {
+        "workers": 2,
+        "percent": 90,
+        "timeout": "600s"
+      },
+      "trigger_condition": "高负载期间",
+      "duration": "600s",
+      "rationale": "通过内存压力模拟内存泄漏导致的进程假死状态，由于无存活探针，K8s不会重启容器，形成僵死状态。选择高负载期间注入，可最大化重试风暴效应"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-station-service进程因内存压力陷入假死状态，停止响应请求但Pod状态仍为Running",
+        "mechanism": "基于故障模式STA-FM1：僵死永久不可用",
+        "affected_service": "ts-station-service",
+        "evidence": "单副本(replicas=1) + 无存活探针(livenessProbe=false)，K8s无法检测到进程假死并重启"
+      },
+      {
+        "step": 2,
+        "description": "ts-order-service调用ts-station-service时遇到超时，开始重试机制",
+        "mechanism": "基于传播链描述：ts-order-service重试",
+        "affected_service": "ts-order-service",
+        "evidence": "ts-order-service在上游调用者列表中，无有效的熔断机制防止重试风暴"
+      },
+      {
+        "step": 3,
+        "description": "重试请求进一步加重ts-station-service负载，阻止其从假死状态恢复",
+        "mechanism": "基于传播链放大效应：重试风暴阻止恢复",
+        "affected_service": "ts-station-service",
+        "evidence": "累积放大因子=12.0，重试流量是原始流量的12倍"
+      },
+      {
+        "step": 4,
+        "description": "其他7个上游服务(ts-admin-basic-info-service等)也开始重试，进一步放大流量",
+        "mechanism": "基于故障模式STA-FM3：汇聚放大",
+        "affected_service": "多个上游服务",
+        "evidence": "高扇入度(in_degree=8) + 有风险入边7条，放大因子80.0"
+      },
+      {
+        "step": 5,
+        "description": "节点tcse-v100-03资源饱和，影响同节点的14个其他服务",
+        "mechanism": "基于故障模式STA-FM5：多路径峰值叠加",
+        "affected_service": "同节点14个服务",
+        "evidence": "QoS=Burstable + 同节点共置服务包括ts-order-service等关键服务"
+      },
+      {
+        "step": 6,
+        "description": "7条业务路径完全不可用，包括核心的购票和改签流程",
+        "mechanism": "基于故障模式STA-FM4：不可预测的超时传播",
+        "affected_service": "整个业务系统",
+        "evidence": "业务路径包括购票流程、改签流程等7条关键路径，调用链深度=7"
+      }
+    ],
+    "affected_business_paths": [
+      "购票流程",
+      "购票流程（其他）",
+      "改签流程",
+      "行程查询",
+      "行程查询（其他）",
+      "路线规划",
+      "管理后台-基础信息"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "这个场景揭示了配置维度(单副本+无探针)与拓扑维度(高扇入+深链路)的耦合风险：微小的配置缺陷在特定拓扑结构下会引发自强化的级联故障循环，传统的重试机制反而成为故障放大器，最终导致整个系统雪崩"
+  },
+  {
+    "scenario_id": "SCN-008",
+    "title": "自循环重试风暴场景：订单服务僵死引发座位服务重试死循环",
+    "target_service": "ts-order-other-service",
+    "injection_plan": {
+      "fault_type": "process-hang",
+      "parameters": {
+        "target_process": "java",
+        "hang_duration": "300s",
+        "hang_method": "cpu_infinite_loop"
+      },
+      "trigger_condition": "座位分配高峰期间",
+      "duration": "300s",
+      "rationale": "选择进程挂起而非pod-kill，因为单副本+无liveness探针的配置会让Pod状态保持Running但进程不响应，完美触发僵死永久不可用故障模式，同时引发ts-seat-service的重试风暴"
+    },
+    "predicted_cascade": [
+      {
+        "step": 1,
+        "description": "ts-order-other-service进程进入死锁状态，无法处理任何请求",
+        "mechanism": "基于故障模式ORD-FM1：僵死永久不可用",
+        "affected_service": "ts-order-other-service",
+        "evidence": "replicas=1且liveness_probe=false，K8s无法检测进程假死并重启"
+      },
+      {
+        "step": 2,
+        "description": "ts-seat-service调用ts-order-other-service时收到超时，开始重试",
+        "mechanism": "基于传播链loop_info，ts-seat-service作为调用方会重试",
+        "affected_service": "ts-seat-service",
+        "evidence": "传播链显示ts-seat-service → ts-order-other-service的调用关系"
+      },
+      {
+        "step": 3,
+        "description": "重试流量持续涌入已僵死的ts-order-other-service，阻止其恢复",
+        "mechanism": "基于故障模式ORD-FM2：重试风暴阻止恢复",
+        "affected_service": "ts-order-other-service",
+        "evidence": "amplification_factor=5的重试配置，重试流量持续涌入单副本服务"
+      },
+      {
+        "step": 4,
+        "description": "形成自循环：僵死服务 → 重试请求 → 加重负载 → 阻止恢复 → 继续僵死",
+        "mechanism": "基于传播链cumulative_amplification=18.0的放大效应",
+        "affected_service": "ts-order-other-service和ts-seat-service",
+        "evidence": "self_loop类型传播链，caller_mode=重试风暴阻止恢复，callee_mode=僵死永久不可用"
+      },
+      {
+        "step": 5,
+        "description": "ts-seat-service资源耗尽，开始影响其他调用方",
+        "mechanism": "基于故障模式ORD-FM4：汇聚放大",
+        "affected_service": "ts-seat-service的上游服务",
+        "evidence": "ts-order-other-service的in_degree=8，多个上游会同时受影响"
+      },
+      {
+        "step": 6,
+        "description": "节点tcse-v100-03上的15个共置服务开始出现资源争抢",
+        "mechanism": "基于故障模式ORD-FM6：多路径峰值叠加",
+        "affected_service": "tcse-v100-03节点上所有15个服务",
+        "evidence": "co_located_services包含15个业务服务，QoS=Burstable存在驱逐风险"
+      }
+    ],
+    "affected_business_paths": [
+      "购票流程（其他）",
+      "改签流程",
+      "退票流程",
+      "支付流程",
+      "行程查询（其他）",
+      "执行/检票流程",
+      "管理后台-订单管理"
+    ],
+    "severity": "严重",
+    "risk_score": 95,
+    "key_insight": "这个场景揭示了配置缺陷与容错机制的恶性耦合：单副本+无liveness探针的配置缺陷，结合不当的重试机制，形成了自我强化的故障循环。18倍的放大效应表明，看似局部的配置问题可以通过调用关系形成系统性的韧性黑洞，这种自循环故障特别危险，因为它具有自我维持特性，即使外部压力消失也难以自动恢复。"
+  },
+  {
+    "scenario_id": "SCN-009",
+    "name": "核心业务双链路服务僵死永久不可用场景",
+    "description": "购票核心流程中的认证服务和订票服务同时发生僵死永久不可用故障，考验系统在关键业务路径断裂时的恢复能力",
+    "business_impact": "购票业务完全中断，用户无法认证登录和预订车票",
+    "failure_modes": [
+      {
+        "service": "ts-auth-service",
+        "mode": "僵死永久不可用",
+        "mode_id": "AUT-FM1",
+        "severity": "严重",
+        "rule": "R_CC1",
+        "description": "认证服务因内存泄漏导致OOM Kill后无法重启",
+        "trigger_method": "memory_leak",
+        "recovery_time": 1800,
+        "impact": "用户无法登录认证"
+      },
+      {
+        "service": "ts-preserve-service",
+        "mode": "僵死永久不可用",
+        "mode_id": "PRE-FM1",
+        "severity": "严重",
+        "rule": "R_CC1",
+        "description": "订票服务因数据库连接池耗尽进入死锁状态",
+        "trigger_method": "database_deadlock",
+        "recovery_time": 1800,
+        "impact": "订票功能完全不可用"
+      }
+    ],
+    "resource_constraints": {
+      "node_failure": [
+        "tcse-v100-03",
+        "tcse-flexusx-01"
+      ],
+      "memory_pressure": true,
+      "cpu_throttling": false,
+      "network_partition": false
+    },
+    "expected_behaviors": [
+      "API网关应快速检测到认证服务不可用，返回明确的服务异常信息",
+      "订票服务故障应触发熔断机制，避免请求堆积",
+      "系统应启动应急模式，暂停新订单接收",
+      "监控系统应发出最高级别告警",
+      "负载均衡器应移除故障服务实例",
+      "数据一致性检查机制应保证订单状态不会出现不一致"
+    ],
+    "test_metrics": {
+      "failure_detection_time": 30,
+      "service_isolation_time": 60,
+      "error_rate_threshold": 0.99,
+      "recovery_time_objective": 1800,
+      "data_consistency_check": true
+    }
+  },
+  {
+    "scenario_id": "SCN-010",
+    "name": "验证码服务与预订服务链式故障传播场景",
+    "description": "验证码服务僵死引发其他预订服务出现超时传播和双通道耦合故障，测试故障隔离和级联故障防护能力",
+    "business_impact": "用户注册验证受阻，多渠道预订服务性能下降，可能出现服务雪崩",
+    "failure_modes": [
+      {
+        "service": "ts-verification-code-service",
+        "mode": "僵死永久不可用",
+        "mode_id": "VER-FM1",
+        "severity": "严重",
+        "rule": "R_CC1",
+        "description": "验证码服务因Redis连接中断导致服务僵死",
+        "trigger_method": "redis_connection_failure",
+        "recovery_time": 1200,
+        "impact": "验证码功能完全失效"
+      },
+      {
+        "service": "ts-preserve-other-service",
+        "mode": "不可预测的超时传播",
+        "mode_id": "PRE-FM3",
+        "severity": "高",
+        "rule": "R_TF2",
+        "description": "其他预订服务因验证依赖超时导致响应时间不可预测",
+        "trigger_method": "timeout_propagation",
+        "recovery_time": 600,
+        "impact": "其他渠道预订响应缓慢"
+      },
+      {
+        "service": "ts-wait-order-service",
+        "mode": "双通道耦合",
+        "mode_id": "WAI-FM3",
+        "severity": "高",
+        "rule": "R_FR1",
+        "description": "候补订单服务与主订单渠道出现资源竞争耦合",
+        "trigger_method": "resource_contention",
+        "recovery_time": 300,
+        "impact": "候补订单处理能力下降"
+      }
+    ],
+    "resource_constraints": {
+      "node_failure": [
+        "tcse-v100-02"
+      ],
+      "memory_pressure": true,
+      "cpu_throttling": true,
+      "network_partition": false
+    },
+    "expected_behaviors": [
+      "验证码服务故障应触发降级策略，启用备用验证方案",
+      "其他预订服务应实施超时控制，避免无限等待",
+      "候补订单服务应实现资源隔离，防止与主流程冲突",
+      "系统应启动熔断机制阻止故障传播",
+      "服务间应实现优雅降级，保证核心功能可用",
+      "监控系统应识别链式故障模式并发出预警"
+    ],
+    "test_metrics": {
+      "failure_detection_time": 45,
+      "cascade_prevention_time": 120,
+      "timeout_control_effectiveness": 0.8,
+      "service_degradation_time": 180,
+      "resource_isolation_success_rate": 0.9
+    }
+  }
+]

@@ -1,0 +1,1072 @@
+{
+  "services": {
+    "rabbitmq": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": false,
+      "resource_limits": {
+        "cpu": null,
+        "memory": null
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "200Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-admin-basic-info-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-admin-order-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-admin-route-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-admin-travel-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-admin-user-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-assurance-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-auth-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-avatar-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-basic-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-cancel-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-config-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-consign-price-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-consign-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-contacts-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-delivery-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-execute-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-food-delivery-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-food-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-gateway-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-inside-payment-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-news-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-notification-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-order-other-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-order-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-payment-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-preserve-other-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-preserve-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-price-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-rebook-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-route-plan-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-route-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-seat-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-security-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-station-food-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-station-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-ticket-office-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-train-food-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-train-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-travel-plan-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-travel-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-travel2-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-ui-dashboard": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-user-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    },
+    "ts-verification-code-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-02",
+      "qos_class": "Burstable"
+    },
+    "ts-voucher-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-v100-03",
+      "qos_class": "Burstable"
+    },
+    "ts-wait-order-service": {
+      "replicas": 1,
+      "liveness_probe": false,
+      "readiness_probe": true,
+      "resource_limits": {
+        "cpu": "1500m",
+        "memory": "1500Mi"
+      },
+      "resource_requests": {
+        "cpu": "100m",
+        "memory": "100Mi"
+      },
+      "strategy": {
+        "type": "RollingUpdate",
+        "max_unavailable": "25%",
+        "max_surge": "25%"
+      },
+      "anti_affinity": false,
+      "node": "tcse-flexusx-01",
+      "qos_class": "Burstable"
+    }
+  },
+  "nodes": {
+    "tcse-flexusx-01": {
+      "allocatable_cpu": "8",
+      "allocatable_memory": "32370284Ki",
+      "services": [
+        "nacos",
+        "nacosdb-mysql",
+        "ts-assurance-service",
+        "ts-contacts-service",
+        "ts-delivery-service",
+        "ts-food-delivery-service",
+        "ts-payment-service",
+        "ts-preserve-service",
+        "ts-route-plan-service",
+        "ts-station-food-service",
+        "ts-train-food-service",
+        "ts-train-service",
+        "ts-user-service",
+        "ts-wait-order-service",
+        "tsdb-mysql"
+      ]
+    },
+    "tcse-v100-01": {
+      "allocatable_cpu": "8",
+      "allocatable_memory": "65544216Ki",
+      "services": []
+    },
+    "tcse-v100-02": {
+      "allocatable_cpu": "8",
+      "allocatable_memory": "65544356Ki",
+      "services": [
+        "nacos",
+        "nacosdb-mysql",
+        "rabbitmq",
+        "ts-admin-basic-info-service",
+        "ts-admin-order-service",
+        "ts-admin-route-service",
+        "ts-admin-travel-service",
+        "ts-avatar-service",
+        "ts-basic-service",
+        "ts-consign-price-service",
+        "ts-consign-service",
+        "ts-execute-service",
+        "ts-inside-payment-service",
+        "ts-notification-service",
+        "ts-price-service",
+        "ts-route-service",
+        "ts-ticket-office-service",
+        "ts-travel-plan-service",
+        "ts-travel-service",
+        "ts-ui-dashboard",
+        "ts-verification-code-service",
+        "tsdb-mysql"
+      ]
+    },
+    "tcse-v100-03": {
+      "allocatable_cpu": "8",
+      "allocatable_memory": "65544356Ki",
+      "services": [
+        "nacos",
+        "nacosdb-mysql",
+        "ts-admin-user-service",
+        "ts-auth-service",
+        "ts-cancel-service",
+        "ts-config-service",
+        "ts-food-service",
+        "ts-gateway-service",
+        "ts-news-service",
+        "ts-order-other-service",
+        "ts-order-service",
+        "ts-preserve-other-service",
+        "ts-rebook-service",
+        "ts-seat-service",
+        "ts-security-service",
+        "ts-station-service",
+        "ts-travel2-service",
+        "ts-voucher-service",
+        "tsdb-mysql"
+      ]
+    }
+  }
+}

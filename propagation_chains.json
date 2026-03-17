@@ -1,0 +1,1626 @@
+{
+  "chains": [
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "ORD-FM5",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "ORD-FM5",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "多路径峰值叠加",
+      "origin_mode_id": "ORD-FM6",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "多路径流量叠加，节点资源饱和",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "多路径峰值叠加",
+      "origin_mode_id": "ORD-FM6",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "多路径流量叠加，节点资源饱和",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-inside-payment-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-preserve-other-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-seat-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-security-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "ORD-FM5",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-seat-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "ORD-FM5",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-seat-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "多路径峰值叠加",
+      "origin_mode_id": "ORD-FM6",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-seat-service",
+          "mechanism": "多路径流量叠加，节点资源饱和",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "多路径峰值叠加",
+      "origin_mode_id": "ORD-FM6",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-seat-service",
+          "mechanism": "多路径流量叠加，节点资源饱和",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-inside-payment-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-preserve-other-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-seat-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-seat-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-security-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "ORD-FM5",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-security-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "ORD-FM5",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-security-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "多路径峰值叠加",
+      "origin_mode_id": "ORD-FM6",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-security-service",
+          "mechanism": "多路径流量叠加，节点资源饱和",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "多路径峰值叠加",
+      "origin_mode_id": "ORD-FM6",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-security-service",
+          "mechanism": "多路径流量叠加，节点资源饱和",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "高"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-inside-payment-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-preserve-other-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-security-service",
+          "to": "ts-order-other-service",
+          "mechanism": "故障从ts-security-service传播到其下游ts-order-other-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-other-service",
+          "to": "ts-seat-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 70000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 50000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-other-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-other-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-security-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 50000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-user-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-user-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-user-service",
+          "to": "ts-admin-user-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 50000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-user-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-user-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-user-service",
+          "to": "ts-preserve-other-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 50000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-order-service",
+      "origin_mode": "重试风暴阻止恢复",
+      "origin_mode_id": "ORD-FM2",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-order-service",
+          "to": "ts-cancel-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-user-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-user-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-user-service",
+          "to": "ts-preserve-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 50000,
+      "severity": "严重"
+    },
+    {
+      "origin_service": "ts-user-service",
+      "origin_mode": "不可预测的超时传播",
+      "origin_mode_id": "USE-FM3",
+      "propagation_path": [
+        {
+          "step": 1,
+          "from": "ts-user-service",
+          "to": "ts-cancel-service",
+          "mechanism": "超时在链上逐级放大，行为不可预测",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 2,
+          "from": "ts-cancel-service",
+          "to": "ts-order-service",
+          "mechanism": "故障从ts-cancel-service传播到其下游ts-order-service",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        },
+        {
+          "step": 3,
+          "from": "ts-order-service",
+          "to": "ts-seat-service",
+          "mechanism": "服务完全不可用且无法恢复，重试流量持续涌入",
+          "edge_beta": 10,
+          "edge_protection": "none"
+        }
+      ],
+      "total_services": 4,
+      "cumulative_amplification": 50000,
+      "severity": "高"
+    }
+  ],
+  "self_loops": [
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 50
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 750.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 50
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 750.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 50
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 750.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 50
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-other-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-other-service重试 → ts-station-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 750.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 12.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 82.32
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 12.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 82.32
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 12.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 82.32
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 12.0
+    },
+    {
+      "services": [
+        "ts-station-service",
+        "ts-order-service"
+      ],
+      "description": "ts-station-service故障 → ts-order-service重试 → ts-station-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 82.32
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "重试风暴阻止恢复",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "重试风暴阻止恢复",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "双通道耦合",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-other-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-other-service故障 → ts-seat-service重试 → ts-order-other-service负载加重",
+      "callee_mode": "双通道耦合",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "重试风暴阻止恢复",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "重试风暴阻止恢复",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "重试风暴阻止恢复",
+      "amplification": 18.0
+    },
+    {
+      "services": [
+        "ts-order-service",
+        "ts-seat-service"
+      ],
+      "description": "ts-order-service故障 → ts-seat-service重试 → ts-order-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 477.0
+    },
+    {
+      "services": [
+        "ts-basic-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-basic-service故障 → ts-travel2-service重试 → ts-basic-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-basic-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-basic-service故障 → ts-travel2-service重试 → ts-basic-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-basic-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-basic-service故障 → ts-travel2-service重试 → ts-basic-service负载加重",
+      "callee_mode": "功能完全不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-basic-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-basic-service故障 → ts-travel2-service重试 → ts-basic-service负载加重",
+      "callee_mode": "双通道耦合",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-route-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-route-service故障 → ts-travel2-service重试 → ts-route-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-route-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-route-service故障 → ts-travel2-service重试 → ts-route-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-route-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-route-service故障 → ts-travel2-service重试 → ts-route-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-route-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-route-service故障 → ts-travel2-service重试 → ts-route-service负载加重",
+      "callee_mode": "功能完全不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-route-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-route-service故障 → ts-travel2-service重试 → ts-route-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "重试风暴阻止恢复",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "延迟恢复",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "功能完全不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-seat-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-seat-service故障 → ts-travel2-service重试 → ts-seat-service负载加重",
+      "callee_mode": "双通道耦合",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-train-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-train-service故障 → ts-travel2-service重试 → ts-train-service负载加重",
+      "callee_mode": "僵死永久不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-train-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-train-service故障 → ts-travel2-service重试 → ts-train-service负载加重",
+      "callee_mode": "抢占驱逐",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-train-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-train-service故障 → ts-travel2-service重试 → ts-train-service负载加重",
+      "callee_mode": "不可预测的超时传播",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-train-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-train-service故障 → ts-travel2-service重试 → ts-train-service负载加重",
+      "callee_mode": "功能完全不可用",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    },
+    {
+      "services": [
+        "ts-train-service",
+        "ts-travel2-service"
+      ],
+      "description": "ts-train-service故障 → ts-travel2-service重试 → ts-train-service负载加重",
+      "callee_mode": "多路径峰值叠加",
+      "caller_mode": "汇聚放大",
+      "amplification": 500.0
+    }
+  ]
+}

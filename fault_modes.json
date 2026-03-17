@@ -1,0 +1,2108 @@
+[
+  {
+    "service": "ts-user-service",
+    "riskrank": 100.0,
+    "fault_modes": [
+      {
+        "mode_id": "USE-FM1",
+        "service": "ts-user-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "USE-FM2",
+        "service": "ts-user-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-flexusx-01"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "USE-FM3",
+        "service": "ts-user-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'退票流程'深度=5)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 5,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-auth-service",
+    "riskrank": 95.0,
+    "fault_modes": [
+      {
+        "mode_id": "AUT-FM1",
+        "service": "ts-auth-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "AUT-FM2",
+        "service": "ts-auth-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      }
+    ]
+  },
+  {
+    "service": "ts-verification-code-service",
+    "riskrank": 80.49,
+    "fault_modes": [
+      {
+        "mode_id": "VER-FM1",
+        "service": "ts-verification-code-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "VER-FM2",
+        "service": "ts-verification-code-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      }
+    ]
+  },
+  {
+    "service": "ts-preserve-service",
+    "riskrank": 49.01,
+    "fault_modes": [
+      {
+        "mode_id": "PRE-FM1",
+        "service": "ts-preserve-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "PRE-FM2",
+        "service": "ts-preserve-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-flexusx-01"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "PRE-FM3",
+        "service": "ts-preserve-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "PRE-FM4",
+        "service": "ts-preserve-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-preserve-service→ts-assurance-service: 无超时",
+          "两服务同节点(tcse-flexusx-01)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-assurance-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-wait-order-service",
+    "riskrank": 39.55,
+    "fault_modes": [
+      {
+        "mode_id": "WAI-FM1",
+        "service": "ts-wait-order-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "WAI-FM2",
+        "service": "ts-wait-order-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-flexusx-01"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "WAI-FM3",
+        "service": "ts-wait-order-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-wait-order-service→ts-preserve-service: 无超时",
+          "两服务同节点(tcse-flexusx-01)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-preserve-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-preserve-other-service",
+    "riskrank": 28.34,
+    "fault_modes": [
+      {
+        "mode_id": "PRE-FM1",
+        "service": "ts-preserve-other-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "PRE-FM2",
+        "service": "ts-preserve-other-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "PRE-FM3",
+        "service": "ts-preserve-other-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程（其他）'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "PRE-FM4",
+        "service": "ts-preserve-other-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-preserve-other-service→ts-seat-service: 无超时",
+          "两服务同节点(tcse-v100-03)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-seat-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-station-service",
+    "riskrank": 16.59,
+    "fault_modes": [
+      {
+        "mode_id": "STA-FM1",
+        "service": "ts-station-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "STA-FM2",
+        "service": "ts-station-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "STA-FM3",
+        "service": "ts-station-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=8)",
+          "有风险入边7条(flawed_retry=0, none=7)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 80.0,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "STA-FM4",
+        "service": "ts-station-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "STA-FM5",
+        "service": "ts-station-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=7",
+          "同节点共置业务服务: ts-cancel-service, ts-config-service, ts-order-other-service, ts-order-service, ts-preserve-other-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-cancel-service",
+    "riskrank": 16.27,
+    "fault_modes": [
+      {
+        "mode_id": "CAN-FM1",
+        "service": "ts-cancel-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "CAN-FM2",
+        "service": "ts-cancel-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "CAN-FM3",
+        "service": "ts-cancel-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'退票流程'深度=5)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 5,
+        "severity": "高"
+      },
+      {
+        "mode_id": "CAN-FM4",
+        "service": "ts-cancel-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-cancel-service→ts-order-other-service: 无超时",
+          "两服务同节点(tcse-v100-03)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-order-other-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-admin-user-service",
+    "riskrank": 13.18,
+    "fault_modes": [
+      {
+        "mode_id": "ADM-FM1",
+        "service": "ts-admin-user-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ADM-FM2",
+        "service": "ts-admin-user-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      }
+    ]
+  },
+  {
+    "service": "ts-order-other-service",
+    "riskrank": 11.21,
+    "fault_modes": [
+      {
+        "mode_id": "ORD-FM1",
+        "service": "ts-order-other-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ORD-FM2",
+        "service": "ts-order-other-service",
+        "name": "重试风暴阻止恢复",
+        "matched_rule": "R_CF1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-rebook-service→ts-order-other-service: retry=5/backoff=none/no CB"
+        ],
+        "dimensions": [
+          "配置",
+          "容错"
+        ],
+        "trigger_condition": "容器实例崩溃或进程异常退出",
+        "local_effect": "服务完全不可用且无法恢复，重试流量持续涌入",
+        "propagation_direction": "自我恶化 + 向上游传播错误",
+        "amplification_factor": 5,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ORD-FM3",
+        "service": "ts-order-other-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "ORD-FM4",
+        "service": "ts-order-other-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=8)",
+          "有风险入边8条(flawed_retry=1, none=7)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 75.0,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ORD-FM5",
+        "service": "ts-order-other-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程（其他）'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "ORD-FM6",
+        "service": "ts-order-other-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=7",
+          "同节点共置业务服务: ts-cancel-service, ts-config-service, ts-order-service, ts-preserve-other-service, ts-rebook-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "ORD-FM7",
+        "service": "ts-order-other-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-order-other-service→ts-station-service: 无超时",
+          "两服务同节点(tcse-v100-03)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-station-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-consign-service",
+    "riskrank": 10.21,
+    "fault_modes": [
+      {
+        "mode_id": "CON-FM1",
+        "service": "ts-consign-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "CON-FM2",
+        "service": "ts-consign-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "CON-FM3",
+        "service": "ts-consign-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-consign-service→ts-consign-price-service: 无超时",
+          "两服务同节点(tcse-v100-02)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-consign-price-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-basic-service",
+    "riskrank": 9.53,
+    "fault_modes": [
+      {
+        "mode_id": "BAS-FM1",
+        "service": "ts-basic-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "BAS-FM2",
+        "service": "ts-basic-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "BAS-FM3",
+        "service": "ts-basic-service",
+        "name": "功能完全不可用",
+        "matched_rule": "R_TF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-travel-service→ts-basic-service: 仅超时保护",
+          "无降级方案"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务实例不可用",
+        "local_effect": "调用方ts-travel-service的相关功能完全不可用",
+        "propagation_direction": "向上游传播功能缺失",
+        "amplification_factor": 1,
+        "severity": "高"
+      },
+      {
+        "mode_id": "BAS-FM4",
+        "service": "ts-basic-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-basic-service→ts-price-service: 无超时",
+          "两服务同节点(tcse-v100-02)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-price-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-order-service",
+    "riskrank": 9.47,
+    "fault_modes": [
+      {
+        "mode_id": "ORD-FM1",
+        "service": "ts-order-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ORD-FM2",
+        "service": "ts-order-service",
+        "name": "重试风暴阻止恢复",
+        "matched_rule": "R_CF1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-rebook-service→ts-order-service: retry=5/backoff=none/no CB",
+          "入边 ts-preserve-service→ts-order-service: retry=5/backoff=none/no CB"
+        ],
+        "dimensions": [
+          "配置",
+          "容错"
+        ],
+        "trigger_condition": "容器实例崩溃或进程异常退出",
+        "local_effect": "服务完全不可用且无法恢复，重试流量持续涌入",
+        "propagation_direction": "自我恶化 + 向上游传播错误",
+        "amplification_factor": 10,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ORD-FM3",
+        "service": "ts-order-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "ORD-FM4",
+        "service": "ts-order-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=8)",
+          "有风险入边7条(flawed_retry=2, none=5)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 68.6,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ORD-FM5",
+        "service": "ts-order-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "ORD-FM6",
+        "service": "ts-order-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=7",
+          "同节点共置业务服务: ts-cancel-service, ts-config-service, ts-order-other-service, ts-preserve-other-service, ts-rebook-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-food-service",
+    "riskrank": 8.37,
+    "fault_modes": [
+      {
+        "mode_id": "FOO-FM1",
+        "service": "ts-food-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "FOO-FM2",
+        "service": "ts-food-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      }
+    ]
+  },
+  {
+    "service": "ts-security-service",
+    "riskrank": 7.3,
+    "fault_modes": [
+      {
+        "mode_id": "SEC-FM1",
+        "service": "ts-security-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "SEC-FM2",
+        "service": "ts-security-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "SEC-FM3",
+        "service": "ts-security-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "SEC-FM4",
+        "service": "ts-security-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=2",
+          "同节点共置业务服务: ts-cancel-service, ts-config-service, ts-order-other-service, ts-order-service, ts-preserve-other-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      },
+      {
+        "mode_id": "SEC-FM5",
+        "service": "ts-security-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-security-service→ts-order-other-service: 无超时",
+          "两服务同节点(tcse-v100-03)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-order-other-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-seat-service",
+    "riskrank": 6.4,
+    "fault_modes": [
+      {
+        "mode_id": "SEA-FM1",
+        "service": "ts-seat-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "SEA-FM2",
+        "service": "ts-seat-service",
+        "name": "重试风暴阻止恢复",
+        "matched_rule": "R_CF1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-preserve-service→ts-seat-service: retry=3/backoff=fixed 500ms/no CB"
+        ],
+        "dimensions": [
+          "配置",
+          "容错"
+        ],
+        "trigger_condition": "容器实例崩溃或进程异常退出",
+        "local_effect": "服务完全不可用且无法恢复，重试流量持续涌入",
+        "propagation_direction": "自我恶化 + 向上游传播错误",
+        "amplification_factor": 1.8,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "SEA-FM3",
+        "service": "ts-seat-service",
+        "name": "延迟恢复",
+        "matched_rule": "R_CF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-preserve-service→ts-seat-service: retry+backoff/no CB"
+        ],
+        "dimensions": [
+          "配置",
+          "容错"
+        ],
+        "trigger_condition": "服务短暂不可用后恢复",
+        "local_effect": "退避重试减缓恢复速度但不阻止恢复",
+        "propagation_direction": "向上游传播延迟",
+        "amplification_factor": 1.8,
+        "severity": "中"
+      },
+      {
+        "mode_id": "SEA-FM4",
+        "service": "ts-seat-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "SEA-FM5",
+        "service": "ts-seat-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=6)",
+          "有风险入边4条(flawed_retry=1, none=3)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 47.7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "SEA-FM6",
+        "service": "ts-seat-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "SEA-FM7",
+        "service": "ts-seat-service",
+        "name": "功能完全不可用",
+        "matched_rule": "R_TF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-travel-service→ts-seat-service: 仅超时保护",
+          "无降级方案"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务实例不可用",
+        "local_effect": "调用方ts-travel-service的相关功能完全不可用",
+        "propagation_direction": "向上游传播功能缺失",
+        "amplification_factor": 1,
+        "severity": "高"
+      },
+      {
+        "mode_id": "SEA-FM8",
+        "service": "ts-seat-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=6",
+          "同节点共置业务服务: ts-cancel-service, ts-config-service, ts-order-other-service, ts-order-service, ts-preserve-other-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 6,
+        "severity": "高"
+      },
+      {
+        "mode_id": "SEA-FM9",
+        "service": "ts-seat-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-seat-service→ts-order-other-service: 无超时",
+          "两服务同节点(tcse-v100-03)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-order-other-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-travel-service",
+    "riskrank": 6.31,
+    "fault_modes": [
+      {
+        "mode_id": "TRA-FM1",
+        "service": "ts-travel-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "TRA-FM2",
+        "service": "ts-travel-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "TRA-FM3",
+        "service": "ts-travel-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=6)",
+          "有风险入边4条(flawed_retry=0, none=4)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 60.0,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "TRA-FM4",
+        "service": "ts-travel-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM5",
+        "service": "ts-travel-service",
+        "name": "功能完全不可用",
+        "matched_rule": "R_TF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-travel-plan-service→ts-travel-service: 仅超时保护",
+          "无降级方案"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务实例不可用",
+        "local_effect": "调用方ts-travel-plan-service的相关功能完全不可用",
+        "propagation_direction": "向上游传播功能缺失",
+        "amplification_factor": 1,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM6",
+        "service": "ts-travel-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=5",
+          "同节点共置业务服务: ts-admin-basic-info-service, ts-admin-order-service, ts-admin-travel-service, ts-execute-service, ts-inside-payment-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 5,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-contacts-service",
+    "riskrank": 6.26,
+    "fault_modes": [
+      {
+        "mode_id": "CON-FM1",
+        "service": "ts-contacts-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "CON-FM2",
+        "service": "ts-contacts-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-flexusx-01"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "CON-FM3",
+        "service": "ts-contacts-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "CON-FM4",
+        "service": "ts-contacts-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=3",
+          "同节点共置业务服务: ts-payment-service, ts-preserve-service, ts-route-plan-service, ts-train-service, ts-user-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 3,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-travel2-service",
+    "riskrank": 5.78,
+    "fault_modes": [
+      {
+        "mode_id": "TRA-FM1",
+        "service": "ts-travel2-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "TRA-FM2",
+        "service": "ts-travel2-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-03"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "TRA-FM3",
+        "service": "ts-travel2-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=5)",
+          "有风险入边3条(flawed_retry=0, none=3)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 50.0,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM4",
+        "service": "ts-travel2-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'购票流程（其他）'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM5",
+        "service": "ts-travel2-service",
+        "name": "功能完全不可用",
+        "matched_rule": "R_TF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-travel-plan-service→ts-travel2-service: 仅超时保护",
+          "无降级方案"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务实例不可用",
+        "local_effect": "调用方ts-travel-plan-service的相关功能完全不可用",
+        "propagation_direction": "向上游传播功能缺失",
+        "amplification_factor": 1,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM6",
+        "service": "ts-travel2-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=5",
+          "同节点共置业务服务: ts-cancel-service, ts-config-service, ts-order-other-service, ts-order-service, ts-preserve-other-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 5,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM7",
+        "service": "ts-travel2-service",
+        "name": "双通道耦合",
+        "matched_rule": "R_FR1",
+        "involved_risks": [
+          "出边 ts-travel2-service→ts-seat-service: 无超时",
+          "两服务同节点(tcse-v100-03)共置"
+        ],
+        "dimensions": [
+          "容错",
+          "资源"
+        ],
+        "trigger_condition": "ts-seat-service高负载或资源争抢",
+        "local_effect": "调用链阻塞 + 同节点资源争抢双重影响",
+        "propagation_direction": "调用链传播 + 物理层传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-train-service",
+    "riskrank": 3.89,
+    "fault_modes": [
+      {
+        "mode_id": "TRA-FM1",
+        "service": "ts-train-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "TRA-FM2",
+        "service": "ts-train-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-flexusx-01"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "TRA-FM3",
+        "service": "ts-train-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=7)",
+          "有风险入边5条(flawed_retry=0, none=5)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 70.0,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "TRA-FM4",
+        "service": "ts-train-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'行程查询（其他）'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM5",
+        "service": "ts-train-service",
+        "name": "功能完全不可用",
+        "matched_rule": "R_TF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-travel-plan-service→ts-train-service: 仅超时保护",
+          "无降级方案"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务实例不可用",
+        "local_effect": "调用方ts-travel-plan-service的相关功能完全不可用",
+        "propagation_direction": "向上游传播功能缺失",
+        "amplification_factor": 1,
+        "severity": "高"
+      },
+      {
+        "mode_id": "TRA-FM6",
+        "service": "ts-train-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=3",
+          "同节点共置业务服务: ts-contacts-service, ts-payment-service, ts-preserve-service, ts-route-plan-service, ts-user-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 3,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-route-service",
+    "riskrank": 3.88,
+    "fault_modes": [
+      {
+        "mode_id": "ROU-FM1",
+        "service": "ts-route-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ROU-FM2",
+        "service": "ts-route-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "ROU-FM3",
+        "service": "ts-route-service",
+        "name": "汇聚放大",
+        "matched_rule": "R_TF1",
+        "involved_risks": [
+          "高扇入度(in_degree=7)",
+          "有风险入边5条(flawed_retry=0, none=5)"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务响应变慢或间歇性失败",
+        "local_effect": "多个上游同时重试/阻塞，流量激增",
+        "propagation_direction": "多个上游同时受影响",
+        "amplification_factor": 70.0,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "ROU-FM4",
+        "service": "ts-route-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'行程查询（其他）'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "ROU-FM5",
+        "service": "ts-route-service",
+        "name": "功能完全不可用",
+        "matched_rule": "R_TF3",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "入边 ts-travel-service→ts-route-service: 仅超时保护",
+          "无降级方案"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "服务实例不可用",
+        "local_effect": "调用方ts-travel-service的相关功能完全不可用",
+        "propagation_direction": "向上游传播功能缺失",
+        "amplification_factor": 1,
+        "severity": "高"
+      },
+      {
+        "mode_id": "ROU-FM6",
+        "service": "ts-route-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=2",
+          "同节点共置业务服务: ts-admin-basic-info-service, ts-admin-order-service, ts-admin-travel-service, ts-execute-service, ts-inside-payment-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 2,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-price-service",
+    "riskrank": 2.03,
+    "fault_modes": [
+      {
+        "mode_id": "PRI-FM1",
+        "service": "ts-price-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "PRI-FM2",
+        "service": "ts-price-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "PRI-FM3",
+        "service": "ts-price-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'行程查询（其他）'深度=7)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 7,
+        "severity": "高"
+      },
+      {
+        "mode_id": "PRI-FM4",
+        "service": "ts-price-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=3",
+          "同节点共置业务服务: ts-admin-basic-info-service, ts-admin-order-service, ts-admin-travel-service, ts-execute-service, ts-inside-payment-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 3,
+        "severity": "高"
+      }
+    ]
+  },
+  {
+    "service": "ts-inside-payment-service",
+    "riskrank": 1.24,
+    "fault_modes": [
+      {
+        "mode_id": "INS-FM1",
+        "service": "ts-inside-payment-service",
+        "name": "僵死永久不可用",
+        "matched_rule": "R_CC1",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "无存活探针(livenessProbe=false)"
+        ],
+        "dimensions": [
+          "配置",
+          "配置"
+        ],
+        "trigger_condition": "容器进程死锁或内存泄漏导致进程假死",
+        "local_effect": "服务进程不响应但 Pod 状态仍为 Running，K8s 不会重启",
+        "propagation_direction": "向上游传播超时/错误",
+        "amplification_factor": 1,
+        "severity": "严重"
+      },
+      {
+        "mode_id": "INS-FM2",
+        "service": "ts-inside-payment-service",
+        "name": "抢占驱逐",
+        "matched_rule": "R_CR2",
+        "involved_risks": [
+          "单副本(replicas=1)",
+          "QoS=Burstable",
+          "节点=tcse-v100-02"
+        ],
+        "dimensions": [
+          "配置",
+          "资源"
+        ],
+        "trigger_condition": "节点资源压力触发驱逐",
+        "local_effect": "Pod 被驱逐，服务完全不可用直到重新调度",
+        "propagation_direction": "向上游传播不可用",
+        "amplification_factor": 1,
+        "severity": "中"
+      },
+      {
+        "mode_id": "INS-FM3",
+        "service": "ts-inside-payment-service",
+        "name": "不可预测的超时传播",
+        "matched_rule": "R_TF2",
+        "involved_risks": [
+          "深调用链(路径'改签流程'深度=8)",
+          "链上超时配置不一致"
+        ],
+        "dimensions": [
+          "拓扑",
+          "容错"
+        ],
+        "trigger_condition": "链末端服务响应变慢",
+        "local_effect": "超时在链上逐级放大，行为不可预测",
+        "propagation_direction": "沿调用链向上游逐级传播",
+        "amplification_factor": 8,
+        "severity": "高"
+      },
+      {
+        "mode_id": "INS-FM4",
+        "service": "ts-inside-payment-service",
+        "name": "多路径峰值叠加",
+        "matched_rule": "R_TR1",
+        "involved_risks": [
+          "路径交叉度=3",
+          "同节点共置业务服务: ts-admin-basic-info-service, ts-admin-order-service, ts-admin-travel-service, ts-execute-service, ts-price-service"
+        ],
+        "dimensions": [
+          "拓扑",
+          "资源"
+        ],
+        "trigger_condition": "多条业务路径同时高负载",
+        "local_effect": "多路径流量叠加，节点资源饱和",
+        "propagation_direction": "影响同节点所有服务 + 向多条业务路径传播",
+        "amplification_factor": 3,
+        "severity": "高"
+      }
+    ]
+  }
+]

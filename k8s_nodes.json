@@ -1,0 +1,1926 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/cri-dockerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2025-09-13T08:27:36Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "tcse-flexusx-01",
+                    "kubernetes.io/os": "linux"
+                },
+                "name": "tcse-flexusx-01",
+                "resourceVersion": "183422560",
+                "uid": "2c6dfc0f-0152-416c-956e-ff5d1e39328c"
+            },
+            "spec": {
+                "podCIDR": "100.64.4.0/24",
+                "podCIDRs": [
+                    "100.64.4.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "192.168.0.148",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "tcse-flexusx-01",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "8",
+                    "ephemeral-storage": "190123683526",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "32370284Ki",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "8",
+                    "ephemeral-storage": "206297400Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "32472684Ki",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2025-09-13T10:29:02Z",
+                        "lastTransitionTime": "2025-09-13T10:29:02Z",
+                        "message": "Cilium is running on this node",
+                        "reason": "CiliumIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-16T10:43:29Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-16T10:43:29Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-16T10:43:29Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-17T12:36:23Z",
+                        "message": "kubelet is posting ready status. AppArmor enabled",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel@sha256:62af6e851de7cd28f3d287b51cbed99acceed88e125af3096ba956e1b64d2f73",
+                            "1.94.151.57:85/fault-inject/chaos-kernel@sha256:62af6e851de7cd28f3d287b51cbed99acceed88e125af3096ba956e1b64d2f73",
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel:v20260306",
+                            "1.94.151.57:85/fault-inject/chaos-kernel:v2025-03-13"
+                        ],
+                        "sizeBytes": 3312790364
+                    },
+                    {
+                        "names": [
+                            "langgenius/dify-api@sha256:a174cf3208ea588c3cc0064abb7c0c6c7743645c83dfbaaa7161fb8fe4d922f2",
+                            "langgenius/dify-api:1.11.4"
+                        ],
+                        "sizeBytes": 2665612003
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/danny-avila/librechat-rag-api-dev-lite@sha256:293ebcfdc7118a8e7b67e569ccc278bd07e999e9718ce3c8bfa5bdbcafa40e88",
+                            "ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest"
+                        ],
+                        "sizeBytes": 1694377670
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/test/librechat@sha256:0e9318681db2b42ba5f3d931546d383e1cfefb5068d758f37886bc969c3f6822",
+                            "1.94.151.57:85/test/librechat:latest"
+                        ],
+                        "sizeBytes": 1683478557
+                    },
+                    {
+                        "names": [
+                            "langgenius/dify-plugin-daemon@sha256:a256413a9ac9db750aa461b0f6269dceb2f64282365649b4b59498fbc7c2ca39",
+                            "langgenius/dify-plugin-daemon:0.5.2-local"
+                        ],
+                        "sizeBytes": 1493670612
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/nacos-nacos-server@sha256:365099d5519bc0f146f373bb77d2642944657d6d23254248a1dc150f255e314d",
+                            "1.94.151.57:85/train-ticket/nacos-nacos-server:2.0.1"
+                        ],
+                        "sizeBytes": 1038969932
+                    },
+                    {
+                        "names": [
+                            "mysql@sha256:40e657ed6b8f486bdd89d9694d64626f32ea5574ec86a6d54e1efcefe4babd1e",
+                            "mysql:v9"
+                        ],
+                        "sizeBytes": 920699870
+                    },
+                    {
+                        "names": [
+                            "mongo@sha256:9814652e33f0cf8b9fddea8b46dfc9d8e19b130dcfdd7b510ca58bb0d40c8b71",
+                            "mongo:8.0.17"
+                        ],
+                        "sizeBytes": 919959471
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-voucher-service@sha256:9be19a194f4b9951bf51fc707a2d3064de86700145ff707112d631b20801f1cd",
+                            "codewisdom/ts-voucher-service:0.2.0"
+                        ],
+                        "sizeBytes": 912042900
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/mongo@sha256:28861eaa8a6d8d408a900f6f343b982d9146b6c451cac9b794d68dd006b78465",
+                            "1.94.151.57:85/aiplatform/mongo:latest"
+                        ],
+                        "sizeBytes": 902770481
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon@sha256:f8f7c1cebd5959092c72897de0654ea441b4bb9ef75c7b62cf5dc3de62974e53",
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon:v20260306"
+                        ],
+                        "sizeBytes": 845487197
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/fault-inject/chaos-daemon@sha256:cca4882ce1ce289a19df0245edb7a7d345a2f98ece053869052cebe6f0c9175b",
+                            "1.94.151.57:85/fault-inject/chaos-daemon:v2025-03-13"
+                        ],
+                        "sizeBytes": 812540586
+                    },
+                    {
+                        "names": [
+                            "mysql@sha256:f37951fc3753a6a22d6c7bf6978c5e5fefcf6f31814d98c582524f98eae52b21",
+                            "mysql:8.0"
+                        ],
+                        "sizeBytes": 783252697
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/chaos-mesh/chaos-daemon@sha256:c7be6f3e3228ba6af3dcac2445210227f2399f35e54da76e4a3efaf9dbbb6deb",
+                            "ghcr.io/chaos-mesh/chaos-daemon:v2.6.1"
+                        ],
+                        "sizeBytes": 743017709
+                    },
+                    {
+                        "names": [
+                            "langgenius/dify-sandbox@sha256:4e65e8a351a2b17d11750b65403527a347e5cb938bc2271521ca7d689c008ad3",
+                            "langgenius/dify-sandbox:0.2.12"
+                        ],
+                        "sizeBytes": 578237044
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/test/grafana@sha256:83b35757385daafca6dbc2134715f932386331dcde02296609ab6123433552f0",
+                            "1.94.151.57:85/test/grafana:11.5.2"
+                        ],
+                        "sizeBytes": 564109658
+                    },
+                    {
+                        "names": [
+                            "quay.io/cilium/cilium@sha256:d3b287029755b6a47dee01420e2ea469469f1b174a2089c10af7e5e9289ef05b",
+                            "quay.io/cilium/cilium:v1.14.5"
+                        ],
+                        "sizeBytes": 528703530
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-ui-dashboard@sha256:fafe2aaf27274799bd40eb37f7a929cb5cab4d3009b234aec9601032ad236941",
+                            "1.94.151.57:85/train-ticket/ts-ui-dashboard:1.0.0"
+                        ],
+                        "sizeBytes": 505863724
+                    },
+                    {
+                        "names": [
+                            "langgenius/dify-web@sha256:340ff0324a81a8f53581d022b459aee4821b2a13cb7b05961678648946edd7f4",
+                            "langgenius/dify-web:1.11.4"
+                        ],
+                        "sizeBytes": 458137703
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiops/postgres@sha256:ff2e50001139f195ebdf83bc5c6f0c5f973cbd47bf7ba1c62366e2e0bfc77a6e",
+                            "1.94.151.57:85/aiops/postgres:16-debian"
+                        ],
+                        "sizeBytes": 451333449
+                    },
+                    {
+                        "names": [
+                            "pgvector/pgvector@sha256:8809cfffff0082cf260c9ac752f1dd1afc77f6f0a55c4e6411321e78efc3d9a5",
+                            "pgvector/pgvector:0.8.0-pg15-trixie"
+                        ],
+                        "sizeBytes": 448266463
+                    },
+                    {
+                        "names": [
+                            "mongo@sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0",
+                            "mongo:4.4"
+                        ],
+                        "sizeBytes": 427290771
+                    },
+                    {
+                        "names": [
+                            "registry-cn-zhangjiakou.ack.aliyuncs.com/acs/gatekeeper@sha256:f5c98a5b482df884ab9c025ac66957da3a8212b3331f71470413ec7d34605a4f",
+                            "registry-cn-zhangjiakou.ack.aliyuncs.com/acs/gatekeeper:3.18.3"
+                        ],
+                        "sizeBytes": 425102541
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/radondb-percona@sha256:3901a1cf63bc772a6132ece45bddbb16cfc491f8b5e2b2498ef6f37003c66cd0",
+                            "1.94.151.57:85/train-ticket/radondb-percona:5.7.34"
+                        ],
+                        "sizeBytes": 423621048
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/observe/coroot-node-agent@sha256:a467989c96f69389af46c9ae7db2b1d7d00030410362f62aa718ccb82f44fc0e",
+                            "1.94.151.57:85/observe/coroot-node-agent:v1.0.0"
+                        ],
+                        "sizeBytes": 399430216
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/coroot/coroot-node-agent@sha256:4dd1b01e86c01ed8acb07573cab77edcb2a0d2f61176465c3b7230e8426bdcec",
+                            "ghcr.io/coroot/coroot-node-agent:1.25.3"
+                        ],
+                        "sizeBytes": 398100832
+                    },
+                    {
+                        "names": [
+                            "mongo@sha256:66d58bd625a758ce537931ba5193fd0df3878548fbabce2012c96a584be96ce7",
+                            "mongo:4.0.2"
+                        ],
+                        "sizeBytes": 380992050
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-notification-service@sha256:7ebbfec85a0d6f20ee03a59d4b8b9181448aa5cc2287ba8bbc079d927ff89b78",
+                            "codewisdom/ts-notification-service:0.2.0"
+                        ],
+                        "sizeBytes": 345977993
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-delivery-service@sha256:bbaf69648d053f9ddae0a68ad0e4f03cf3fad89fad033355734f5b8fc602abe3",
+                            "codewisdom/ts-delivery-service:0.2.0"
+                        ],
+                        "sizeBytes": 343572469
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel-service@sha256:81f47ad871ecfc821bd743519204d12f9792d5a32436b0610128625a673100be",
+                            "codewisdom/ts-travel-service:0.2.0"
+                        ],
+                        "sizeBytes": 340947567
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-order-service@sha256:bd587e0bccb9d589f8e7474435857f4c730c1c4a1ff84483526b03086cdfd7e5",
+                            "codewisdom/ts-order-service:0.2.0"
+                        ],
+                        "sizeBytes": 340938392
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-inside-payment-service@sha256:0d50c1ebd6d68f72095a55f79fb1916fc0753dd7aa83dc292b2fa0bc1348f9e4",
+                            "codewisdom/ts-inside-payment-service:0.2.0"
+                        ],
+                        "sizeBytes": 340938189
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-food-map-service@sha256:eeab37b6e9402e12ed16b8879df62af6d64aa0b75e0a8bf98d83ac9c574c3d94",
+                            "codewisdom/ts-food-map-service:0.2.0"
+                        ],
+                        "sizeBytes": 340921182
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-price-service@sha256:5a77b41ee671501f664b88cafb10c1332ade4aba5354ad6dabe2ce0f4dbdbf42",
+                            "codewisdom/ts-price-service:0.2.0"
+                        ],
+                        "sizeBytes": 340916967
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-station-service@sha256:1e9ea348b30926c3a31dde87f063a4325f854b123e70c307abe33ea17137f0ea",
+                            "codewisdom/ts-station-service:0.2.0"
+                        ],
+                        "sizeBytes": 340915387
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-consign-price-service@sha256:f649b8c3f32e4cc6a8bc24530b58947936e471fe07fae5b5326d7f0c8facb76a",
+                            "codewisdom/ts-consign-price-service:0.2.0"
+                        ],
+                        "sizeBytes": 340914144
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-route-plan-service@sha256:66d4dbf681b3784d5e2e12b44920c70988ba6205f9b253b5ffff03b1924c2da3",
+                            "codewisdom/ts-route-plan-service:0.2.0"
+                        ],
+                        "sizeBytes": 337399510
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-cancel-service@sha256:cb7af64f6d3db594c4bd471ac2838bc28c0e3a931b07e282cbe0966daac487ac",
+                            "codewisdom/ts-cancel-service:0.2.0"
+                        ],
+                        "sizeBytes": 337397288
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-seat-service@sha256:36f3a6e292fff895c2b451329691633b2e2d65a1b0c1a4376befdb94f3480db6",
+                            "codewisdom/ts-seat-service:0.2.0"
+                        ],
+                        "sizeBytes": 337393991
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-admin-travel-service@sha256:72ba51cd13a80222ec7e1cd73e362c8daef863fba4e7ec982d4848cea16a99f6",
+                            "codewisdom/ts-admin-travel-service:0.2.0"
+                        ],
+                        "sizeBytes": 337386607
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-admin-route-service@sha256:5168a26c75250ccd451ff162497bd58a6beb9926f24ee2a41b8ce5a43cfc656d",
+                            "codewisdom/ts-admin-route-service:0.2.0"
+                        ],
+                        "sizeBytes": 337376770
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-verification-code-service@sha256:0205442c3e329358cbd2b53f457c88b19f540c8c4520a039d2907d6b09f626df",
+                            "codewisdom/ts-verification-code-service:0.2.0"
+                        ],
+                        "sizeBytes": 337376223
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-news-service@sha256:c92d6ec3cf9df30a98e75cb066edf1812189ed27b4ff91ae652f2196071279cb",
+                            "codewisdom/ts-news-service:0.2.0"
+                        ],
+                        "sizeBytes": 333202062
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-delivery-service@sha256:819fe907c36efded5dee0ac0e8d285e4233a0389c644b09bc17bc01b719d0db7",
+                            "1.94.151.57:85/train-ticket/ts-delivery-service:1.0.0"
+                        ],
+                        "sizeBytes": 317044103
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/opentelemetry-collector-contrib@sha256:efc087bee79bd6f6f12842830186b31af8bea92f7935f4f6c136175a760d10cf",
+                            "1.94.151.57:85/open-telemetry/opentelemetry-collector-contrib:0.120.0"
+                        ],
+                        "sizeBytes": 315407346
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/ischaos/ischaos-platform@sha256:e57342e124be7823b599be48d85f31f2965d3415aa7b5a0e70d3a1de5a59f452",
+                            "1.94.151.57:85/ischaos/ischaos-platform:20260317203411"
+                        ],
+                        "sizeBytes": 314508589
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-payment-service@sha256:e955ebc2484de2ebff214380311d2b396e0c71179240e482e9af5867f681489f",
+                            "1.94.151.57:85/train-ticket/ts-payment-service:1.0.0"
+                        ],
+                        "sizeBytes": 313182015
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-user-service@sha256:9a950db05af4aa15a5e69ffb766e11c2e1c109d887173b24d1256086338d3b88",
+                            "1.94.151.57:85/train-ticket/ts-user-service:1.0.0"
+                        ],
+                        "sizeBytes": 312977567
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-food-delivery-service@sha256:fe33629cbc27a477364a688e043c3dbdf1e89110da6e7eb28c8cafe3a6807074",
+                            "1.94.151.57:85/train-ticket/ts-food-delivery-service:1.0.0"
+                        ],
+                        "sizeBytes": 312977023
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-wait-order-service@sha256:18c51d7955f405dd157dee3fa42892602064b8454f6c08b55ce535ce693e7a0e",
+                            "1.94.151.57:85/train-ticket/ts-wait-order-service:1.0.0"
+                        ],
+                        "sizeBytes": 312976963
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "44fa6c0f-ccfa-4722-8f5c-14c95a877ee2",
+                    "containerRuntimeVersion": "docker://27.3.1",
+                    "kernelVersion": "6.8.0-49-generic",
+                    "kubeProxyVersion": "v1.28.0",
+                    "kubeletVersion": "v1.28.0",
+                    "machineID": "edb6bf75236b45838e84ffcda3dfb7d2",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 24.04.1 LTS",
+                    "systemUUID": "f54aa6de-aae0-4fe5-a1b6-f03b5e4e2182"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/cri-dockerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2025-03-11T07:57:08Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "gpu-capability": "8",
+                    "gpu-name": "V100",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "tcse-v100-01",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/control-plane": "",
+                    "node.kubernetes.io/exclude-from-external-load-balancers": "",
+                    "nvidia-device-enable": "enable"
+                },
+                "name": "tcse-v100-01",
+                "resourceVersion": "183422562",
+                "uid": "496465b6-866f-4f39-9ff9-2a711ba13694"
+            },
+            "spec": {
+                "podCIDR": "100.64.0.0/24",
+                "podCIDRs": [
+                    "100.64.0.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "192.168.0.197",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "tcse-v100-01",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "8",
+                    "doslab.io/vcuda-core": "100",
+                    "doslab.io/vcuda-memory": "128",
+                    "ephemeral-storage": "189942323705",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "instrumentation.odigos.io/dotnet-native-community": "0",
+                    "instrumentation.odigos.io/generic": "0",
+                    "instrumentation.odigos.io/go-ebpf-community": "0",
+                    "instrumentation.odigos.io/java-native-community": "0",
+                    "instrumentation.odigos.io/javascript-native-community": "0",
+                    "instrumentation.odigos.io/musl-dotnet-native-community": "0",
+                    "instrumentation.odigos.io/nginx-native-community": "0",
+                    "instrumentation.odigos.io/python-native-community": "0",
+                    "memory": "65544216Ki",
+                    "pods": "250",
+                    "tencent.com/vcuda-core": "0",
+                    "tencent.com/vcuda-memory": "0"
+                },
+                "capacity": {
+                    "cpu": "8",
+                    "doslab.io/vcuda-core": "100",
+                    "doslab.io/vcuda-memory": "128",
+                    "ephemeral-storage": "206100612Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "instrumentation.odigos.io/dotnet-native-community": "0",
+                    "instrumentation.odigos.io/generic": "0",
+                    "instrumentation.odigos.io/go-ebpf-community": "0",
+                    "instrumentation.odigos.io/java-native-community": "0",
+                    "instrumentation.odigos.io/javascript-native-community": "0",
+                    "instrumentation.odigos.io/musl-dotnet-native-community": "0",
+                    "instrumentation.odigos.io/nginx-native-community": "0",
+                    "instrumentation.odigos.io/python-native-community": "0",
+                    "memory": "65646616Ki",
+                    "pods": "250",
+                    "tencent.com/vcuda-core": "0",
+                    "tencent.com/vcuda-memory": "0"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2025-03-11T07:59:55Z",
+                        "lastTransitionTime": "2025-03-11T07:59:55Z",
+                        "message": "Cilium is running on this node",
+                        "reason": "CiliumIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-09T05:52:42Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-09T05:52:42Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-09T05:52:42Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:22Z",
+                        "lastTransitionTime": "2026-03-09T05:52:42Z",
+                        "message": "kubelet is posting ready status. AppArmor enabled",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "gitlab/gitlab-ce@sha256:4d1e1224ae38b06fb3066367ba5708e3c2e6249b118b5774dfc2ea78b5f0f138",
+                            "gitlab/gitlab-ce:latest"
+                        ],
+                        "sizeBytes": 3666094025
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel@sha256:62af6e851de7cd28f3d287b51cbed99acceed88e125af3096ba956e1b64d2f73",
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel:v20260306"
+                        ],
+                        "sizeBytes": 3312790364
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/demo@sha256:230d1d24395a57c66cc315b0f2fcab6d98909e3b62c27114856383c03cbd36a0",
+                            "1.94.151.57:85/open-telemetry/demo:2.0.1-my-loadgen"
+                        ],
+                        "sizeBytes": 1594433252
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:f6e531e9be11b4b6384314f2b2bba9cdcdf4516427f7fc01aa6da7340b8d3f29"
+                        ],
+                        "sizeBytes": 1552649567
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:606440b9c31310be63af6c5cc673ef5ad5e410d5be802777d510ad820dd626e1"
+                        ],
+                        "sizeBytes": 1552649512
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:55cdc84ba74f7176b25af1b9f0d3f8fc5cc9211dc4bfb205cc76edd57d708609"
+                        ],
+                        "sizeBytes": 1552649512
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:4f3b27d57c6b0eef366dbf10010005cd0121dbbec60ff206251d88fe6f557542"
+                        ],
+                        "sizeBytes": 1552649511
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:d2518b7952a3f2a59700a45ac8438af9238809ad75e7f8c9e86fe8fecefbf724",
+                            "1.94.151.57:85/aiplatform/dataset-backend:1.0.0"
+                        ],
+                        "sizeBytes": 1552649325
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:2019a397e38284908d9d6e51eabd0095fd5d1c93c35277537e4f8d02b2816da9"
+                        ],
+                        "sizeBytes": 1552648931
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:da79b32f096c7c78809a211a85b4d0af3b47d9da8675076e296c35c724f982a2"
+                        ],
+                        "sizeBytes": 1552648881
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:934073a4ad639e551b1f695a78ecc8716f61c115ece823c6e4d11cfc3bdc5cf7"
+                        ],
+                        "sizeBytes": 1552648708
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/opensearch@sha256:73df4740a0e4cd2a94944d57517a379ae275350e227fe4e0f2bab7ddae506f17",
+                            "1.94.151.57:85/open-telemetry/opensearch:2.19.0"
+                        ],
+                        "sizeBytes": 1443902696
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/demo@sha256:a80df17676908fbf02b5d50cb7fd411d72f1a7a352b5ab8e2a52482b63e21af9",
+                            "1.94.151.57:85/open-telemetry/demo:2.0.1-flagd-ui"
+                        ],
+                        "sizeBytes": 865398567
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon@sha256:f8f7c1cebd5959092c72897de0654ea441b4bb9ef75c7b62cf5dc3de62974e53",
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon:v20260306"
+                        ],
+                        "sizeBytes": 845487197
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/ischaos/db-init@sha256:593df881c31534c729d1dac06f328972520021fef4533b50202c1e99eb44d93f",
+                            "1.94.151.57:85/ischaos/db-init:v1.0.0"
+                        ],
+                        "sizeBytes": 811026237
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/ischaos/mysql@sha256:a3dff78d876222746a0bacc36dd7e4bf9e673c85fb7ee0d12ed25bd32c43c19b",
+                            "1.94.151.57:85/ischaos/mysql:8.0"
+                        ],
+                        "sizeBytes": 785961877
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/chaos-mesh/chaos-daemon@sha256:c7be6f3e3228ba6af3dcac2445210227f2399f35e54da76e4a3efaf9dbbb6deb",
+                            "ghcr.io/chaos-mesh/chaos-daemon:v2.6.1"
+                        ],
+                        "sizeBytes": 743017709
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/frontend@sha256:71ce865e3aefd7e4de6c7f3bd6a333b5040064783bc2f02f402082259d3aa0d8",
+                            "1.94.151.57:85/open-telemetry/frontend:cbt"
+                        ],
+                        "sizeBytes": 728401178
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/unishare-ctrl@sha256:b164116012ed309e644e8adace454e1e53ff6fdf83d907e537786648195e19c6",
+                            "1.94.151.57:85/aiplatform/unishare-ctrl:v1.0.1"
+                        ],
+                        "sizeBytes": 593876934
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/demo@sha256:b8c88ef72d35ae42737e733edacdc342a8d5a1b58d125afd0e430eb033de6072",
+                            "1.94.151.57:85/open-telemetry/demo:2.0.1-quote"
+                        ],
+                        "sizeBytes": 544070175
+                    },
+                    {
+                        "names": [
+                            "quay.io/cilium/cilium@sha256:d3b287029755b6a47dee01420e2ea469469f1b174a2089c10af7e5e9289ef05b",
+                            "quay.io/cilium/cilium:v1.14.5"
+                        ],
+                        "sizeBytes": 528703530
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/mysql@sha256:928c874454f3e23f50206b587bd9128305ca09ec845ce4e7ea9b80a628094b24",
+                            "1.94.151.57:85/open-telemetry/mysql:5.7"
+                        ],
+                        "sizeBytes": 501818135
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiops/postgres@sha256:cedbd4a3809524b5d1c29fb855a695d9c688f1916ee29c07620ef35efe1d9732",
+                            "1.94.151.57:85/aiops/postgres:16-debian"
+                        ],
+                        "sizeBytes": 450897850
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/open-telemetry/demo@sha256:2bb6494a0c0767f789227b0cafbaefbade1597f1e055ba75a3cfd68fdcc9c1bf",
+                            "1.94.151.57:85/open-telemetry/open-telemetry/demo:2.0.1-kafka"
+                        ],
+                        "sizeBytes": 416451906
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/observe/coroot-node-agent@sha256:a467989c96f69389af46c9ae7db2b1d7d00030410362f62aa718ccb82f44fc0e",
+                            "1.94.151.57:85/observe/coroot-node-agent:v1.0.0"
+                        ],
+                        "sizeBytes": 399430216
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/demo@sha256:6b5c2f04786488611f3c9a684aa1637463ddb862ddab08c1c6ba3ca86ef8cc8f",
+                            "1.94.151.57:85/open-telemetry/demo:2.0.1-ad"
+                        ],
+                        "sizeBytes": 362807112
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/open-telemetry/demo@sha256:5d4699de19d4a512876a9cb28211c78e4a621cd711d8c138ddaad2dd8fffb852",
+                            "ghcr.io/open-telemetry/demo:2.0.1-ad"
+                        ],
+                        "sizeBytes": 362382351
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel2-service@sha256:9eb7040808b28fd06db29eb868693156502db4a6ca60caf79d02083e99429e25",
+                            "codewisdom/ts-travel2-service:0.2.0"
+                        ],
+                        "sizeBytes": 340949130
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel-service@sha256:81f47ad871ecfc821bd743519204d12f9792d5a32436b0610128625a673100be",
+                            "codewisdom/ts-travel-service:0.2.0"
+                        ],
+                        "sizeBytes": 340947567
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-order-service@sha256:bd587e0bccb9d589f8e7474435857f4c730c1c4a1ff84483526b03086cdfd7e5",
+                            "codewisdom/ts-order-service:0.2.0"
+                        ],
+                        "sizeBytes": 340938392
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-user-service@sha256:0b2da091156d2351b4c5096e500a811d11194b266dfcfd01c8918f479a3bb0c2",
+                            "codewisdom/ts-user-service:0.2.0"
+                        ],
+                        "sizeBytes": 340923431
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-security-service@sha256:16c371ffc9c54a5998f5791758feb1ec9f52306ca1af2d6960eca0477fef8782",
+                            "codewisdom/ts-security-service:0.2.0"
+                        ],
+                        "sizeBytes": 340922713
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-station-service@sha256:1e9ea348b30926c3a31dde87f063a4325f854b123e70c307abe33ea17137f0ea",
+                            "codewisdom/ts-station-service:0.2.0"
+                        ],
+                        "sizeBytes": 340915387
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-train-service@sha256:5b49d42e8daf389d4f0a787f76f7c424a9aa698a4d711704589b74e84fac54c1",
+                            "codewisdom/ts-train-service:0.2.0"
+                        ],
+                        "sizeBytes": 340913419
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel-plan-service@sha256:5dd0b0508abd10bcf6a19b9838d115e8aeb18c1e0a097b9bbd042c2d76445223",
+                            "codewisdom/ts-travel-plan-service:0.2.0"
+                        ],
+                        "sizeBytes": 337402019
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-route-plan-service@sha256:66d4dbf681b3784d5e2e12b44920c70988ba6205f9b253b5ffff03b1924c2da3",
+                            "codewisdom/ts-route-plan-service:0.2.0"
+                        ],
+                        "sizeBytes": 337399510
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-seat-service@sha256:36f3a6e292fff895c2b451329691633b2e2d65a1b0c1a4376befdb94f3480db6",
+                            "codewisdom/ts-seat-service:0.2.0"
+                        ],
+                        "sizeBytes": 337393991
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-ticketinfo-service@sha256:7a682378d1f75f519af25f2004b3fac0bb3cd3768fd23a0b64fc7554e36f7054",
+                            "codewisdom/ts-ticketinfo-service:0.2.0"
+                        ],
+                        "sizeBytes": 337381341
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-verification-code-service@sha256:0205442c3e329358cbd2b53f457c88b19f540c8c4520a039d2907d6b09f626df",
+                            "codewisdom/ts-verification-code-service:0.2.0"
+                        ],
+                        "sizeBytes": 337376223
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-nginx@sha256:4d4229edce052d7862f486aaa1b1ac7bf05d552c8e612262c0a36eb135e763eb"
+                        ],
+                        "sizeBytes": 318428212
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/opentelemetry-collector-contrib@sha256:63974cbcf1a0c2c190ab32f468d4abe7b0b2379b3d3f0ecf03a144427b7d100a",
+                            "1.94.151.57:85/open-telemetry/opentelemetry-collector-contrib:0.120.0"
+                        ],
+                        "sizeBytes": 315842941
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-inside-payment-service@sha256:54be9ad6e294595615a67889e50355e796759af9d9d480d0ca0d67cbcf95bb40",
+                            "1.94.151.57:85/train-ticket/ts-inside-payment-service:1.0.0"
+                        ],
+                        "sizeBytes": 312986899
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-order-other-service@sha256:02c5a910980645c118ee4194dfd12470815dd77cd016acf5d628ca75be441355",
+                            "1.94.151.57:85/train-ticket/ts-order-other-service:1.0.0"
+                        ],
+                        "sizeBytes": 312981458
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-consign-service@sha256:87ae85e6101ce8b3dd7e059644fb20b388b53daead29936007b77ab34d9b4b02",
+                            "1.94.151.57:85/train-ticket/ts-consign-service:1.0.0"
+                        ],
+                        "sizeBytes": 312975248
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-consign-price-service@sha256:e027a8244fc4a4e987507040e5bf03870f54d072ff243ab4a6d922c7152f467e",
+                            "1.94.151.57:85/train-ticket/ts-consign-price-service:1.0.0"
+                        ],
+                        "sizeBytes": 312967514
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-config-service@sha256:a9443ffe9a038216a236f14c9e1fde6a2c9909b6da922983cd3cd433e9669ddc",
+                            "1.94.151.57:85/train-ticket/ts-config-service:1.0.0"
+                        ],
+                        "sizeBytes": 312966459
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-nginx@sha256:ed6a3591b0993a2087b90fff949cc15cf8f9b9451d3d3a9382991c50036dfa0e"
+                        ],
+                        "sizeBytes": 310789571
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-gateway-service@sha256:df25d2a09c49ebac1ed8e2798c11a90800d66b32b90131c8eac8201df9ef560b",
+                            "1.94.151.57:85/train-ticket/ts-gateway-service:1.0.0"
+                        ],
+                        "sizeBytes": 304382316
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-nginx@sha256:630c1cde92f439e7417bed533709608a9e132103d7cc1ac1582da04e0b592678"
+                        ],
+                        "sizeBytes": 303149043
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-nginx@sha256:70f2c28cf51ee5e89219619a4f022bd088b50ff35d6dccea2429d2dcc61cc670"
+                        ],
+                        "sizeBytes": 295509844
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "be70dde2-30c0-4fb2-99db-843b26d75fe0",
+                    "containerRuntimeVersion": "docker://28.1.1",
+                    "kernelVersion": "5.15.0-135-generic",
+                    "kubeProxyVersion": "v1.28.0",
+                    "kubeletVersion": "v1.28.0",
+                    "machineID": "d3d1c822455f49068d6153536865489e",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 22.04.5 LTS",
+                    "systemUUID": "4eef96e4-b546-4f88-8e39-69c5d3d75a54"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/cri-dockerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2025-03-11T08:05:15Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "gpu-capability": "8",
+                    "gpu-name": "V100",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "tcse-v100-02",
+                    "kubernetes.io/os": "linux",
+                    "nvidia-device-enable": "enable"
+                },
+                "name": "tcse-v100-02",
+                "resourceVersion": "183422522",
+                "uid": "820dd428-68b6-4ecf-974e-e357bd61c892"
+            },
+            "spec": {
+                "podCIDR": "100.64.1.0/24",
+                "podCIDRs": [
+                    "100.64.1.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "192.168.0.138",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "tcse-v100-02",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "8",
+                    "doslab.io/vcuda-core": "100",
+                    "doslab.io/vcuda-memory": "128",
+                    "ephemeral-storage": "189942323705",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "instrumentation.odigos.io/dotnet-native-community": "0",
+                    "instrumentation.odigos.io/generic": "0",
+                    "instrumentation.odigos.io/go-ebpf-community": "0",
+                    "instrumentation.odigos.io/java-native-community": "0",
+                    "instrumentation.odigos.io/javascript-native-community": "0",
+                    "instrumentation.odigos.io/musl-dotnet-native-community": "0",
+                    "instrumentation.odigos.io/nginx-native-community": "0",
+                    "instrumentation.odigos.io/python-native-community": "0",
+                    "memory": "65544356Ki",
+                    "pods": "250",
+                    "tencent.com/vcuda-core": "0",
+                    "tencent.com/vcuda-memory": "0"
+                },
+                "capacity": {
+                    "cpu": "8",
+                    "doslab.io/vcuda-core": "100",
+                    "doslab.io/vcuda-memory": "128",
+                    "ephemeral-storage": "206100612Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "instrumentation.odigos.io/dotnet-native-community": "0",
+                    "instrumentation.odigos.io/generic": "0",
+                    "instrumentation.odigos.io/go-ebpf-community": "0",
+                    "instrumentation.odigos.io/java-native-community": "0",
+                    "instrumentation.odigos.io/javascript-native-community": "0",
+                    "instrumentation.odigos.io/musl-dotnet-native-community": "0",
+                    "instrumentation.odigos.io/nginx-native-community": "0",
+                    "instrumentation.odigos.io/python-native-community": "0",
+                    "memory": "65646756Ki",
+                    "pods": "250",
+                    "tencent.com/vcuda-core": "0",
+                    "tencent.com/vcuda-memory": "0"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2025-03-11T08:06:50Z",
+                        "lastTransitionTime": "2025-03-11T08:06:50Z",
+                        "message": "Cilium is running on this node",
+                        "reason": "CiliumIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:18Z",
+                        "lastTransitionTime": "2026-03-17T02:13:38Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:18Z",
+                        "lastTransitionTime": "2026-03-17T02:13:38Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:18Z",
+                        "lastTransitionTime": "2026-03-17T02:13:38Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:18Z",
+                        "lastTransitionTime": "2026-03-17T07:56:45Z",
+                        "message": "kubelet is posting ready status. AppArmor enabled",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "ghcr.io/open-webui/open-webui:main"
+                        ],
+                        "sizeBytes": 4493740063
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel@sha256:62af6e851de7cd28f3d287b51cbed99acceed88e125af3096ba956e1b64d2f73",
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel:v20260306"
+                        ],
+                        "sizeBytes": 3312790364
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-avatar-service@sha256:0a1092cf204dcc4fff79668a9247ad67e20734efa84709e2b30b33b2039e92be",
+                            "1.94.151.57:85/train-ticket/ts-avatar-service:1.0.0"
+                        ],
+                        "sizeBytes": 1988997245
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:f6e531e9be11b4b6384314f2b2bba9cdcdf4516427f7fc01aa6da7340b8d3f29"
+                        ],
+                        "sizeBytes": 1552649567
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:606440b9c31310be63af6c5cc673ef5ad5e410d5be802777d510ad820dd626e1"
+                        ],
+                        "sizeBytes": 1552649512
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:55cdc84ba74f7176b25af1b9f0d3f8fc5cc9211dc4bfb205cc76edd57d708609"
+                        ],
+                        "sizeBytes": 1552649512
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:4f3b27d57c6b0eef366dbf10010005cd0121dbbec60ff206251d88fe6f557542"
+                        ],
+                        "sizeBytes": 1552649511
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:d2518b7952a3f2a59700a45ac8438af9238809ad75e7f8c9e86fe8fecefbf724",
+                            "1.94.151.57:85/aiplatform/dataset-backend:1.0.0"
+                        ],
+                        "sizeBytes": 1552649325
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:2019a397e38284908d9d6e51eabd0095fd5d1c93c35277537e4f8d02b2816da9"
+                        ],
+                        "sizeBytes": 1552648931
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:da79b32f096c7c78809a211a85b4d0af3b47d9da8675076e296c35c724f982a2"
+                        ],
+                        "sizeBytes": 1552648881
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:934073a4ad639e551b1f695a78ecc8716f61c115ece823c6e4d11cfc3bdc5cf7"
+                        ],
+                        "sizeBytes": 1552648708
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:64565309490b68bdeca6e42678aad83d3dfa610d81bc51074d6e6d22e3307f5a"
+                        ],
+                        "sizeBytes": 1552622119
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/dataset-backend@sha256:75541e053b4c614c412451144c193465cc6fadf15de42da912e6b14cbcec504c"
+                        ],
+                        "sizeBytes": 1552622119
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-avatar-service@sha256:5451d53601b5138f4cf0ec0216bced7f4f5e2ea44bfef010f1d5146069a7c9b8",
+                            "codewisdom/ts-avatar-service:0.2.0"
+                        ],
+                        "sizeBytes": 1319710325
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-ticket-office-service@sha256:2d7dbfde3a86e46db819fb7acf122fc517dcce9493d5c98d84dff5e0a16300cb",
+                            "1.94.151.57:85/train-ticket/ts-ticket-office-service:1.0.0"
+                        ],
+                        "sizeBytes": 1147443148
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/nacos-nacos-server@sha256:365099d5519bc0f146f373bb77d2642944657d6d23254248a1dc150f255e314d",
+                            "1.94.151.57:85/train-ticket/nacos-nacos-server:2.0.1"
+                        ],
+                        "sizeBytes": 1038969932
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/observe/clickhouse-server@sha256:458f72c00e4abc80c2950d8070bc5723b538544d72ea4a6a58d9ff4f8fadf8d7",
+                            "1.94.151.57:85/observe/clickhouse-server:24.3"
+                        ],
+                        "sizeBytes": 942406947
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-ticket-office-service@sha256:991a4dac9249b48e88a22170ac90b4f0fdd9f6d90b92fca14166310412033ef2",
+                            "codewisdom/ts-ticket-office-service:0.2.0"
+                        ],
+                        "sizeBytes": 915370379
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/observe/clickhouse@sha256:b91fa8a85e73acca2dbba32c712b6c0039cc364b9fdc12233efc3b300630cabc",
+                            "1.94.151.57:85/observe/clickhouse:25.11.2-ubi9-0"
+                        ],
+                        "sizeBytes": 915025843
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon@sha256:f8f7c1cebd5959092c72897de0654ea441b4bb9ef75c7b62cf5dc3de62974e53",
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon:v20260306"
+                        ],
+                        "sizeBytes": 845487197
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/chaos-mesh/chaos-daemon@sha256:c7be6f3e3228ba6af3dcac2445210227f2399f35e54da76e4a3efaf9dbbb6deb",
+                            "ghcr.io/chaos-mesh/chaos-daemon:v2.6.1"
+                        ],
+                        "sizeBytes": 743017709
+                    },
+                    {
+                        "names": [
+                            "clickhouse/clickhouse-server@sha256:3fb2bd1a2fa9e095a1844b2b559eb580795773cf459a994f53be86e7ec999704",
+                            "clickhouse/clickhouse-server:24.12.3"
+                        ],
+                        "sizeBytes": 647574263
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/unishare-ctrl@sha256:b164116012ed309e644e8adace454e1e53ff6fdf83d907e537786648195e19c6",
+                            "1.94.151.57:85/aiplatform/unishare-ctrl:v1.0.1"
+                        ],
+                        "sizeBytes": 593876934
+                    },
+                    {
+                        "names": [
+                            "quay.io/cilium/cilium@sha256:d3b287029755b6a47dee01420e2ea469469f1b174a2089c10af7e5e9289ef05b",
+                            "quay.io/cilium/cilium:v1.14.5"
+                        ],
+                        "sizeBytes": 528703530
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-ui-dashboard@sha256:06930fe85a40866c6e0180bd207f670501380e279b52f54e3f1f30c518377eec",
+                            "1.94.151.57:85/train-ticket/ts-ui-dashboard:1.0.1"
+                        ],
+                        "sizeBytes": 505863724
+                    },
+                    {
+                        "names": [
+                            "mysql@sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb",
+                            "mysql:5.7"
+                        ],
+                        "sizeBytes": 501392011
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiops/postgres@sha256:cedbd4a3809524b5d1c29fb855a695d9c688f1916ee29c07620ef35efe1d9732",
+                            "1.94.151.57:85/aiops/postgres:16-debian"
+                        ],
+                        "sizeBytes": 450897850
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/radondb-percona@sha256:3901a1cf63bc772a6132ece45bddbb16cfc491f8b5e2b2498ef6f37003c66cd0",
+                            "1.94.151.57:85/train-ticket/radondb-percona:5.7.34"
+                        ],
+                        "sizeBytes": 423621048
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/model-train-controller-backend@sha256:b3bcc89ed89b52886ce44a69c40f3e240c70d5efc0d5376a5d0845fcae429ae8",
+                            "1.94.151.57:85/aiplatform/model-train-controller-backend:1.0.0"
+                        ],
+                        "sizeBytes": 419872411
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/observe/coroot-node-agent@sha256:a467989c96f69389af46c9ae7db2b1d7d00030410362f62aa718ccb82f44fc0e",
+                            "1.94.151.57:85/observe/coroot-node-agent:v1.0.0"
+                        ],
+                        "sizeBytes": 399430216
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/coroot/coroot-node-agent@sha256:4dd1b01e86c01ed8acb07573cab77edcb2a0d2f61176465c3b7230e8426bdcec",
+                            "ghcr.io/coroot/coroot-node-agent:1.25.3"
+                        ],
+                        "sizeBytes": 398100832
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/stleox/mongo@sha256:dec7f10108a87ff660a0d56cb71b0c5ae1f33cba796a33c88b50280fc0707116",
+                            "ghcr.io/stleox/mongo:4.0.2"
+                        ],
+                        "sizeBytes": 380992050
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel2-service@sha256:9eb7040808b28fd06db29eb868693156502db4a6ca60caf79d02083e99429e25",
+                            "codewisdom/ts-travel2-service:0.2.0"
+                        ],
+                        "sizeBytes": 340949130
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel-service@sha256:81f47ad871ecfc821bd743519204d12f9792d5a32436b0610128625a673100be",
+                            "codewisdom/ts-travel-service:0.2.0"
+                        ],
+                        "sizeBytes": 340947567
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-inside-payment-service@sha256:0d50c1ebd6d68f72095a55f79fb1916fc0753dd7aa83dc292b2fa0bc1348f9e4",
+                            "codewisdom/ts-inside-payment-service:0.2.0"
+                        ],
+                        "sizeBytes": 340938189
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-order-other-service@sha256:4306fe9da9e5494fa34afcb63a83db4d2c60da139187aa18eb09e5e3b33484d8",
+                            "codewisdom/ts-order-other-service:0.2.0"
+                        ],
+                        "sizeBytes": 340938168
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-auth-service@sha256:f7287c148d06059fd839193d52cf0876cd7c8c85934408e0d9ce45a525ac6170",
+                            "codewisdom/ts-auth-service:0.2.0"
+                        ],
+                        "sizeBytes": 340933485
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-security-service@sha256:16c371ffc9c54a5998f5791758feb1ec9f52306ca1af2d6960eca0477fef8782",
+                            "codewisdom/ts-security-service:0.2.0"
+                        ],
+                        "sizeBytes": 340922713
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-consign-service@sha256:63d854fcf4db806d7bb19e7860730821c99ffc6eb33ed1a3de70480ed4c07731",
+                            "codewisdom/ts-consign-service:0.2.0"
+                        ],
+                        "sizeBytes": 340920633
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-assurance-service@sha256:e4b372ab756b05242a75fedf274078b660c4669929d4f8dc2be4a4fd716398fa",
+                            "codewisdom/ts-assurance-service:0.2.0"
+                        ],
+                        "sizeBytes": 340919354
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-contacts-service@sha256:e4266b118fa9fabe2df09cc4a2e3dcc0b28f83fd1f0067f46bc81261655ef701",
+                            "codewisdom/ts-contacts-service:0.2.0"
+                        ],
+                        "sizeBytes": 340916099
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-train-service@sha256:5b49d42e8daf389d4f0a787f76f7c424a9aa698a4d711704589b74e84fac54c1",
+                            "codewisdom/ts-train-service:0.2.0"
+                        ],
+                        "sizeBytes": 340913419
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-config-service@sha256:ef4d97356de59ef1ef0a857fd2ad6019d0f3eb41930ffe2d622efe13356d7513",
+                            "codewisdom/ts-config-service:0.2.0"
+                        ],
+                        "sizeBytes": 340913129
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-preserve-other-service@sha256:f5ecb74ad4e33278de07f23c48338eeb782abb0517f38758c5d95bf04fd43754",
+                            "codewisdom/ts-preserve-other-service:0.2.0"
+                        ],
+                        "sizeBytes": 340096363
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-rebook-service@sha256:4ba1df5437d638808aaccf4a73b7b78a0c4c551fdd2cc8b357a4e17f58217b06",
+                            "codewisdom/ts-rebook-service:0.2.0"
+                        ],
+                        "sizeBytes": 337405619
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-cancel-service@sha256:cb7af64f6d3db594c4bd471ac2838bc28c0e3a931b07e282cbe0966daac487ac",
+                            "codewisdom/ts-cancel-service:0.2.0"
+                        ],
+                        "sizeBytes": 337397288
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-basic-service@sha256:5d9c0dd7bf47e8575e8d9b456cc6576abac836d62c69ab1989f97bdcc716b102",
+                            "codewisdom/ts-basic-service:0.2.0"
+                        ],
+                        "sizeBytes": 337389484
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-admin-travel-service@sha256:72ba51cd13a80222ec7e1cd73e362c8daef863fba4e7ec982d4848cea16a99f6",
+                            "codewisdom/ts-admin-travel-service:0.2.0"
+                        ],
+                        "sizeBytes": 337386607
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-admin-user-service@sha256:897e9a43f40f0829d6539c326778ef5a04bae227e47e2015e8073cf2bc46972f",
+                            "codewisdom/ts-admin-user-service:0.2.0"
+                        ],
+                        "sizeBytes": 337384703
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-admin-basic-info-service@sha256:e88f8ffd9c0af2ccf9350359f46560c29bf60fb91c51391dd1b3db323dce63e5",
+                            "codewisdom/ts-admin-basic-info-service:0.2.0"
+                        ],
+                        "sizeBytes": 337381704
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "1f5aac91-1f2d-414b-bfae-14c4d9ec4dc6",
+                    "containerRuntimeVersion": "docker://26.1.3",
+                    "kernelVersion": "5.15.0-76-generic",
+                    "kubeProxyVersion": "v1.28.0",
+                    "kubeletVersion": "v1.28.0",
+                    "machineID": "d3d1c822455f49068d6153536865489e",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 22.04.2 LTS",
+                    "systemUUID": "16e03ef0-dac3-4e3c-bb5a-7461bb5eab97"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/cri-dockerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2025-03-11T08:29:47Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "gpu-capability": "8",
+                    "gpu-name": "V100",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "tcse-v100-03",
+                    "kubernetes.io/os": "linux",
+                    "nvidia-device-enable": "enable"
+                },
+                "name": "tcse-v100-03",
+                "resourceVersion": "183422545",
+                "uid": "07d52056-d94b-4b1c-81f1-1e733d1ae6fb"
+            },
+            "spec": {
+                "podCIDR": "100.64.2.0/24",
+                "podCIDRs": [
+                    "100.64.2.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "192.168.0.118",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "tcse-v100-03",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "8",
+                    "doslab.io/vcuda-core": "100",
+                    "doslab.io/vcuda-memory": "128",
+                    "ephemeral-storage": "189942323705",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "instrumentation.odigos.io/dotnet-native-community": "0",
+                    "instrumentation.odigos.io/generic": "0",
+                    "instrumentation.odigos.io/go-ebpf-community": "0",
+                    "instrumentation.odigos.io/java-native-community": "0",
+                    "instrumentation.odigos.io/javascript-native-community": "0",
+                    "instrumentation.odigos.io/musl-dotnet-native-community": "0",
+                    "instrumentation.odigos.io/nginx-native-community": "0",
+                    "instrumentation.odigos.io/python-native-community": "0",
+                    "memory": "65544356Ki",
+                    "pods": "250",
+                    "tencent.com/vcuda-core": "0",
+                    "tencent.com/vcuda-memory": "0"
+                },
+                "capacity": {
+                    "cpu": "8",
+                    "doslab.io/vcuda-core": "100",
+                    "doslab.io/vcuda-memory": "128",
+                    "ephemeral-storage": "206100612Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "instrumentation.odigos.io/dotnet-native-community": "0",
+                    "instrumentation.odigos.io/generic": "0",
+                    "instrumentation.odigos.io/go-ebpf-community": "0",
+                    "instrumentation.odigos.io/java-native-community": "0",
+                    "instrumentation.odigos.io/javascript-native-community": "0",
+                    "instrumentation.odigos.io/musl-dotnet-native-community": "0",
+                    "instrumentation.odigos.io/nginx-native-community": "0",
+                    "instrumentation.odigos.io/python-native-community": "0",
+                    "memory": "65646756Ki",
+                    "pods": "250",
+                    "tencent.com/vcuda-core": "0",
+                    "tencent.com/vcuda-memory": "0"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2025-03-11T08:31:26Z",
+                        "lastTransitionTime": "2025-03-11T08:31:26Z",
+                        "message": "Cilium is running on this node",
+                        "reason": "CiliumIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:20Z",
+                        "lastTransitionTime": "2025-11-08T15:19:32Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:20Z",
+                        "lastTransitionTime": "2025-11-08T15:19:32Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:20Z",
+                        "lastTransitionTime": "2025-11-08T15:19:32Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-03-17T13:28:20Z",
+                        "lastTransitionTime": "2025-11-11T05:09:08Z",
+                        "message": "kubelet is posting ready status. AppArmor enabled",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "jykoh/classifieds@sha256:a2a794da92f62a8d7ffd02314e4fab40ba6c7fc08f568371608f88f0ef605e43",
+                            "jykoh/classifieds:latest"
+                        ],
+                        "sizeBytes": 77356596762
+                    },
+                    {
+                        "names": [
+                            "shopping_final_0712:latest"
+                        ],
+                        "sizeBytes": 64036369734
+                    },
+                    {
+                        "names": [
+                            "postmill-populated-exposed-withimg:latest"
+                        ],
+                        "sizeBytes": 53316049669
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel@sha256:62af6e851de7cd28f3d287b51cbed99acceed88e125af3096ba956e1b64d2f73",
+                            "1.94.151.57:85/fault-inject/chaos-kernel@sha256:62af6e851de7cd28f3d287b51cbed99acceed88e125af3096ba956e1b64d2f73",
+                            "1.94.151.57:85/chaos-mesh/chaos-kernel:v20260306",
+                            "1.94.151.57:85/fault-inject/chaos-kernel:v2025-03-13"
+                        ],
+                        "sizeBytes": 3312790364
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-voucher-service@sha256:a8e8afdc40a487f6570cdb0aa7022ce16a138872c2a1e4f947fb8557a7ec5f70",
+                            "1.94.151.57:85/train-ticket/ts-voucher-service:1.0.0"
+                        ],
+                        "sizeBytes": 1150068275
+                    },
+                    {
+                        "names": null,
+                        "sizeBytes": 1127890407
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/nacos-nacos-server@sha256:365099d5519bc0f146f373bb77d2642944657d6d23254248a1dc150f255e314d",
+                            "1.94.151.57:85/train-ticket/nacos-nacos-server:2.0.1"
+                        ],
+                        "sizeBytes": 1038969932
+                    },
+                    {
+                        "names": null,
+                        "sizeBytes": 1027048686
+                    },
+                    {
+                        "names": null,
+                        "sizeBytes": 1027048420
+                    },
+                    {
+                        "names": null,
+                        "sizeBytes": 1027048396
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon@sha256:f8f7c1cebd5959092c72897de0654ea441b4bb9ef75c7b62cf5dc3de62974e53",
+                            "1.94.151.57:85/chaos-mesh/chaos-daemon:v20260306"
+                        ],
+                        "sizeBytes": 845487197
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/fault-inject/chaos-daemon@sha256:cca4882ce1ce289a19df0245edb7a7d345a2f98ece053869052cebe6f0c9175b",
+                            "1.94.151.57:85/fault-inject/chaos-daemon:v2025-03-13"
+                        ],
+                        "sizeBytes": 812540586
+                    },
+                    {
+                        "names": [
+                            "maven@sha256:3a9c30b3af6278a8ae0007d3a3bf00fff80ec3ed7ae4eb9bfa1772853101549b",
+                            "maven:3.8-openjdk-17"
+                        ],
+                        "sizeBytes": 797986350
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/base-nginx@sha256:67dd3212a462f7c4653bad1100d5fd114d6337650a6c3dd5a01a13e01279f67e",
+                            "1.94.151.57:85/aiplatform/base-nginx:1.0.0"
+                        ],
+                        "sizeBytes": 760399121
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/chaos-mesh/chaos-daemon@sha256:c7be6f3e3228ba6af3dcac2445210227f2399f35e54da76e4a3efaf9dbbb6deb",
+                            "ghcr.io/chaos-mesh/chaos-daemon:v2.6.1"
+                        ],
+                        "sizeBytes": 743017709
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/demo@sha256:cee9c6af0cd01255b4c39cca475d41caab6de1b47e1d66c8bec54f28b49374ee",
+                            "1.94.151.57:85/open-telemetry/demo:2.0.1-frontend"
+                        ],
+                        "sizeBytes": 730263796
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/platform-backend@sha256:7a5a0ae24fe932338730436589829be279b4cc1fb3fc47f103988c9e294dc861",
+                            "1.94.151.57:85/aiplatform/platform-backend:1.0.0"
+                        ],
+                        "sizeBytes": 700595857
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/platform-backend@sha256:2c896baaa323ba6fc009622952dae4f194d32c348343ce662b3c817e0bd609df"
+                        ],
+                        "sizeBytes": 700595856
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/platform-backend@sha256:5c119df1ec50ba63aa98f4a2fa67e0a11eb2a7d75438707dbe3f320645f131fa"
+                        ],
+                        "sizeBytes": 700595854
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/platform-backend@sha256:1103f736624b7e9e2a648d24b8142d5ec174c46d8ae390e9cd91a7c29cdcaffa"
+                        ],
+                        "sizeBytes": 700595854
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/unishare-ctrl@sha256:b164116012ed309e644e8adace454e1e53ff6fdf83d907e537786648195e19c6",
+                            "1.94.151.57:85/aiplatform/unishare-ctrl:v1.0.1"
+                        ],
+                        "sizeBytes": 593876934
+                    },
+                    {
+                        "names": [
+                            "mysql@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e",
+                            "mysql:8.1"
+                        ],
+                        "sizeBytes": 574005001
+                    },
+                    {
+                        "names": [
+                            "quay.io/cilium/cilium@sha256:d3b287029755b6a47dee01420e2ea469469f1b174a2089c10af7e5e9289ef05b",
+                            "quay.io/cilium/cilium:v1.14.5"
+                        ],
+                        "sizeBytes": 528703530
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-ui-dashboard@sha256:a254319b93237c24b5654a39ff508c2d8601792f2620ace564e0cec8e02f9a3f",
+                            "codewisdom/ts-ui-dashboard:0.2.0"
+                        ],
+                        "sizeBytes": 505807927
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/mysql@sha256:928c874454f3e23f50206b587bd9128305ca09ec845ce4e7ea9b80a628094b24",
+                            "1.94.151.57:85/open-telemetry/mysql:5.7"
+                        ],
+                        "sizeBytes": 501818135
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiops/postgres@sha256:ff2e50001139f195ebdf83bc5c6f0c5f973cbd47bf7ba1c62366e2e0bfc77a6e",
+                            "1.94.151.57:85/aiops/postgres:16-debian"
+                        ],
+                        "sizeBytes": 451333449
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/mysql-model@sha256:181caa1f6aab30cfa1da7ae2b62da2381ded15be2d91525e9dc8a9e99c7d61e4",
+                            "1.94.151.57:85/aiplatform/mysql-model:5.7"
+                        ],
+                        "sizeBytes": 448857508
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/mysql-platform@sha256:eef34293f44275d6a8c01ed6051772ba213bfebe7d10258ca46ddaed487fd78b",
+                            "1.94.151.57:85/aiplatform/mysql-platform:5.7"
+                        ],
+                        "sizeBytes": 448787035
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/mysql-dataset@sha256:23e0123cabbdd2322f44aedda8658a3bcd45f2cefd26349958ae58e07adcaa8e",
+                            "1.94.151.57:85/aiplatform/mysql-dataset:5.7"
+                        ],
+                        "sizeBytes": 448775607
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/radondb-percona@sha256:3901a1cf63bc772a6132ece45bddbb16cfc491f8b5e2b2498ef6f37003c66cd0",
+                            "1.94.151.57:85/train-ticket/radondb-percona:5.7.34"
+                        ],
+                        "sizeBytes": 423621048
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/open-telemetry/open-telemetry/demo@sha256:2bb6494a0c0767f789227b0cafbaefbade1597f1e055ba75a3cfd68fdcc9c1bf",
+                            "1.94.151.57:85/open-telemetry/open-telemetry/demo:2.0.1-kafka"
+                        ],
+                        "sizeBytes": 416451906
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/observe/coroot-node-agent@sha256:a467989c96f69389af46c9ae7db2b1d7d00030410362f62aa718ccb82f44fc0e",
+                            "1.94.151.57:85/observe/coroot-node-agent:v1.0.0"
+                        ],
+                        "sizeBytes": 399430216
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/coroot/coroot-node-agent@sha256:4dd1b01e86c01ed8acb07573cab77edcb2a0d2f61176465c3b7230e8426bdcec",
+                            "ghcr.io/coroot/coroot-node-agent:1.25.3"
+                        ],
+                        "sizeBytes": 398100832
+                    },
+                    {
+                        "names": [
+                            "mongo@sha256:66d58bd625a758ce537931ba5193fd0df3878548fbabce2012c96a584be96ce7",
+                            "mongo:4.0.2"
+                        ],
+                        "sizeBytes": 380992050
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-food-service@sha256:5f7b28d82c480eb9184e464da7ab87b334f732d79f043475670e2f1bdce9eb2b",
+                            "codewisdom/ts-food-service:0.2.0"
+                        ],
+                        "sizeBytes": 343596064
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel-service@sha256:81f47ad871ecfc821bd743519204d12f9792d5a32436b0610128625a673100be",
+                            "codewisdom/ts-travel-service:0.2.0"
+                        ],
+                        "sizeBytes": 340947567
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-user-service@sha256:0b2da091156d2351b4c5096e500a811d11194b266dfcfd01c8918f479a3bb0c2",
+                            "codewisdom/ts-user-service:0.2.0"
+                        ],
+                        "sizeBytes": 340923431
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-route-service@sha256:fc5947172659ad347c6ed56e1b825ee58cb6221aa9ab34b77eb727e232dbbbd5",
+                            "codewisdom/ts-route-service:0.2.0"
+                        ],
+                        "sizeBytes": 340917514
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-payment-service@sha256:29ad2bb77da66ff01546a0d5b61f147171c9888b61c2773a6e091d746ff22d5c",
+                            "codewisdom/ts-payment-service:0.2.0"
+                        ],
+                        "sizeBytes": 340915215
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-config-service@sha256:ef4d97356de59ef1ef0a857fd2ad6019d0f3eb41930ffe2d622efe13356d7513",
+                            "codewisdom/ts-config-service:0.2.0"
+                        ],
+                        "sizeBytes": 340913129
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-preserve-service@sha256:822075c882aaa960f879e65008ef5bc13de78e4ee04bc2f9066f9f3615d6d362",
+                            "codewisdom/ts-preserve-service:0.2.0"
+                        ],
+                        "sizeBytes": 340095886
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-travel-plan-service@sha256:5dd0b0508abd10bcf6a19b9838d115e8aeb18c1e0a097b9bbd042c2d76445223",
+                            "codewisdom/ts-travel-plan-service:0.2.0"
+                        ],
+                        "sizeBytes": 337402019
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-ticketinfo-service@sha256:7a682378d1f75f519af25f2004b3fac0bb3cd3768fd23a0b64fc7554e36f7054",
+                            "codewisdom/ts-ticketinfo-service:0.2.0"
+                        ],
+                        "sizeBytes": 337381341
+                    },
+                    {
+                        "names": [
+                            "codewisdom/ts-execute-service@sha256:a078a1e56d09c0e5a3f4fefb0a6e4dee04aec2a810535aa573324cb3d926c904",
+                            "codewisdom/ts-execute-service:0.2.0"
+                        ],
+                        "sizeBytes": 337379818
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-news-service@sha256:8a201540674853fbf14af6169c507b02122b757cfa281179873317899360f70c",
+                            "1.94.151.57:85/train-ticket/ts-news-service:1.0.0"
+                        ],
+                        "sizeBytes": 333202062
+                    },
+                    {
+                        "names": [
+                            "chaosbladeio/chaosblade-agent@sha256:9ad520a855eaf555ecc57905df66d4d9e52edee282e11c7d4e81cf498be06147",
+                            "chaosbladeio/chaosblade-agent:1.0.2"
+                        ],
+                        "sizeBytes": 327164899
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/aiplatform/open-telemetry/demo@sha256:2a23da1be4b79d36ee84bd5eaf8f452139eba54b0f199b9840a200656be2c9ed",
+                            "1.94.151.57:85/aiplatform/open-telemetry/demo:2.0.2-gateway"
+                        ],
+                        "sizeBytes": 315267639
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-food-service@sha256:f13b22d6c0feeebf8e3f95fd3e41da98cb618c45f571e625d5840bc6a99162e0",
+                            "1.94.151.57:85/train-ticket/ts-food-service:1.0.0"
+                        ],
+                        "sizeBytes": 314296016
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-travel-service@sha256:a7917c2637c3b4fe1b8276dcd5a73883c5a05cad09757a03b87ebc9e6cda2a3a",
+                            "1.94.151.57:85/train-ticket/ts-travel-service:1.0.0"
+                        ],
+                        "sizeBytes": 313000404
+                    },
+                    {
+                        "names": [
+                            "1.94.151.57:85/train-ticket/ts-auth-service@sha256:f04198032f479d6ca7d101adceefaefef4abaab4dabd5aa12072ab5469ba6aa6",
+                            "1.94.151.57:85/train-ticket/ts-auth-service:1.0.0"
+                        ],
+                        "sizeBytes": 312986722
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "86acc87e-a480-44bf-a1a5-dbe98b89a036",
+                    "containerRuntimeVersion": "docker://26.1.3",
+                    "kernelVersion": "5.15.0-76-generic",
+                    "kubeProxyVersion": "v1.28.0",
+                    "kubeletVersion": "v1.28.0",
+                    "machineID": "d3d1c822455f49068d6153536865489e",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 22.04.2 LTS",
+                    "systemUUID": "f5692166-2d89-413c-9aac-0b1dfa5f794b"
+                }
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

@@ -1,0 +1,228 @@
+{
+  "riskrank": {
+    "ts-user-service": 100.0,
+    "ts-auth-service": 95.0,
+    "ts-verification-code-service": 80.49,
+    "ts-preserve-service": 49.01,
+    "ts-wait-order-service": 39.55,
+    "ts-preserve-other-service": 28.34,
+    "ts-station-service": 16.59,
+    "ts-cancel-service": 16.27,
+    "ts-admin-user-service": 13.18,
+    "ts-order-other-service": 11.21,
+    "ts-consign-service": 10.21,
+    "ts-basic-service": 9.53,
+    "ts-order-service": 9.47,
+    "ts-food-service": 8.37,
+    "ts-security-service": 7.3,
+    "ts-seat-service": 6.4,
+    "ts-travel-service": 6.31,
+    "ts-contacts-service": 6.26,
+    "ts-travel2-service": 5.78,
+    "ts-assurance-service": 5.66,
+    "ts-consign-price-service": 5.64,
+    "ts-admin-basic-info-service": 4.29,
+    "ts-rebook-service": 4.1,
+    "ts-train-service": 3.89,
+    "ts-route-service": 3.88,
+    "ts-admin-travel-service": 3.53,
+    "ts-notification-service": 2.7,
+    "ts-station-food-service": 2.04,
+    "ts-price-service": 2.03,
+    "ts-config-service": 1.94,
+    "ts-admin-route-service": 1.73,
+    "ts-admin-order-service": 1.64,
+    "ts-execute-service": 1.64,
+    "ts-train-food-service": 1.59,
+    "ts-inside-payment-service": 1.24,
+    "ts-food-delivery-service": 0.8,
+    "ts-travel-plan-service": 0.26,
+    "ts-route-plan-service": 0.18,
+    "rabbitmq": 0.0,
+    "ts-avatar-service": 0.0,
+    "ts-delivery-service": 0.0,
+    "ts-gateway-service": 0.0,
+    "ts-news-service": 0.0,
+    "ts-payment-service": 0.0,
+    "ts-ticket-office-service": 0.0,
+    "ts-ui-dashboard": 0.0,
+    "ts-voucher-service": 0.0
+  },
+  "path_risks": [
+    {
+      "name": "退票流程",
+      "path": [
+        "ts-cancel-service",
+        "ts-inside-payment-service",
+        "ts-order-other-service",
+        "ts-order-service",
+        "ts-user-service"
+      ],
+      "depth": 5,
+      "path_risk": 138.19
+    },
+    {
+      "name": "购票流程",
+      "path": [
+        "ts-preserve-service",
+        "ts-seat-service",
+        "ts-security-service",
+        "ts-order-service",
+        "ts-contacts-service",
+        "ts-travel-service",
+        "ts-station-service"
+      ],
+      "depth": 7,
+      "path_risk": 101.33
+    },
+    {
+      "name": "购票流程（其他）",
+      "path": [
+        "ts-preserve-other-service",
+        "ts-seat-service",
+        "ts-security-service",
+        "ts-order-other-service",
+        "ts-travel2-service",
+        "ts-contacts-service",
+        "ts-station-service"
+      ],
+      "depth": 7,
+      "path_risk": 81.87
+    },
+    {
+      "name": "改签流程",
+      "path": [
+        "ts-rebook-service",
+        "ts-seat-service",
+        "ts-inside-payment-service",
+        "ts-order-other-service",
+        "ts-travel2-service",
+        "ts-order-service",
+        "ts-travel-service",
+        "ts-station-service"
+      ],
+      "depth": 8,
+      "path_risk": 61.1
+    },
+    {
+      "name": "行程查询（其他）",
+      "path": [
+        "ts-travel2-service",
+        "ts-seat-service",
+        "ts-train-service",
+        "ts-route-service",
+        "ts-order-other-service",
+        "ts-price-service",
+        "ts-station-service"
+      ],
+      "depth": 7,
+      "path_risk": 49.78
+    },
+    {
+      "name": "行程查询",
+      "path": [
+        "ts-travel-service",
+        "ts-seat-service",
+        "ts-train-service",
+        "ts-route-service",
+        "ts-order-service",
+        "ts-price-service",
+        "ts-station-service"
+      ],
+      "depth": 7,
+      "path_risk": 48.57
+    },
+    {
+      "name": "路线规划",
+      "path": [
+        "ts-travel-plan-service",
+        "ts-seat-service",
+        "ts-travel2-service",
+        "ts-travel-service",
+        "ts-route-plan-service",
+        "ts-station-service"
+      ],
+      "depth": 6,
+      "path_risk": 35.52
+    },
+    {
+      "name": "管理后台-基础信息",
+      "path": [
+        "ts-admin-basic-info-service",
+        "ts-train-service",
+        "ts-price-service",
+        "ts-config-service",
+        "ts-contacts-service",
+        "ts-station-service"
+      ],
+      "depth": 6,
+      "path_risk": 35.0
+    },
+    {
+      "name": "执行/检票流程",
+      "path": [
+        "ts-execute-service",
+        "ts-order-other-service",
+        "ts-order-service"
+      ],
+      "depth": 3,
+      "path_risk": 22.32
+    },
+    {
+      "name": "管理后台-订单管理",
+      "path": [
+        "ts-admin-order-service",
+        "ts-order-other-service",
+        "ts-order-service"
+      ],
+      "depth": 3,
+      "path_risk": 22.32
+    },
+    {
+      "name": "支付流程",
+      "path": [
+        "ts-inside-payment-service",
+        "ts-order-other-service",
+        "ts-order-service",
+        "ts-payment-service"
+      ],
+      "depth": 4,
+      "path_risk": 21.92
+    },
+    {
+      "name": "管理后台-旅行管理",
+      "path": [
+        "ts-admin-travel-service",
+        "ts-travel2-service",
+        "ts-travel-service"
+      ],
+      "depth": 3,
+      "path_risk": 15.61
+    }
+  ],
+  "focus_services": [
+    "ts-user-service",
+    "ts-auth-service",
+    "ts-verification-code-service",
+    "ts-preserve-service",
+    "ts-wait-order-service",
+    "ts-preserve-other-service",
+    "ts-station-service",
+    "ts-cancel-service",
+    "ts-admin-user-service",
+    "ts-order-other-service",
+    "ts-consign-service",
+    "ts-basic-service",
+    "ts-order-service",
+    "ts-food-service",
+    "ts-security-service",
+    "ts-seat-service",
+    "ts-travel-service",
+    "ts-contacts-service",
+    "ts-travel2-service",
+    "ts-train-service",
+    "ts-route-service",
+    "ts-price-service",
+    "ts-inside-payment-service"
+  ]
+}

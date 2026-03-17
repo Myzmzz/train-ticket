@@ -1,0 +1,36 @@
+server:
+  port: 18885  # HTTP (Tomcat) port
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
+  application:
+    name: ts-cancel-service
+
+swagger:
+  controllerPackage: cancel.controller
+
+# [RESILIENCE-CONFIG] Added for fault tolerance testing
+resilience4j:
+  retry:
+    instances:
+      insidePaymentService:
+        maxAttempts: 2
+        waitDuration: 1000ms
+  circuitbreaker:
+    instances:
+      insidePaymentService:
+        failureRateThreshold: 60
+        slidingWindowSize: 10
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+  bulkhead:
+    instances:
+      insidePaymentService:
+        maxConcurrentCalls: 5
+  timelimiter:
+    instances:
+      insidePaymentService:
+        timeoutDuration: 3s

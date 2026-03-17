@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
+  application:
+    name: ts-route-plan-service
+
+# HTTP Server
+server:
+  port: 14578 # HTTP (Tomcat) port
+
+
+swagger:
+  controllerPackage: plan.controller
+
+# [RESILIENCE-CONFIG] Added for fault tolerance testing - timeout only
+rest:
+  connection-timeout: 3000
+  read-timeout: 5000
