@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import preserveOther.mq.RabbitSend;
 
 import java.util.Date;
@@ -390,6 +391,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         return reGetContactsResult.getBody();
     }
 
+    @TimeLimiter(name = "orderOtherTimeLimiter")
     private Response<Order> createOrder(Order coi, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[createOrder][Preserve Other Service][Get Contacts By Id]");
 

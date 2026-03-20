@@ -24,3 +24,9 @@ spring:
 
 swagger:
   controllerPackage: preserveOther.controller
+
+resilience4j:
+  timelimiter:
+    instances:
+      orderOtherTimeLimiter:
+        timeoutDuration: 8s

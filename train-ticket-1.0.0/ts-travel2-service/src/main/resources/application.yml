@@ -23,3 +23,17 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 swagger:
   controllerPackage: travel2.controller
+
+resilience4j:
+  timelimiter:
+    instances:
+      seatTimeout:
+        timeoutDuration: 30s
+      basicTimeout:
+        timeoutDuration: 3s
+      trainTimeout:
+        timeoutDuration: 2s
+      routeTimeout:
+        timeoutDuration: 2s
+      priceTimeout:
+        timeoutDuration: 3s

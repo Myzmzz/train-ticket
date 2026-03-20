@@ -8,7 +8,9 @@ import edu.fudan.common.entity.TripResponse;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.util.StringUtils;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.apache.tomcat.jni.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -293,7 +295,8 @@ public class RebookServiceImpl implements RebookService {
     }
 
 
-    private Response<TripAllDetail> getTripAllDetailInformation(TripAllDetailInfo gtdi, String tripId, HttpHeaders httpHeaders) {
+    @TimeLimiter(name = "travelTimeLimiter")
+    public Response<TripAllDetail> getTripAllDetailInformation(TripAllDetailInfo gtdi, String tripId, HttpHeaders httpHeaders) {
         Response<TripAllDetail> gtdr;
         String requestUrl = "";
         String travel_service_url = getServiceUrl("ts-travel-service");
@@ -447,11 +450,8 @@ public class RebookServiceImpl implements RebookService {
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
         HttpEntity requestEntityPayDifferentMoney = new HttpEntity(info, newHeaders);
         String inside_payment_service_url = getServiceUrl("ts-inside-payment-service");
-        ResponseEntity<Response> rePayDifferentMoney = restTemplate.exchange(
-                inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/difference",
-                HttpMethod.POST,
-                requestEntityPayDifferentMoney,
-                Response.class);
+        String url = inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/difference";
+        ResponseEntity<Response> rePayDifferentMoney = callInsidePaymentWithProtection(url, requestEntityPayDifferentMoney, newHeaders, HttpMethod.POST);
         Response result = rePayDifferentMoney.getBody();
         return result.getStatus() == 1;
     }
@@ -461,13 +461,27 @@ public class RebookServiceImpl implements RebookService {
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
         HttpEntity requestEntityDrawBackMoney = new HttpEntity(newHeaders);
         String inside_payment_service_url = getServiceUrl("ts-inside-payment-service");
-        ResponseEntity<Response> reDrawBackMoney = restTemplate.exchange(
-                inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/drawback/" + userId + "/" + money,
-                HttpMethod.GET,
-                requestEntityDrawBackMoney,
-                Response.class);
+        String url = inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/drawback/" + userId + "/" + money;
+        ResponseEntity<Response> reDrawBackMoney = callInsidePaymentWithProtection(url, requestEntityDrawBackMoney, newHeaders, HttpMethod.GET);
         Response result = reDrawBackMoney.getBody();
         return result.getStatus() == 1;
+    }
+
+    // [RESILIENCE-CONFIG] Payment service call with full protection: retry, circuit breaker, and time limiter
+    @Retry(name = "paymentRetry")
+    @CircuitBreaker(name = "paymentCB", fallbackMethod = "paymentFallback")
+    @TimeLimiter(name = "paymentTimeLimiter")
+    public ResponseEntity<Response> callInsidePaymentWithProtection(String url, HttpEntity requestEntity, HttpHeaders headers, HttpMethod httpMethod) {
+        return restTemplate.exchange(url, httpMethod, requestEntity, Response.class);
+    }
+
+    /**
+     * Fallback for callInsidePaymentWithProtection when ts-inside-payment-service is unavailable.
+     */
+    public ResponseEntity<Response> paymentFallback(String url, HttpEntity requestEntity, HttpHeaders headers, HttpMethod httpMethod, Throwable t) {
+        LOGGER.error("[RESILIENCE-FALLBACK][paymentFallback][Payment service unavailable][error: {}]", t.getMessage());
+        Response response = new Response<>(0, "支付服务暂时不可用", null);
+        return ResponseEntity.ok(response);
     }
 
     public static HttpHeaders getAuthorizationHeadersFrom(HttpHeaders oldHeaders) {

@@ -25,21 +25,33 @@ spring:
 swagger:
   controllerPackage: preserve.controller
 
-# [RESILIENCE-CONFIG] Added for fault tolerance testing - INTENTIONALLY FLAWED
+# [RESILIENCE-CONFIG] V3: Differentiated fault tolerance - INTENTIONALLY FLAWED CB
 resilience4j:
   retry:
     instances:
-      orderService:
-        maxAttempts: 5
-        waitDuration: 0ms
-        # WARNING: No exponential backoff - will hammer downstream service
+      orderRetry:
+        maxRetryAttempts: 3
+        waitDuration: 200ms
+        retryExceptions:
+          - java.lang.Exception
       seatService:
         maxAttempts: 3
         waitDuration: 500ms
+  circuitbreaker:
+    instances:
+      orderCB:
+        failureRateThreshold: 80
+        slowCallRateThreshold: 95
+        slowCallDurationThreshold: 10s
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 30s
+        permittedNumberOfCallsInHalfOpenState: 3
   timelimiter:
     instances:
-      seatService:
+      orderTimeLimiter:
+        timeoutDuration: 15s
+      seatTimeLimiter:
         timeoutDuration: 5s
-      # NOTE: No timeout for orderService - intentionally missing
-  # NOTE: No circuitbreaker configured - intentionally missing
-  # NOTE: No bulkhead configured - intentionally missing
+      basicTimeLimiter:
+        timeoutDuration: 3s

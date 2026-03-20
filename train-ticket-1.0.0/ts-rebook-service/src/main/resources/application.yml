@@ -12,7 +12,7 @@ spring:
 swagger:
   controllerPackage: rebook.controller
 
-# [RESILIENCE-CONFIG] Added for fault tolerance testing - INTENTIONALLY FLAWED
+# [RESILIENCE-CONFIG] Added for fault tolerance testing
 resilience4j:
   retry:
     instances:
@@ -20,9 +20,24 @@ resilience4j:
         maxAttempts: 5
         waitDuration: 0ms
         # WARNING: No exponential backoff, no timeout, no circuit breaker
-  # NOTE: No circuitbreaker - intentionally missing
-  # NOTE: No bulkhead - intentionally missing
-  # NOTE: No timelimiter - intentionally missing
+      paymentRetry:
+        maxRetryAttempts: 2
+        waitDuration: 500ms
+  circuitbreaker:
+    instances:
+      paymentCB:
+        failureRateThreshold: 50
+        slowCallRateThreshold: 80
+        slowCallDurationThreshold: 3s
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 10
+        waitDurationInOpenState: 15s
+  timelimiter:
+    instances:
+      paymentTimeLimiter:
+        timeoutDuration: 5s
+      travelTimeLimiter:
+        timeoutDuration: 5s
 #  rabbitmq:
 #    host: rabbitmq
 #    listener:

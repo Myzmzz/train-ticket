@@ -16,21 +16,32 @@ swagger:
 resilience4j:
   retry:
     instances:
+      cancelOrderRetry:
+        maxRetryAttempts: 2
+        waitDuration: 300ms
       insidePaymentService:
-        maxAttempts: 2
-        waitDuration: 1000ms
+        maxRetryAttempts: 2
+        waitDuration: 500ms
   circuitbreaker:
     instances:
       insidePaymentService:
         failureRateThreshold: 60
         slidingWindowSize: 10
+        minimumNumberOfCalls: 5
         waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
+      cancelPaymentCB:
+        failureRateThreshold: 50
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 20s
+  timelimiter:
+    instances:
+      cancelOrderTimeout:
+        timeoutDuration: 10s
+      cancelPaymentTimeout:
+        timeoutDuration: 5s
   bulkhead:
     instances:
       insidePaymentService:
         maxConcurrentCalls: 5
-  timelimiter:
-    instances:
-      insidePaymentService:
-        timeoutDuration: 3s
