@@ -1198,7 +1198,7 @@ spec:
   selector:
     matchLabels:
       app: ts-inside-payment-service
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -1238,18 +1238,23 @@ spec:
           ports:
             - containerPort: 18673
           resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
             limits:
-              cpu: 1500m
-              memory: 1500Mi
-          readinessProbe:
+              cpu: "2"
+              memory: "1Gi"
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
             tcpSocket:
               port: 18673
             initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: 18673
+            initialDelaySeconds: 30
             periodSeconds: 10
-            timeoutSeconds: 5
       volumes:
         - name: opentelemetry-javaagent
           nfs:
@@ -1332,7 +1337,7 @@ spec:
   selector:
     matchLabels:
       app: ts-order-other-service
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -1378,12 +1383,17 @@ spec:
             limits:
               cpu: 1500m
               memory: 1500Mi
-          readinessProbe:
+          livenessProbe:
             tcpSocket:
               port: 12032
             initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: 12032
+            initialDelaySeconds: 30
             periodSeconds: 10
-            timeoutSeconds: 5
       volumes:
         - name: opentelemetry-javaagent
           nfs:
@@ -1399,7 +1409,7 @@ spec:
   selector:
     matchLabels:
       app: ts-order-service
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -1445,12 +1455,17 @@ spec:
             limits:
               cpu: 1500m
               memory: 1500Mi
-          readinessProbe:
+          livenessProbe:
             tcpSocket:
               port: 12031
             initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: 12031
+            initialDelaySeconds: 30
             periodSeconds: 10
-            timeoutSeconds: 5
       volumes:
         - name: opentelemetry-javaagent
           nfs:
@@ -2172,12 +2187,12 @@ spec:
             limits:
               cpu: 1500m
               memory: 1500Mi
-          readinessProbe:
+          livenessProbe:
             tcpSocket:
               port: 12345
             initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
+            periodSeconds: 15
+            failureThreshold: 3
       volumes:
         - name: opentelemetry-javaagent
           nfs:

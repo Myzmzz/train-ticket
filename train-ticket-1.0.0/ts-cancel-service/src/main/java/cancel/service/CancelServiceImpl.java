@@ -301,6 +301,7 @@ public class CancelServiceImpl implements CancelService {
     @Retry(name = "insidePaymentService")
     @CircuitBreaker(name = "insidePaymentService", fallbackMethod = "drawbackFallback")
     @Bulkhead(name = "insidePaymentService")
+    @TimeLimiter(name = "cancelPaymentTimeout")
     public ResponseEntity<Response> callInsidePaymentDrawback(String url, HttpEntity requestEntity, HttpHeaders headers) {
         return restTemplate.exchange(url, HttpMethod.GET, requestEntity, Response.class);
     }
@@ -333,8 +334,16 @@ public class CancelServiceImpl implements CancelService {
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(headers);
         HttpEntity requestEntity = new HttpEntity(newHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
+        String url = order_service_url + "/api/v1/orderservice/order/" + orderId;
+        return callOrderServiceWithProtection(url, requestEntity, newHeaders);
+    }
+
+    // [RESILIENCE-CONFIG] Order service call with retry and timeout protection
+    @Retry(name = "cancelOrderRetry")
+    @TimeLimiter(name = "cancelOrderTimeout")
+    public Response<Order> callOrderServiceWithProtection(String url, HttpEntity requestEntity, HttpHeaders headers) {
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order/" + orderId,
+                url,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {

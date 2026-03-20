@@ -4,7 +4,9 @@ package preserve.service;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.util.StringUtils;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,13 +130,7 @@ public class PreserveServiceImpl implements PreserveService {
         query.setDepartureTime(StringUtils.Date2String(new Date()));
 
         HttpEntity requestEntity = new HttpEntity(query, headers);
-        String basic_service_url = getServiceUrl("ts-basic-service");
-        ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/travel",
-                HttpMethod.POST,
-                requestEntity,
-                new ParameterizedTypeReference<Response<TravelResult>>() {
-                });
+        ResponseEntity<Response<TravelResult>> re = queryBasicTravelWithTimeLimiter(requestEntity);
         if(re.getBody().getStatus() == 0){
             PreserveServiceImpl.LOGGER.info("[Preserve 3][Get basic travel response status is 0][response is: {}]", re.getBody());
             return new Response<>(0, re.getBody().getMsg(), null);
@@ -280,8 +276,9 @@ public class PreserveServiceImpl implements PreserveService {
         return dispatchSeatWithRetry(seatRequest, httpHeaders);
     }
 
-    // [RESILIENCE-CONFIG] Retry only - timelimiter configured in YAML but ineffective without CompletableFuture (intentionally flawed)
+    // [RESILIENCE-CONFIG] Retry + TimeLimiter for seat dispatch
     @Retry(name = "seatService")
+    @TimeLimiter(name = "seatTimeLimiter")
     public Ticket dispatchSeatWithRetry(Seat seatRequest, HttpHeaders httpHeaders) {
         HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);
         String seat_service_url = getServiceUrl("ts-seat-service");
@@ -404,8 +401,10 @@ public class PreserveServiceImpl implements PreserveService {
         return createOrderWithRetry(coi, httpHeaders);
     }
 
-    // [RESILIENCE-CONFIG] Retry only - no circuit breaker, no bulkhead, no timeout (intentionally dangerous)
-    @Retry(name = "orderService")
+    // [RESILIENCE-CONFIG] V3: Retry + CircuitBreaker + TimeLimiter for order creation
+    @Retry(name = "orderRetry", fallbackMethod = "orderFallback")
+    @CircuitBreaker(name = "orderCB", fallbackMethod = "orderFallback")
+    @TimeLimiter(name = "orderTimeLimiter")
     public Response createOrderWithRetry(Order coi, HttpHeaders httpHeaders) {
         HttpEntity requestEntityCreateOrderResult = new HttpEntity(coi, httpHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
@@ -446,6 +445,24 @@ public class PreserveServiceImpl implements PreserveService {
         } catch (Exception e) {
             LOGGER.warn("[callTraceenvTest][Call traceenv-test failed][message: {}]", e.getMessage());
         }
+    }
+
+    // [RESILIENCE-CONFIG] V3: TimeLimiter wrapper for ts-basic-service calls
+    @TimeLimiter(name = "basicTimeLimiter")
+    public ResponseEntity<Response<TravelResult>> queryBasicTravelWithTimeLimiter(HttpEntity requestEntity) {
+        String basic_service_url = getServiceUrl("ts-basic-service");
+        return restTemplate.exchange(
+                basic_service_url + "/api/v1/basicservice/basic/travel",
+                HttpMethod.POST,
+                requestEntity,
+                new ParameterizedTypeReference<Response<TravelResult>>() {
+                });
+    }
+
+    // [RESILIENCE-CONFIG] V3: Fallback for order service failures (circuit breaker / retry exhaustion)
+    public Response orderFallback(Order coi, HttpHeaders httpHeaders, Throwable t) {
+        LOGGER.error("[RESILIENCE-FALLBACK][orderFallback][Order service unavailable][error: {}]", t.getMessage());
+        return new Response<>(0, "订单服务暂时不可用，请稍后重试", null);
     }
 
     private Response createConsign(Consign cr, HttpHeaders httpHeaders) {

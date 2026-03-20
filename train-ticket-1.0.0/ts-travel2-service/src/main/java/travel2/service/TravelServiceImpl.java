@@ -17,6 +17,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import travel2.entity.AdminTrip;
 import travel2.entity.Trip;
 import travel2.entity.Travel;
@@ -259,15 +260,7 @@ public class TravelServiceImpl implements TravelService {
 
         TravelServiceImpl.LOGGER.info("[getTicketsByBatch][before get basic][trips: {}]", trips);
 
-        HttpEntity requestEntity = new HttpEntity(infos, null);
-        String basic_service_url = getServiceUrl("ts-basic-service");
-        ResponseEntity<Response> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/travels",
-                HttpMethod.POST,
-                requestEntity,
-                Response.class);
-
-        Response r = re.getBody();
+        Response r = callBasicServiceTravels(infos);
         if(r.getStatus() == 0){
             TravelServiceImpl.LOGGER.info("[getTicketsByBatch][Ts-basic-service response status is 0][response is: {}]", r);
             return responses;
@@ -307,20 +300,12 @@ public class TravelServiceImpl implements TravelService {
         query.setEndPlace(endPlaceName);
         query.setDepartureTime(departureTime);
 
-        HttpEntity requestEntity = new HttpEntity(query, null);
-        String basic_service_url = getServiceUrl("ts-basic-service");
-        ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/travel",
-                HttpMethod.POST,
-                requestEntity,
-                new ParameterizedTypeReference<Response<edu.fudan.common.entity.TravelResult>>() {
-                });
-        Response r = re.getBody();
+        Response<TravelResult> r = callBasicServiceTravel(query);
         if(r.getStatus() == 0){
             TravelServiceImpl.LOGGER.info("[getTickets][Ts-basic-service response status is 0][response is: {}]", r);
             return null;
         }
-        TravelResult resultForTravel =  re.getBody().getData();
+        TravelResult resultForTravel = r.getData();
 
         //Set the returned ticket information
         return setResponse(trip, resultForTravel, startPlaceName, endPlaceName, departureTime, headers);
@@ -412,6 +397,32 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
+    @TimeLimiter(name = "basicTimeout")
+    private Response<TravelResult> callBasicServiceTravel(Travel query) {
+        HttpEntity requestEntity = new HttpEntity(query, null);
+        String basic_service_url = getServiceUrl("ts-basic-service");
+        ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
+                basic_service_url + "/api/v1/basicservice/basic/travel",
+                HttpMethod.POST,
+                requestEntity,
+                new ParameterizedTypeReference<Response<TravelResult>>() {
+                });
+        return re.getBody();
+    }
+
+    @TimeLimiter(name = "basicTimeout")
+    private Response callBasicServiceTravels(List<Travel> infos) {
+        HttpEntity requestEntity = new HttpEntity(infos, null);
+        String basic_service_url = getServiceUrl("ts-basic-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                basic_service_url + "/api/v1/basicservice/basic/travels",
+                HttpMethod.POST,
+                requestEntity,
+                Response.class);
+        return re.getBody();
+    }
+
+    @TimeLimiter(name = "trainTimeout")
     private TrainType getTrainTypeByName(String trainTypeName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url = getServiceUrl("ts-train-service");
@@ -425,6 +436,7 @@ public class TravelServiceImpl implements TravelService {
         return re.getBody().getData();
     }
 
+    @TimeLimiter(name = "routeTimeout")
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         TravelServiceImpl.LOGGER.debug("[getRouteByRouteId][Get Route By Id][Route ID：{}]", routeId);
         HttpEntity requestEntity = new HttpEntity(null);
@@ -445,6 +457,7 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
+    @TimeLimiter(name = "seatTimeout")
     private int getRestTicketNumber(String travelDate, String trainNumber, String startStationName, String endStationName, int seatType, int totalNum, List<String> stationList, HttpHeaders headers) {
         Seat seatRequest = new Seat();
 
