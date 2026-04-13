@@ -169,6 +169,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- 固定 resilience4j-spring 版本，避免传递依赖拉到 1.7.0 导致方法签名不匹配 -->
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-spring</artifactId>
+                <version>1.7.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
